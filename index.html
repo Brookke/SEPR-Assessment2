@@ -4,6 +4,8 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>  
+
     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
@@ -22,18 +24,35 @@
         src: url(fonts/Fofer.otf);
 
       }
+      img {
+        image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+        image-rendering: -moz-crisp-edges;          /* Firefox                        */
+        image-rendering: -o-crisp-edges;            /* Opera                          */
+        image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+        image-rendering: pixelated; /* Chrome */
+        image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+        -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+
+      }
     </style>
   </head>
 
   <body>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
-          <h1 class="display-3">Lorem Ipsum</h1>
-          <p class="lead">Hello we are team Lorem Ipsum and we are creating the game "insert game name here"</p>
+      	<div class="row">
+      	 <div class="col-md-3">
+      	   <img style="width: 100%; height: auto" class="img-responsive" src="images/duck.gif"></a>
+      	 </div>
+      	 <div class="col-md-9">
+      	 <h1 class="display-3">Lorem Ipsum</h1>
+          <p class="lead">Hello we are team Lorem Ipsum and we are creating a murder mystery game</p>
           <p class="lead">
             <a class="btn btn-outline-primary btn-lg" href="http://docs.lihq.me/en/latest/" role="button">Documentation</a>
             <a class="btn btn-outline-primary btn-lg" href="https://github.com/brookke/SEPR" role="button">Github</a>
-          </p>
+          </p></div>
+
+      	</div>
         </div>
       </div>
     </div>
@@ -48,6 +67,7 @@
               <li><a href="#">Methods Selection and Planning</a> <a href="#">(pdf)</a></li>
               <li><a href="http://docs.lihq.me/en/latest/RiskAssessmentandMitigation.html">Risks</a> <a href="#">(pdf)</a></li>
               <li><a href="#">Methods</a> <a href="#">(pdf)</a></li>
+              <li><a href="#">Appendix A</a> <a href="#">(pdf)</a></li>
             </ul>
         </div>
         <div class="col-xs-12 pull-md-3 col-md-9">
@@ -68,13 +88,10 @@
             </li>
           </ul>
         </div>
-      </div>
-
-        <footer>
-          
-        </footer>
 
         
+      </div>
+      <div class="row">
       </div>
     </div>
   </body>
