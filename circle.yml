@@ -1,0 +1,10 @@
+machine:
+  java:
+    version: openjdk7
+
+test:
+  pre:
+    - cd game
+    - chmod +x gradlew
+  override:
+    - ./gradlew check
