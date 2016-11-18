@@ -2,6 +2,10 @@ machine:
   java:
     version: openjdk7
 
+general:
+  artifacts:
+    - "game/tests/build/test-results"
+
 test:
   pre:
-    - cd game
+    - cd game && gradle test
