@@ -5,12 +5,8 @@ import org.junit.Test;
 public class ExampleUnitTests {
 
     @Test
-    public void passingTest() {
+    public void exampleTest() {
         assertEquals(1, 1);
     }
 
-    @Test
-    public void failingTest() {
-        assertEquals(1, 2);
-    }
 }
