@@ -11,6 +11,6 @@ public class ExampleUnitTests {
 
     @Test
     public void failingTest() {
-        //assertEquals(1, 2);
+        assertEquals(1, 2);
     }
 }
