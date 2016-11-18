@@ -5,5 +5,3 @@ machine:
 test:
   pre:
     - cd game
-  override:
-    - gradle test
