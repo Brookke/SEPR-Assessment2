@@ -2,10 +2,6 @@ machine:
   java:
     version: openjdk7
 
-general:
-  artifacts:
-    - "game/tests/build/reports/tests"
-
 test:
   override:
     - cd game && gradle test
