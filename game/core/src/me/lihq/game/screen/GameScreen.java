@@ -34,12 +34,13 @@ public class GameScreen extends AbstractScreen {
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
-        camera.viewportWidth = Gdx.graphics.getWidth()/Settings.ZOOM;
-        camera.viewportHeight= Gdx.graphics.getHeight()/Settings.ZOOM;
+
+        
 
         camera.update();
 
-
+        viewport = new FitViewport(w/2, h/2, camera);
+        viewport.apply();
 
         map = new TmxMapLoader().load("map.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -79,7 +80,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void resize(int width, int height) {
-        //viewport.update(width, height);
+        viewport.update(width, height);
     }
 
     @Override
