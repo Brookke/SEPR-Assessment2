@@ -31,8 +31,6 @@ public class NPC extends Character {
         this.setY(y);
 
         this.canBeKiller = canBeKiller;
-
-        this.setImagePath(spriteSheet);
     }
 
     //Setters for all NPC attributes

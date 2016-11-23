@@ -1,12 +1,15 @@
 package me.lihq.game.models;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 
 /**
  * Created by brookehatton on 18/11/2016.
  */
-public class Player extends Character {
+public class Player extends Sprite {
 
     //The personality will be a percent score (0-100) 50 being neutral etc etc
     private int personalityLevel = 50;
@@ -15,9 +18,19 @@ public class Player extends Character {
 
     private int score = 0;
 
+
+    private Vector2 position;
+
     private String playername = "Joe";
 
     public Player(String name) {
+        super(new Texture("player.png"));
+        this.position = new Vector2();
+        this.position.x = 0;
+        this.position.y =0;
+
+
+        this.setPosition(0, 0);
         this.playername = name;
         Settings.PLAYERNAME = name;
     }
@@ -41,13 +54,10 @@ public class Player extends Character {
     }
 
     public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
-    }
+        this.position.x += dx;
+        this.position.y += dy;
 
-    @Override
-    public void move() {
-
+        this.setPosition(this.position.x*32,this.position.y*32);
     }
 
 
