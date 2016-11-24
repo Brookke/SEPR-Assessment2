@@ -10,7 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.controller.PlayerController;
-import me.lihq.game.model.Player;
+import me.lihq.game.models.Player;
 
 /**
  * Created by brookehatton on 18/11/2016.
@@ -39,7 +39,11 @@ public class GameScreen extends AbstractScreen {
         map = new TmxMapLoader().load("map.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        player = new Player(10,10);
+        player = new Player("Test name");
+
+        player.setX(10);
+        player.setY(10);
+
         playerController = new PlayerController(player);
 
     }
