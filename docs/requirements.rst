@@ -108,7 +108,7 @@ MAP
 |                | rooms.         |                |                |                |
 +----------------+----------------+----------------+----------------+----------------+
 
-Dialogue/Iteration
+Dialogue/Interaction
 ~~~~~~~~~~~~~~~~~~~~
 +----------------+----------------+----------------+----------------+----------------+
 | No.            | Requirement    | Success        | Alternative    | Risk ID        |
@@ -138,7 +138,7 @@ Dialogue/Iteration
 |                |                | game.          |                |                |
 +----------------+----------------+----------------+----------------+----------------+
 | 3.1.3          | The game       | Check          | N/A -          |                |
-|                | should have a  | functionality  | otherwise the  |                |
+|                | must have a    | functionality  | otherwise the  |                |
 |                | method, for    | as described   | player cannot  |                |
 |                | example an     | throughout a   | review         |                |
 |                | interface to   | play-through.  | information    |                |
