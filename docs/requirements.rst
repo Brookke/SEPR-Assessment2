@@ -323,7 +323,7 @@ Clues
 |                | at least one   | clues spawn in | necessary      |                |
 |                | clue to find   | each room.     | requirement.   |                |
 |                | in each room   |                |                |                |
-|                |  on the map.   |                |                |                |
+|                | on the map.    |                |                |                |
 +----------------+----------------+----------------+----------------+----------------+
 | 4.2.1          | Some           | Check that     | There are no   | 21             |
 |                | ‘constant’     | consistent     | ‘constant’     |                |
