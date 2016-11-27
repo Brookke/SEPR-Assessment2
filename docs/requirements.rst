@@ -303,6 +303,15 @@ Dialogue/Interaction
 |                |                | are more       |                |                |
 |                |                | complicated .  |                |                |
 +----------------+----------------+----------------+----------------+----------------+
+| 3.1.5          | The game must  |  Game has a    |  Game starts   |                |
+|                | have a main    |  working main  |  automatically.|                |
+|                | menu to start  |  menu.         |                |                |
+|                | the game.      |                |                |                |
++----------------+----------------+----------------+----------------+----------------+
+| 3.1.6          | The game must  |  The game has  |  N/A           |                |
+|                | have a user    |  a clear user  |                |                |
+|                | manual.        |  manual.       |                |                |
++----------------+----------------+----------------+----------------+----------------+
 
 Clues
 ~~~~~~~~~~~~~~
