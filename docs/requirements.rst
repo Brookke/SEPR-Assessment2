@@ -319,6 +319,15 @@ Dialogue/Interaction
 |                | parts of the   |                |                |                |
 |                | game.          |                |                |                |
 +----------------+----------------+----------------+----------------+----------------+
+| 3.1.8          | The game must  |  The game has  |  N/A-required. |                |
+|                | have an in game|  a working     |                |                |
+|                | overlay that   |  overlay which |                |                |
+|                | shows the      |  shows         |                |                |
+|                | temperament    |  temperament   |                |                |
+|                | gauge and also |  and clue      |                |                |
+|                | text describing|  notifications.|                |                |
+|                | clues found.   |                |                |                |
++----------------+----------------+----------------+----------------+----------------+
 
 Clues
 ~~~~~~~~~~~~~~
