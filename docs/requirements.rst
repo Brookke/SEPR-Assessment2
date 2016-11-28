@@ -308,9 +308,16 @@ Dialogue/Interaction
 |                | menu to start  |  menu.         |                |                |
 |                | the game.      |                |                |                |
 +----------------+----------------+----------------+----------------+----------------+
-| 3.1.6          | The game must  |  The game has  |  N/A           |                |
+| 3.1.6          | The game must  |  The game has  |  N/A-required. |                |
 |                | have a user    |  a clear user  |                |                |
 |                | manual.        |  manual.       |                |                |
++----------------+----------------+----------------+----------------+----------------+
+| 3.1.7          | The game must  |  The game has  |  N/A-required. |                |
+|                | have an in game|  a clear in    |                |                |
+|                | menu which     |  game menu.    |                |                |
+|                | links to other |                |                |                |
+|                | parts of the   |                |                |                |
+|                | game.          |                |                |                |
 +----------------+----------------+----------------+----------------+----------------+
 
 Clues
