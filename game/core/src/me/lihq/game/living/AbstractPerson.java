@@ -24,7 +24,8 @@ public abstract class AbstractPerson extends Sprite
     /**
      * The direction determines the way the character is facing.
      */
-    protected DIRECTION direction = DIRECTION.NORTH;
+    protected DIRECTION lastDirection = DIRECTION.NORTH;
+    protected DIRECTION moveDirection = null;
 
 
     /**
@@ -67,14 +68,14 @@ public abstract class AbstractPerson extends Sprite
         this.offsetY = offsetY;
     }
 
-    public DIRECTION getDirection()
+    public DIRECTION getLastDirection()
     {
-        return this.direction;
+        return this.lastDirection;
     }
 
-    public void setDirection(DIRECTION direction)
+    public void setMoveDirection(DIRECTION direction)
     {
-        this.direction = direction;
+        this.moveDirection = direction;
     }
 
     public abstract void move(int dx, int dy);

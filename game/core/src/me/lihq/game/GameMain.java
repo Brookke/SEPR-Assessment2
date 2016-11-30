@@ -121,4 +121,15 @@ public class GameMain extends Game
             NPCs.add(npc);
         }
     }
+
+    /**
+     * gameLoop
+     *
+     * This is the main method that runs the game logic. Rendering is done in its own loop
+     * defined by LibGDX but this loop runs all of the NPCs, the player, the game logic and more
+     */
+    public void gameLoop()
+    {
+
+    }
 }
