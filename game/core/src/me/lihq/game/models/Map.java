@@ -25,7 +25,7 @@ public class Map {
                     .addTransition(new Room.Transition().setFrom(1, 1).setNewRoom(2).setTo(0, 0)));
 
         rooms.add(new Room(1, "map.tmx", "RCH/037 Lecture Theatre")
-                    .addTransition(new Room.Transition().setFrom(10, 10).setTo(2, 0, 0)));
+                    .addTransition(new Room.Transition().setFrom(10, 10).setNewRoom(2).setTo(0, 0)));
     }
 
     public Room.Transition moveRoom(int currentRoomID, int currentX, int currentY)
