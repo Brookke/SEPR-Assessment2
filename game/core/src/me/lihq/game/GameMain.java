@@ -4,7 +4,6 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.NPC.ACCESSORY;
 import me.lihq.game.living.NPC.HAIR_COLOR;
