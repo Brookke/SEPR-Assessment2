@@ -22,6 +22,11 @@ public class Player extends AbstractPerson
 
     private Room currentRoom;
 
+    public boolean moveLeft = false;
+    public boolean moveRight = false;
+    public boolean moveUp = false;
+    public boolean moveDown = false;
+
     public Player(String name, String imgSrc)
     {
         super(imgSrc);
@@ -64,7 +69,28 @@ public class Player extends AbstractPerson
     @Override
     public void movementTick()
     {
+        if (moveLeft)
+        {
+            setMoveDirection(DIRECTION.WEST);
+        }
+        else if (moveRight)
+        {
+            setMoveDirection(DIRECTION.EAST);
+        }
+        else if (moveDown)
+        {
+            setMoveDirection(DIRECTION.SOUTH);
+        }
+        else if (moveUp)
+        {
+            setMoveDirection(DIRECTION.NORTH);
+        }
+        else
+        {
+            setMoveDirection(null);
+        }
 
+        //Move the character
     }
 
     public Inventory getInventory()

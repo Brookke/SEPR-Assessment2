@@ -19,57 +19,78 @@ public class PlayerController extends InputAdapter
         this.player = player;
     }
 
-    //could put in a class of its own for neatness?
-    public boolean moveLeft = false;
-    public boolean moveRight = false;
-    public boolean moveUp = false;
-    public boolean moveDown = false;
-
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
         {
             if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
             {
-                player.setMoveDirection(DIRECTION.WEST);
+                player.moveLeft = true;
             }
         }
-        else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
+
+        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
         {
             if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
             {
-                player.setMoveDirection(DIRECTION.EAST);
+                player.moveRight = true;
             }
         }
-        else if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
+
+        if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
         {
             if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
             {
-                player.setMoveDirection(DIRECTION.NORTH);
+                player.moveUp = true;
             }
         }
-        else if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
+
+        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
         {
             if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
             {
-                player.setMoveDirection(DIRECTION.SOUTH);
+                player.moveDown = true;
             }
         }
+
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
-            moveLeft = false;
+        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.moveLeft = false;
+            }
         }
-        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D){
-            moveRight = false;}
-        if (keycode == Input.Keys.UP || keycode == Input.Keys.W){
-            moveUp = false;}
-        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S){
-            moveDown = false;}
+
+        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.moveRight = false;
+            }
+        }
+
+        if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.moveUp = false;
+            }
+        }
+
+        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.moveDown = false;
+            }
+        }
+
         return false;
     }
 }
