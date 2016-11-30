@@ -2,6 +2,8 @@ package me.lihq.game.living.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import me.lihq.game.living.AbstractPerson;
+import me.lihq.game.living.AbstractPerson.DIRECTION;
 import me.lihq.game.living.Player;
 
 /**
@@ -24,42 +26,50 @@ public class PlayerController extends InputAdapter
     public boolean moveDown = false;
 
     @Override
-    public boolean keyDown(int keycode)
-    {
+    public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
-            moveLeft = true;
-            moveRight = false; //decide whether to remove or not (so only the most recently pressed key is acted upon)
-            moveDown = false;
-            moveUp = false;
-        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
-            moveRight = true;
-            moveLeft = false;
-            moveDown = false;
-            moveUp = false;
-        if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
-            moveUp = true;
-            moveLeft = false;
-            moveRight = false;
-            moveDown = false;
-        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
-            moveDown = true;
-            moveLeft = false;
-            moveRight = false;
-            moveUp = false;
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.setMoveDirection(DIRECTION.WEST);
+            }
+        }
+        else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.setMoveDirection(DIRECTION.EAST);
+            }
+        }
+        else if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.setMoveDirection(DIRECTION.NORTH);
+            }
+        }
+        else if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
+        {
+            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
+            {
+                player.setMoveDirection(DIRECTION.SOUTH);
+            }
+        }
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
+        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             moveLeft = false;
-        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
-            moveRight = false;
-        if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
-            moveUp = false;
-        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
-            moveDown = false;
+        }
+        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D){
+            moveRight = false;}
+        if (keycode == Input.Keys.UP || keycode == Input.Keys.W){
+            moveUp = false;}
+        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S){
+            moveDown = false;}
         return false;
     }
 }
