@@ -61,6 +61,12 @@ public class Player extends AbstractPerson
         this.setTileCoordinates(tileCoordinates.x + dx, tileCoordinates.y + dy);
     }
 
+    @Override
+    public void movementTick()
+    {
+
+    }
+
     public Inventory getInventory()
     {
         return this.inventory;

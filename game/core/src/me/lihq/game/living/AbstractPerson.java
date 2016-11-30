@@ -79,6 +79,16 @@ public abstract class AbstractPerson extends Sprite
 
     public abstract void move(int dx, int dy);
 
+    /**
+     * movementTick
+     *
+     * This method is called once every game tick, which is defined in the Settings class
+     *
+     * It completes tile movement and checks for more inputs. If a player or NPC has an offset != 0, they are currently
+     * moving so it completes the movement cycle
+     */
+    public abstract void movementTick();
+
     public enum DIRECTION
     {
         NORTH, SOUTH, EAST, WEST
