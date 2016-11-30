@@ -90,7 +90,23 @@ public class Player extends AbstractPerson
             setMoveDirection(null);
         }
 
-        //Move the character
+        if (moveDirection == DIRECTION.WEST)
+        {
+            move(-1,0);
+        }
+        if (moveDirection == DIRECTION.EAST)
+        {
+            move(1,0);
+        }
+        if (moveDirection == DIRECTION.NORTH)
+        {
+            move(0,1);
+        }
+        if (moveDirection == DIRECTION.SOUTH)
+        {
+            move(0,-1);
+        }
+
     }
 
     public Inventory getInventory()
