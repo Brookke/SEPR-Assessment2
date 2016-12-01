@@ -32,22 +32,22 @@ public class GameMain extends Game
     public List<NPC> NPCs = new ArrayList<NPC>();
 
     /**
-     * Declare the game map
+     * The game map
      */
     public Map gameMap;
 
     /**
-     * Declare FPSLogger, FPSLogger allows us to check the game FPS is good enough
+     * An FPSLogger, FPSLogger allows us to check the game FPS is good enough
      */
     FPSLogger FPS;
 
     /**
-     * Declare screen to be used
+     * A screen to be used
      */
     private NavigationScreen screen1;
 
     /**
-     * Declare a player object
+     * A player object
      */
     public Player player;
 
