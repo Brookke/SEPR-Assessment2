@@ -25,13 +25,17 @@ public class GameMain extends Game
     //This is a static reference to itself. Comes in REALLY handy when in other classes that don't have a reference to the main game
     public static GameMain me = null;
     //Game wide variables
-    public List<NPC> NPCs = new ArrayList<NPC>();
 
-    public Map gameMap;
+    public List<NPC> NPCs = new ArrayList<NPC>();//Declare list holding NPC objects
 
-    FPSLogger FPS;
-    private NavigationScreen screen1;
-    public Player player;
+
+    public Map gameMap;//Declare the game map
+
+    FPSLogger FPS;//Declare FPSLogger, FPSLogger allows us to check the game FPS is good enough
+
+    private NavigationScreen screen1;//Declare screen to be used
+
+    public Player player;//Declare a player object
 
     /**
      * This is called at start up. It initialises the game.
@@ -40,19 +44,21 @@ public class GameMain extends Game
     public void create()
     {
         this.me = this;
-        gameMap = new Map();
 
-        initialiseAllData();
+        gameMap = new Map(); //instantiate game map
+
+        initialiseAllData(); //calls a function that generates all the NPC's, Players and Rooms and maps.
         
-        Assets.load();
-        initialiseAllData();
+        Assets.load();// Load in the assets the game needs
 
+        initialiseAllData();//call the function again after assets loaded
+        //place player in first room
         player.setRoom(gameMap.getRoom(0));
-
+        //set up the screen and display the first room
         screen1 = new NavigationScreen(this);
         screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
         this.setScreen(screen1);
-
+        //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
     }
 
