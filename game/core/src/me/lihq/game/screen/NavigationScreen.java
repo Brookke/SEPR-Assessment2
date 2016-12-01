@@ -67,20 +67,23 @@ public class NavigationScreen extends AbstractScreen {
      */
     @Override
     public void render(float delta) {
-        camera.position.x = game.player.getX();
-        camera.position.y = game.player.getY();
+        camera.position.x = game.player.getX() + game.player.getOffsetX();
+        camera.position.y = game.player.getY() + game.player.getOffsetY();
         camera.update();
 
         BitmapFont font = new BitmapFont();
 
-//        tiledMapRenderer.setView(camera.position.x);
-        tiledMapRenderer.setView(camera.projection, game.player.getX() , game.player.getY(), camera.viewportWidth, camera.viewportHeight);
+        tiledMapRenderer.setView(camera);
+        //tiledMapRenderer.setView(camera.projection, 0 - (game.player.getTileCoordinates().x * Settings.TILE_SIZE) , 0 - (game.player.getTileCoordinates().y * Settings.TILE_SIZE), camera.viewportWidth, camera.viewportHeight);
         tiledMapRenderer.render();
+
+//        camera.position.x = game.player.getX();
+//        camera.position.y = game.player.getY();
 
         spriteBatch.setProjectionMatrix(camera.combined);
         //place Sprites to be drawn in the sprite batch
         spriteBatch.begin();
-        spriteBatch.draw(game.player.getTextureRegion(), game.player.getX(), game.player.getY());
+        spriteBatch.draw(game.player.getTextureRegion(), game.player.getX() + game.player.getOffsetX(), game.player.getY() + game.player.getOffsetY());
 
         spriteBatch.end();
     }

@@ -28,9 +28,6 @@ public class Player extends AbstractPerson
     public boolean moveUp = false;
     public boolean moveDown = false;
 
-    public int xChange = 0;
-    public int yChange = 0;
-
     public Player(String name, String imgSrc)
     {
         super(imgSrc);
@@ -67,19 +64,13 @@ public class Player extends AbstractPerson
     {
         if (!currentRoom.isWalkableTile(tileCoordinates.getX() + dx, tileCoordinates.getY() + dy)) {return;}
 
-        this.setTileCoordinates(tileCoordinates.x + dx, tileCoordinates.y + dy);
-
         if (dx != 0)
         {
             offsetX = dx * movementSpeed;
-
-            xChange = -1 * dx;
         }
         else if (dy != 0)
         {
             offsetY = dy * movementSpeed;
-
-            yChange = -1 * dy;
         }
 
     }
@@ -98,10 +89,18 @@ public class Player extends AbstractPerson
                 offsetX += movementSpeed;
             }
 
-            if (Math.abs(offsetX) > 32)
+            if (Math.abs(offsetX) >= 32)
             {
                 offsetX = 0;
-                xChange = 0;
+
+                if (moveDirection == DIRECTION.EAST)
+                {
+                    this.setTileCoordinates(tileCoordinates.x + 1, tileCoordinates.y);
+                }
+                else if (moveDirection == DIRECTION.WEST)
+                {
+                    this.setTileCoordinates(tileCoordinates.x - 1, tileCoordinates.y);
+                }
             }
 
             updateTextureRegion();
@@ -120,10 +119,18 @@ public class Player extends AbstractPerson
                 offsetY += movementSpeed;
             }
 
-            if (Math.abs(offsetY) > 32)
+            if (Math.abs(offsetY) >= 32)
             {
                 offsetY = 0;
-                yChange = 0;
+
+                if (moveDirection == DIRECTION.NORTH)
+                {
+                    this.setTileCoordinates(tileCoordinates.x, tileCoordinates.y + 1);
+                }
+                else if (moveDirection == DIRECTION.SOUTH)
+                {
+                    this.setTileCoordinates(tileCoordinates.x, tileCoordinates.y - 1);
+                }
             }
 
             updateTextureRegion();
