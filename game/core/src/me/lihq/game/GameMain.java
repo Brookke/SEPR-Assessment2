@@ -86,7 +86,7 @@ public class GameMain extends Game
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        FPS.log();
+        FPS.log();//this is where fps is displayed
 
         super.render(); // This calls the render method of the screen that is currently set
 
@@ -97,7 +97,9 @@ public class GameMain extends Game
     {
 
     }
-
+    /**
+     * Change from one room to another
+     */
     public void changeMap(Room.Transition to)
     {
         player.setRoom(gameMap.getRoom(to.newRoom));
