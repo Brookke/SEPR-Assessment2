@@ -26,16 +26,30 @@ public class GameMain extends Game
     public static GameMain me = null;
     //Game wide variables
 
-    public List<NPC> NPCs = new ArrayList<NPC>();//Declare list holding NPC objects
+    /**
+     * A list holding NPC objects
+     */
+    public List<NPC> NPCs = new ArrayList<NPC>();
 
+    /**
+     * Declare the game map
+     */
+    public Map gameMap;
 
-    public Map gameMap;//Declare the game map
+    /**
+     * Declare FPSLogger, FPSLogger allows us to check the game FPS is good enough
+     */
+    FPSLogger FPS;
 
-    FPSLogger FPS;//Declare FPSLogger, FPSLogger allows us to check the game FPS is good enough
+    /**
+     * Declare screen to be used
+     */
+    private NavigationScreen screen1;
 
-    private NavigationScreen screen1;//Declare screen to be used
-
-    public Player player;//Declare a player object
+    /**
+     * Declare a player object
+     */
+    public Player player;
 
     /**
      * This is called at start up. It initialises the game.
