@@ -132,7 +132,6 @@ public class GameMain extends Game
      * defined by LibGDX but this loop runs all of the NPCs, the player, the game logic and more
      */
     public int ticks = 0;
-    public int TPS = 0;
     public int lastSecond = -1;
 
     public void gameLoop()
@@ -146,7 +145,7 @@ public class GameMain extends Game
                     Calendar cal = Calendar.getInstance();
                     if (lastSecond != cal.get(Calendar.SECOND))
                     {
-                        System.out.println(TPS);
+                        System.out.println(ticks);
                         ticks = 0;
                         lastSecond = cal.get(Calendar.SECOND);
                     }

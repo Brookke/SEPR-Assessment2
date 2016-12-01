@@ -61,34 +61,22 @@ public class PlayerController extends InputAdapter
     {
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
         {
-            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
-            {
-                player.moveLeft = false;
-            }
+            player.moveLeft = false;
         }
 
         if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
         {
-            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
-            {
-                player.moveRight = false;
-            }
+            player.moveRight = false;
         }
 
         if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
         {
-            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
-            {
-                player.moveUp = false;
-            }
+            player.moveUp = false;
         }
 
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
         {
-            if (player.getOffsetX() == 0 && player.getOffsetY() == 0)
-            {
-                player.moveDown = false;
-            }
+            player.moveDown = false;
         }
 
         return false;

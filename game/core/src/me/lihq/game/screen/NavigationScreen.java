@@ -2,6 +2,7 @@ package me.lihq.game.screen;
 
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import me.lihq.game.GameMain;
@@ -70,13 +71,17 @@ public class NavigationScreen extends AbstractScreen {
         camera.position.y = game.player.getY();
         camera.update();
 
-        tiledMapRenderer.setView(camera);
+        BitmapFont font = new BitmapFont();
+
+//        tiledMapRenderer.setView(camera.position.x);
+        tiledMapRenderer.setView(camera.projection, game.player.getX() , game.player.getY(), camera.viewportWidth, camera.viewportHeight);
         tiledMapRenderer.render();
 
         spriteBatch.setProjectionMatrix(camera.combined);
         //place Sprites to be drawn in the sprite batch
         spriteBatch.begin();
-        game.player.draw(spriteBatch);
+        spriteBatch.draw(game.player.getTextureRegion(), game.player.getX(), game.player.getY());
+
         spriteBatch.end();
     }
 

@@ -1,5 +1,6 @@
 package me.lihq.game.living;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.models.Inventory;
@@ -26,6 +27,9 @@ public class Player extends AbstractPerson
     public boolean moveRight = false;
     public boolean moveUp = false;
     public boolean moveDown = false;
+
+    public int xChange = 0;
+    public int yChange = 0;
 
     public Player(String name, String imgSrc)
     {
@@ -64,11 +68,69 @@ public class Player extends AbstractPerson
         if (!currentRoom.isWalkableTile(tileCoordinates.getX() + dx, tileCoordinates.getY() + dy)) {return;}
 
         this.setTileCoordinates(tileCoordinates.x + dx, tileCoordinates.y + dy);
+
+        if (dx != 0)
+        {
+            offsetX = dx * movementSpeed;
+
+            xChange = -1 * dx;
+        }
+        else if (dy != 0)
+        {
+            offsetY = dy * movementSpeed;
+
+            yChange = -1 * dy;
+        }
+
     }
 
     @Override
     public void movementTick()
     {
+        if (getOffsetX() != 0)
+        {
+            if (getOffsetX() < 0)
+            {
+                offsetX -= movementSpeed;
+            }
+            else
+            {
+                offsetX += movementSpeed;
+            }
+
+            if (Math.abs(offsetX) > 32)
+            {
+                offsetX = 0;
+                xChange = 0;
+            }
+
+            updateTextureRegion();
+
+            return;
+        }
+
+        if (getOffsetY() != 0)
+        {
+            if (getOffsetY() < 0)
+            {
+                offsetY -= movementSpeed;
+            }
+            else
+            {
+                offsetY += movementSpeed;
+            }
+
+            if (Math.abs(offsetY) > 32)
+            {
+                offsetY = 0;
+                yChange = 0;
+            }
+
+            updateTextureRegion();
+
+            return;
+        }
+
         if (moveLeft)
         {
             setMoveDirection(DIRECTION.WEST);

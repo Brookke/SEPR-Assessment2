@@ -18,7 +18,7 @@ public class Settings
      * The amount of ticks per second
      * game logic updates each tick
      */
-    public static final int TPS = 1;
+    public static final int TPS = 20;
 
     /**
      * Game end
