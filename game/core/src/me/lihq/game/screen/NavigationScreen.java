@@ -74,11 +74,7 @@ public class NavigationScreen extends AbstractScreen {
         BitmapFont font = new BitmapFont();
 
         tiledMapRenderer.setView(camera);
-        //tiledMapRenderer.setView(camera.projection, 0 - (game.player.getTileCoordinates().x * Settings.TILE_SIZE) , 0 - (game.player.getTileCoordinates().y * Settings.TILE_SIZE), camera.viewportWidth, camera.viewportHeight);
         tiledMapRenderer.render();
-
-//        camera.position.x = game.player.getX();
-//        camera.position.y = game.player.getY();
 
         spriteBatch.setProjectionMatrix(camera.combined);
         //place Sprites to be drawn in the sprite batch
