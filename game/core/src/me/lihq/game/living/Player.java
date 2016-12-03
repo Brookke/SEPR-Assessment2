@@ -1,5 +1,6 @@
 package me.lihq.game.living;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.models.Inventory;
@@ -21,6 +22,11 @@ public class Player extends AbstractPerson
     private String name;
 
     private Room currentRoom;
+
+    public boolean moveLeft = false;
+    public boolean moveRight = false;
+    public boolean moveUp = false;
+    public boolean moveDown = false;
 
     public Player(String name, String imgSrc)
     {
@@ -58,7 +64,118 @@ public class Player extends AbstractPerson
     {
         if (!currentRoom.isWalkableTile(tileCoordinates.getX() + dx, tileCoordinates.getY() + dy)) {return;}
 
-        this.setTileCoordinates(tileCoordinates.x + dx, tileCoordinates.y + dy);
+        if (dx != 0)
+        {
+            offsetX = dx * movementSpeed;
+        }
+        else if (dy != 0)
+        {
+            offsetY = dy * movementSpeed;
+        }
+
+    }
+
+    @Override
+    public void movementTick()
+    {
+        if (getOffsetX() != 0)
+        {
+            if (getOffsetX() < 0)
+            {
+                offsetX -= movementSpeed;
+            }
+            else
+            {
+                offsetX += movementSpeed;
+            }
+
+            if (Math.abs(offsetX) >= 32)
+            {
+                offsetX = 0;
+
+                if (moveDirection == DIRECTION.EAST)
+                {
+                    this.setTileCoordinates(tileCoordinates.x + 1, tileCoordinates.y);
+                }
+                else if (moveDirection == DIRECTION.WEST)
+                {
+                    this.setTileCoordinates(tileCoordinates.x - 1, tileCoordinates.y);
+                }
+            }
+
+            updateTextureRegion();
+
+            return;
+        }
+
+        if (getOffsetY() != 0)
+        {
+            if (getOffsetY() < 0)
+            {
+                offsetY -= movementSpeed;
+            }
+            else
+            {
+                offsetY += movementSpeed;
+            }
+
+            if (Math.abs(offsetY) >= 32)
+            {
+                offsetY = 0;
+
+                if (moveDirection == DIRECTION.NORTH)
+                {
+                    this.setTileCoordinates(tileCoordinates.x, tileCoordinates.y + 1);
+                }
+                else if (moveDirection == DIRECTION.SOUTH)
+                {
+                    this.setTileCoordinates(tileCoordinates.x, tileCoordinates.y - 1);
+                }
+            }
+
+            updateTextureRegion();
+
+            return;
+        }
+
+        if (moveLeft)
+        {
+            setMoveDirection(DIRECTION.WEST);
+        }
+        else if (moveRight)
+        {
+            setMoveDirection(DIRECTION.EAST);
+        }
+        else if (moveDown)
+        {
+            setMoveDirection(DIRECTION.SOUTH);
+        }
+        else if (moveUp)
+        {
+            setMoveDirection(DIRECTION.NORTH);
+        }
+        else
+        {
+            setMoveDirection(null);
+        }
+
+        if (moveDirection == DIRECTION.WEST)
+        {
+            move(-1,0);
+        }
+        if (moveDirection == DIRECTION.EAST)
+        {
+            move(1,0);
+        }
+        if (moveDirection == DIRECTION.NORTH)
+        {
+            move(0,1);
+        }
+        if (moveDirection == DIRECTION.SOUTH)
+        {
+            move(0,-1);
+        }
+
     }
 
     public Inventory getInventory()

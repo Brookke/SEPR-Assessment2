@@ -143,9 +143,8 @@ public class Room {
 
         public Transition() {}
 
-        public Transition setTo(int room, int x, int y)
+        public Transition setTo(int x, int y)
         {
-            this.newRoom = room;
             this.to = new Vector2Int(x, y);
             return this;
         }
@@ -153,6 +152,12 @@ public class Room {
         public Transition setFrom(int x, int y)
         {
             this.from = new Vector2Int(x, y);
+            return this;
+        }
+
+        public Transition setNewRoom(int room)
+        {
+            this.newRoom = room;
             return this;
         }
     }

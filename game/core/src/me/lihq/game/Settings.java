@@ -14,4 +14,14 @@ public class Settings
      */
     public static final int ZOOM = 2;
 
+    /**
+     * The amount of ticks per second
+     * game logic updates each tick
+     */
+    public static final int TPS = 20;
+
+    /**
+     * Game end
+     */
+    public static boolean GAME_END = false;
 }

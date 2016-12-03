@@ -14,6 +14,7 @@ import me.lihq.game.models.Room;
 import me.lihq.game.screen.NavigationScreen;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -74,6 +75,8 @@ public class GameMain extends Game
         this.setScreen(screen1);
         //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
+
+        gameLoop();
     }
 
 
@@ -142,5 +145,46 @@ public class GameMain extends Game
 
             NPCs.add(npc);
         }
+    }
+
+    /**
+     * gameLoop
+     *
+     * This is the main method that runs the game logic. Rendering is done in its own loop
+     * defined by LibGDX but this loop runs all of the NPCs, the player, the game logic and more
+     */
+    public int ticks = 0;
+    public int lastSecond = -1;
+
+    public void gameLoop()
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                while (!Settings.GAME_END)
+                {
+                    Calendar cal = Calendar.getInstance();
+                    if (lastSecond != cal.get(Calendar.SECOND))
+                    {
+                        System.out.println(ticks);
+                        ticks = 0;
+                        lastSecond = cal.get(Calendar.SECOND);
+                    }
+
+                    ticks ++;
+
+                    player.movementTick();
+
+                    //All other tick updates
+
+                    try {Thread.sleep(1000 / Settings.TPS);} catch (Exception e){}
+                }
+
+
+            }
+        });
+
+        thread.start();
     }
 }

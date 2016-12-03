@@ -49,6 +49,11 @@ public class NPC extends AbstractPerson
 
     }
 
+    @Override
+    public void movementTick() {
+
+    }
+
     public NPC setHasGlasses(boolean hasGlasses)
     {
         this.hasGlasses = hasGlasses;
