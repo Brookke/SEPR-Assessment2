@@ -55,8 +55,8 @@ public class SpeechViewScreen extends AbstractScreen {
         spriteBatch.begin();
         game.player.draw(spriteBatch);
         spriteBatch.end();
-        //place image 1 and image 2 - do i make 2 separate classes?
-        //place text box - needs a new class?
+        //place image 1 and image 2
+        //place text box etc - needs a new class? - would like to discuss with someone at some point
     }
 
     @Override
