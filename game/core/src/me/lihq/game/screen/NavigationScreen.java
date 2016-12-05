@@ -29,8 +29,6 @@ public class NavigationScreen extends AbstractScreen {
     private PlayerController playerController;
     private SpriteBatch spriteBatch;
 
-    //TEST
-
     //TODO: add more information about this class
     /**
      * Initialises the navigation screen
