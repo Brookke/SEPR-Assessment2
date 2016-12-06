@@ -3,7 +3,7 @@ package me.lihq.game.living;
 import me.lihq.game.Settings;
 
 /**
- * Created by joeshuff on 20/11/2016.
+ * The class which is responsible for the non-playable characters within the game that the player will meet.
  */
 public class NPC extends AbstractPerson
 {
