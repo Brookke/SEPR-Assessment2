@@ -11,6 +11,7 @@ import me.lihq.game.living.NPC.WRITING_HAND;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
+import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
 
 import java.util.*;
@@ -107,6 +108,16 @@ public class GameMain extends Game
         screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
     }
 
+    /**
+     * Overrides the getScreen method to return our AbstractScreen type.
+     * This means that we can access the additional methods like update.
+     * @return Returns AbstractScreen.
+     */
+    @Override
+    public AbstractScreen getScreen() {
+        return (AbstractScreen) super.getScreen();
+    }
+
     public int ticks = 0;
     public int lastSecond = -1;
 
@@ -129,7 +140,7 @@ public class GameMain extends Game
                 }
 
                 screen1.playerController.update();
-                player.update();
+                me.getScreen().update();
             }
         };
 
