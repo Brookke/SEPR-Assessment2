@@ -145,45 +145,60 @@ public class NPC extends AbstractPerson
     }
 
     /**
-     * Getters and setters for the NPC's clue attributes, glasses, shoe size etc.
+     * Getter for whether the NPC has glasses
      */
     public boolean hasGlasses()
     {
         return hasGlasses;
     }
 
+    /**
+     * Getter for whether the NPC is right or left handed.
+     */
     public WRITING_HAND getWritingHand()
     {
         return writingHand;
     }
-
+    /**
+     * Setter for whether the NPC is right or left handed.
+     */
     public NPC setWritingHand(WRITING_HAND hand)
     {
         this.writingHand = hand;
         return this;
     }
-
+    /**
+     * Getter for whether the NPC has lipstick.
+     */
     public boolean hasLipstick()
     {
         return hasLipstick;
     }
-
+    /**
+     * Getter for whether the NPC's Accessory.
+     */
     public ACCESSORY getAccessory()
     {
         return accessory;
     }
-
+    /**
+     * Setter for whether the NPC's Accessory.
+     */
     public NPC setAccessory(ACCESSORY accessory)
     {
         this.accessory = accessory;
         return this;
     }
-
+    /**
+     * Getter for the NPC's shoe size.
+     */
     public int getShoeSize()
     {
         return shoeSize;
     }
-
+    /**
+     * Setter for the NPC's shoe size.
+     */
     public NPC setShoeSize(int shoeSize)
     {
         this.shoeSize = shoeSize;
