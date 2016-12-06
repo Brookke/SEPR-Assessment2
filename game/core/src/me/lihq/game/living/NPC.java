@@ -14,7 +14,7 @@ public class NPC extends AbstractPerson
      */
     private int roomID = -1;
     /**
-     * The name is the name of the detective NPC that the player will win.
+     * The name is the name of the detective NPC that the player will meet.
      */
     private String name = "";
     /**
