@@ -42,8 +42,14 @@ public class NPC extends AbstractPerson
     private ACCESSORY accessory = ACCESSORY.NONE;
     private int shoeSize = 12;
 
+
     /**
      * Define an NPC with location coordinates , room, spritesheet and whether or not they can be the killer
+     * @param x - x coordinate
+     * @param y - y coordinate
+     * @param roomID - ID of room they are in
+     * @param spriteSheet - Spritesheet for this NPC
+     * @param canBeKiller - Boolean whether they can or cannot be the killer
      */
     public NPC(int x, int y, int roomID, String spriteSheet, boolean canBeKiller)
     {
@@ -62,8 +68,11 @@ public class NPC extends AbstractPerson
 
     }
 
+
     /**
      * Allow the NPC to move around their room.
+     * @param dx - how far to move in the x direction
+     * @param dy - how far to move in the y direction
      */
     public void move(int dx, int dy)
     {
@@ -181,8 +190,12 @@ public class NPC extends AbstractPerson
     {
         return accessory;
     }
+
     /**
      * Setter for whether the NPC's Accessory.
+     * @param accessory Whether the NPC has an accessory.
+     * @return returns the NPC class as this is how the NPC's are built
+     * by returning and adding each part.
      */
     public NPC setAccessory(ACCESSORY accessory)
     {
