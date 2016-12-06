@@ -111,7 +111,7 @@ public class GameMain extends Game
     /**
      * Overrides the getScreen method to return our AbstractScreen type.
      * This means that we can access the additional methods like update.
-     * @return Returns AbstractScreen.
+     * @return The current screen of the game.
      */
     @Override
     public AbstractScreen getScreen() {
