@@ -139,7 +139,6 @@ public class GameMain extends Game
                     ticks = 0;
                 }
 
-                screen1.playerController.update();
                 me.getScreen().update();
             }
         };
