@@ -9,14 +9,30 @@ public class NPC extends AbstractPerson
 {
 
     //These variables are specific to the NPC only
+    /**
+     * The roomID specifies which room the NPC will be in during the game.
+     */
     private int roomID = -1;
+    /**
+     * The name is the name of the detective NPC that the player will win.
+     */
     private String name = "";
-
+    /**
+     * These two booleans decide whether an NPC has the potential to be a killer and if, in this particular game, they
+     * are the killer.
+     */
     private boolean canBeKiller = false;
     private boolean isKiller = false;
+    /**
+     * The motive string details why the NPC committed the murder.
+     */
     private String motive = "";
 
     //The NPCs 'blood' graphics will also be on the regular NPCs sprite sheet
+
+    /**
+     * These are characteristics about the NPC that could be used as clues by the player in a "Guess who" style.
+     */
     private HAIR_COLOR hairColor = HAIR_COLOR.GINGER;
 
     private boolean hasGlasses = false;
@@ -26,6 +42,9 @@ public class NPC extends AbstractPerson
     private ACCESSORY accessory = ACCESSORY.NONE;
     private int shoeSize = 12;
 
+    /**
+     * Define an NPC with location coordinates , room, spritesheet and whether or not they can be the killer
+     */
     public NPC(int x, int y, int roomID, String spriteSheet, boolean canBeKiller)
     {
 
@@ -43,11 +62,17 @@ public class NPC extends AbstractPerson
 
     }
 
+    /**
+     * Allow the NPC to move around their room.
+     */
     public void move(int dx, int dy)
     {
 
     }
 
+    /**
+     * Setters for the NPC attributes.
+     */
     public NPC setHasGlasses(boolean hasGlasses)
     {
         this.hasGlasses = hasGlasses;
@@ -65,7 +90,9 @@ public class NPC extends AbstractPerson
         this.name = name;
         return this;
     }
-
+    /**
+     * Getters for the NPC's name and room.
+     */
     public int getRoomID()
     {
         return roomID;
@@ -108,13 +135,18 @@ public class NPC extends AbstractPerson
         return hairColor;
     }
 
-    //Setters for all NPC attributes
+    /**
+     * Setter for hair colour
+     */
     public NPC setHairColor(HAIR_COLOR color)
     {
         this.hairColor = color;
         return this;
     }
 
+    /**
+     * Getters and setters for the NPC's clue attributes, glasses, shoe size etc.
+     */
     public boolean hasGlasses()
     {
         return hasGlasses;
