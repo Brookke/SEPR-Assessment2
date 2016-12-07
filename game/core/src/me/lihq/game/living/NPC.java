@@ -79,8 +79,12 @@ public class NPC extends AbstractPerson
 
     }
 
+
     /**
-     * Setters for the NPC attributes.
+     * Setter for HasGlasses.
+     * @param hasGlasses - the value you want for hasGlasses
+     * @return returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
      */
     public NPC setHasGlasses(boolean hasGlasses)
     {
@@ -88,64 +92,114 @@ public class NPC extends AbstractPerson
         return this;
     }
 
+    /**
+     * Setter for hasLipstick
+     * @param hasLipstick - the value you want for hasLipstick
+     * @return returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
+     */
     public NPC setHasLipstick(boolean hasLipstick)
     {
         this.hasLipstick = hasLipstick;
         return this;
     }
 
+    /**
+     * Setter for NPC name
+     * @param name - the name you want to assign.
+     * @return returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
+     */
     public NPC setCharacterName(String name)
     {
         this.name = name;
         return this;
     }
+
     /**
-     * Getters for the NPC's name and room.
+     * Getter for RoomID
+     * @return returns the RoomID
      */
     public int getRoomID()
     {
         return roomID;
     }
 
+    /**
+     * Setter for RoomID
+     * @param roomID - The RoomID you want to assign.
+     * @return Returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
+     */
     public NPC setRoomID(int roomID)
     {
         this.roomID = roomID;
         return this;
     }
 
+    /**
+     * Getter for NPC name.
+     * @return Returns the name of the NPC object.
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Getter for canBeKiller
+     * @return Returns value of canBeKiller for this object.
+     */
     public boolean canBeKiller()
     {
         return canBeKiller;
     }
 
+    /**
+     * Getter for isKiller.
+     * @return Returna value of isKiller for this object.
+     */
     public boolean isKiller()
     {
         return isKiller;
     }
 
+    /**
+     * Getter for motive.
+     * @return Returns the motive string for this object.
+     */
     public String getMotive()
     {
         return motive;
     }
 
+    /**
+     * Setter for the NPC's motive string.
+     * @param motive - The motive this particular NPC has for committing the murder.
+     * @return Returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
+     */
     public NPC setMotive(String motive)
     {
         this.motive = motive;
         return this;
     }
 
+    /**
+     * Getter for hairColor
+     * @return Returns the value of hairColor for this object.
+     */
     public HAIR_COLOR getHairColor()
     {
         return hairColor;
     }
 
+
     /**
-     * Setter for hair colour
+     * Setter for HairColor
+     * @param color - The color you want to assign.
+     * @return Returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
      */
     public NPC setHairColor(HAIR_COLOR color)
     {
@@ -153,38 +207,50 @@ public class NPC extends AbstractPerson
         return this;
     }
 
+
     /**
      * Getter for whether the NPC has glasses
+     * @return Returns the value of hasGlasses for this object.
      */
     public boolean hasGlasses()
     {
         return hasGlasses;
     }
 
+
     /**
      * Getter for whether the NPC is right or left handed.
+     * @return Returns the value of writingHand for this object.
      */
     public WRITING_HAND getWritingHand()
     {
         return writingHand;
     }
+
     /**
      * Setter for whether the NPC is right or left handed.
+     * @param hand - Which hand they write with.
+     * @return Returns the NPC object as this is how the NPC's are built
+     * by returning and adding each part.
      */
     public NPC setWritingHand(WRITING_HAND hand)
     {
         this.writingHand = hand;
         return this;
     }
+
     /**
      * Getter for whether the NPC has lipstick.
+     * @return Returns the value of hasLipstick for this object.
      */
     public boolean hasLipstick()
     {
         return hasLipstick;
     }
+
     /**
      * Getter for whether the NPC's Accessory.
+     * @return Return the value of accessory for this object.
      */
     public ACCESSORY getAccessory()
     {
@@ -202,15 +268,20 @@ public class NPC extends AbstractPerson
         this.accessory = accessory;
         return this;
     }
+
     /**
      * Getter for the NPC's shoe size.
+     * @return Returns the value of the NPC's shoe size.
      */
     public int getShoeSize()
     {
         return shoeSize;
     }
+
     /**
-     * Setter for the NPC's shoe size.
+     * @param shoeSize The shoe size you want to assign to this NPC.
+     * @return returns the NPC class as this is how the NPC's are built
+     * by returning and adding each part.
      */
     public NPC setShoeSize(int shoeSize)
     {
@@ -218,17 +289,26 @@ public class NPC extends AbstractPerson
         return this;
     }
 
-    //These variables are to describe a players features to make the clues useful
+    /**
+     * These variables are to describe a players features to make the clues useful, this one refers to hair colours.
+     */
     public enum HAIR_COLOR
     {
         LIGHT_BROWN, DARK_BROWN, GINGER, BLONDE, BLACK, WHITE, GRAY
     }
-
+    /**
+     * These variables are to describe a players features to make the clues useful, this one refers to the hands they
+     * can write with.
+     */
     public enum WRITING_HAND
     {
         LEFT, RIGHT
     }
 
+    /**
+     * These variables are to describe a players features to make the clues useful, this one refers to Accessories
+     * they could have.
+     */
     public enum ACCESSORY
     {
         BAG, BRIEFCASE, HANDBAG, WATCH, NONE
