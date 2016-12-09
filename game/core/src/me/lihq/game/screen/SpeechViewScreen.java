@@ -2,7 +2,9 @@ package me.lihq.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
@@ -54,8 +56,11 @@ public class SpeechViewScreen extends AbstractScreen {
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         game.player.draw(spriteBatch);
-        spriteBatch.end();
-        //place image 1 and image 2
+        //game.     how do i say 'draw THIS NPC?' how are the NPCs stored?
+        BitmapFont font = new BitmapFont();
+        font.draw(spriteBatch, "Hello World!", 10, 10);
+        spriteBatch.end(); //end of drawing
+        //place image 1 and image 2 - done in spriteBatch
         //place text box etc - needs a new class? - would like to discuss with someone at some point
     }
 
