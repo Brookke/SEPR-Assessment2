@@ -16,7 +16,7 @@ We have included a handy test configuration that can be ran from intellij.
 ![Running tests locally in intellij](https://thumbs.gfycat.com/SentimentalGargantuanAmericanshorthair-size_restricted.gif)
 
 ### Adding Tests
-- Create new class for tests under `/game/tests/src` When naming the class end the name with Tests for consistency e.g. `PlayerTests`
+- Create new class for tests under `/game/tests/src` When naming the class end the name with `UnitTests` for consistency e.g. `PlayerUnitTests`
 - This class should extend `GameTester` this initialises the backend of the game so that test run correctly. 
 - Import `org.junit.Test`
 - Write a test function using assertions, and use `@Test` decorator above it
