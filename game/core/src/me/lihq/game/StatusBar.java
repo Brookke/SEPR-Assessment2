@@ -11,33 +11,44 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
- * Created by jason on 11/12/2016.
+ * The status bar shown throughout the game
+ * Contains UI controls for presenting the game status to the player
  */
 public class StatusBar {
-    public Stage stage;
-    private Skin skin;
 
+    public Stage stage;
+    private Skin buttonSkin;
+
+
+    /**
+     * The initializer for the StatusBar
+     * Sets up UI controls and adds them to the stage ready for rendering
+     */
     public StatusBar() {
 
         stage = new Stage();
-        createBasicSkin();
+        initSkins();
 
         HorizontalGroup statusBar = new HorizontalGroup();
         statusBar.setPosition(0,0);
         statusBar.setHeight(50);
 
-        TextButton newGameButton = new TextButton("Score: 0", skin);
+        TextButton newGameButton = new TextButton("Score: 0", buttonSkin);
         statusBar.addActor(newGameButton);
-        TextButton newGameButton2 = new TextButton("Personality Meter", skin);
+        TextButton newGameButton2 = new TextButton("Personality Meter", buttonSkin);
         statusBar.addActor(newGameButton2);
-        TextButton newGameButton3 = new TextButton("Inventory", skin);
+        TextButton newGameButton3 = new TextButton("Inventory", buttonSkin);
         statusBar.addActor(newGameButton3);
-        TextButton newGameButton4 = new TextButton("Pause", skin);
+        TextButton newGameButton4 = new TextButton("Pause", buttonSkin);
         statusBar.addActor(newGameButton4);
 
         stage.addActor(statusBar);
     }
 
+    /**
+     * Renders the status bar
+     * Should be called within the render() method of a screen
+     */
     public void render() {
         stage.act();
         stage.draw();
@@ -47,26 +58,36 @@ public class StatusBar {
         stage.dispose();
     }
 
-    private void createBasicSkin(){
+    /**
+     * Sets up skin variables used for defining UI control styles
+     */
+    private void initSkins() {
+        initButtonSkin();
+    }
+
+    /**
+     * Sets up the skin for buttons on the status bar
+     */
+    private void initButtonSkin(){
         //Create a font
         BitmapFont font = new BitmapFont();
-        skin = new Skin();
-        skin.add("default", font);
+        buttonSkin = new Skin();
+        buttonSkin.add("default", font);
 
         //Create a texture
         Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/4, 50, Pixmap.Format.RGB888);
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
-        skin.add("background",new Texture(pixmap));
+        buttonSkin.add("background",new Texture(pixmap));
 
         //Create a button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("background", Color.GRAY);
-        textButtonStyle.down = skin.newDrawable("background", Color.BLACK);
-        textButtonStyle.checked = skin.newDrawable("background", Color.GRAY);
-        textButtonStyle.over = skin.newDrawable("background", Color.DARK_GRAY);
-        textButtonStyle.font = skin.getFont("default");
-        skin.add("default", textButtonStyle);
+        textButtonStyle.up = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.down = buttonSkin.newDrawable("background", Color.BLACK);
+        textButtonStyle.checked = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.over = buttonSkin.newDrawable("background", Color.DARK_GRAY);
+        textButtonStyle.font = buttonSkin.getFont("default");
+        buttonSkin.add("default", textButtonStyle);
 
     }
 }
