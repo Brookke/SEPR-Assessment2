@@ -19,7 +19,7 @@ public class SpeechViewScreen extends AbstractScreen {
     private OrthographicCamera camera = new OrthographicCamera();
     private String PersonTalking = "";
     private SpriteBatch spriteBatch;
-    private SpeechScreen speechBox;
+    private SpeechBoxScreen speechBox;
 
     public SpeechViewScreen(GameMain game)
     {
@@ -45,7 +45,7 @@ public class SpeechViewScreen extends AbstractScreen {
     public void show()
     {
         Gdx.input.setInputProcessor(null); //??
-        speechBox = new SpeechScreen();
+        speechBox = new SpeechBoxScreen(game);
     }
 
 
@@ -91,5 +91,10 @@ public class SpeechViewScreen extends AbstractScreen {
     public void dispose() {
         //just 'dispose' everything
         spriteBatch.dispose();
+    }
+    @Override
+    public void update()
+    {
+
     }
 }

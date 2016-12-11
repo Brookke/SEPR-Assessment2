@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 /**
  * Created by Ben on 11/12/2016.
  */
-public class SpeechScreen extends AbstractScreen
+public class SpeechBoxScreen extends AbstractScreen
 {
 
     private Viewport viewport;
@@ -23,9 +23,9 @@ public class SpeechScreen extends AbstractScreen
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
 
-    public SpeechScreen(GameMain game)
+    public SpeechBoxScreen(GameMain game)
     {
-        super(GameMain game);
+        super(game);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera.setToOrtho(false,w,h);
@@ -50,12 +50,12 @@ public class SpeechScreen extends AbstractScreen
         //draw textbox background
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1, 1, 1, 1);
-        shapeRenderer.rect(padding, 5, viewport.getWorldWidth()*2-2*padding,textBoxHeight);
+        shapeRenderer.rect(padding, 5, viewport.getWorldWidth()-2*padding,textBoxHeight);
         shapeRenderer.end();
         //draw textbox outline
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 0, 1, 1);
-        shapeRenderer.rect(padding, 5, viewport.getWorldWidth()*2-2*padding,textBoxHeight);
+        shapeRenderer.rect(padding, 5, viewport.getWorldWidth()-2*padding,textBoxHeight);
         shapeRenderer.end();
     }
 
@@ -99,6 +99,12 @@ public class SpeechScreen extends AbstractScreen
     }
 
     public void write()
+    {
+
+    }
+
+    @Override
+    public void update()
     {
 
     }

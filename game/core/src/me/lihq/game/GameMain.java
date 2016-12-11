@@ -11,11 +11,7 @@ import me.lihq.game.living.NPC.WRITING_HAND;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
-<<<<<<< HEAD
-import me.lihq.game.models.SpeechBox;
-=======
 import me.lihq.game.screen.AbstractScreen;
->>>>>>> development
 import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.SpeechViewScreen;
 
