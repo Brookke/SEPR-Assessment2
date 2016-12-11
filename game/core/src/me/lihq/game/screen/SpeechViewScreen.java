@@ -1,7 +1,8 @@
 package me.lihq.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.living.controller.PlayerController;
+import me.lihq.game.models.SpeechBox;
 
 
 /**
@@ -18,10 +20,11 @@ import me.lihq.game.living.controller.PlayerController;
 public class SpeechViewScreen extends AbstractScreen {
 
     private Viewport viewport;
-    private PlayerController playerController;
-    private PerspectiveCamera camera = new PerspectiveCamera(); //check which camera will be easiest
+    //add a new controller - maybe best to put this in the menu?
+    private OrthographicCamera camera = new OrthographicCamera();
     private String PersonTalking = "";
     private SpriteBatch spriteBatch;
+    private SpeechBox speechBox;
 
     public SpeechViewScreen(GameMain game)
     {
@@ -31,6 +34,7 @@ public class SpeechViewScreen extends AbstractScreen {
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+        camera.setToOrtho(false,w,h);
         camera.update();
         viewport = new FitViewport(w/ Settings.ZOOM, h/Settings.ZOOM, camera);
 
@@ -45,22 +49,25 @@ public class SpeechViewScreen extends AbstractScreen {
     @Override
     public void show()
     {
-        Gdx.input.setInputProcessor(null);
+        Gdx.input.setInputProcessor(null); //??
+        speechBox = new SpeechBox();
     }
+
 
     @Override
     public void render(float delta){
-        camera.position.x = 0;//check (0,0) works ok
-        camera.position.y = 0;
+        camera.position.x = 0; //0;//check (0,0) works ok
+        camera.position.y = 0; //0;
+        camera.update();
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        game.player.draw(spriteBatch);
+
+        game.player.draw(spriteBatch); //move Player to the left and draw NPC
         //game.     how do i say 'draw THIS NPC?' how are the NPCs stored?
-        BitmapFont font = new BitmapFont();
-        font.draw(spriteBatch, "Hello World!", 10, 10);
-        spriteBatch.end(); //end of drawing
-        //place image 1 and image 2 - done in spriteBatch
+       spriteBatch.end();
+
+        speechBox.render(delta); //er? help...
         //place text box etc - needs a new class? - would like to discuss with someone at some point
     }
 
@@ -88,6 +95,6 @@ public class SpeechViewScreen extends AbstractScreen {
     @Override
     public void dispose() {
         //just 'dispose' everything
-
+        spriteBatch.dispose();
     }
 }
