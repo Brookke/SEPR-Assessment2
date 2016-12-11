@@ -75,7 +75,8 @@ public class GameMain extends Game
         screen1 = new NavigationScreen(this);
         screen2 = new SpeechViewScreen(this);
         screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
-        this.setScreen(screen1);
+        //this.setScreen(screen1);
+        this.setScreen(screen2);
         //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
     }
