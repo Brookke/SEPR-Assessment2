@@ -1,4 +1,4 @@
-package me.lihq.game;
+package me.lihq.game.screen.elements;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  */
 public class StatusBar {
 
+    private static final int HEIGHT = 50; //Used to set height of status bar
+    private static final int ITEM_COUNT = 4; //Used to set width of controls on bar
+
     public Stage stage;
     private Skin buttonSkin;
 
@@ -31,16 +34,16 @@ public class StatusBar {
 
         HorizontalGroup statusBar = new HorizontalGroup();
         statusBar.setPosition(0,0);
-        statusBar.setHeight(50);
+        statusBar.setHeight(HEIGHT);
 
         TextButton newGameButton = new TextButton("Score: 0", buttonSkin);
         statusBar.addActor(newGameButton);
         TextButton newGameButton2 = new TextButton("Personality Meter", buttonSkin);
         statusBar.addActor(newGameButton2);
-        TextButton newGameButton3 = new TextButton("Inventory", buttonSkin);
-        statusBar.addActor(newGameButton3);
-        TextButton newGameButton4 = new TextButton("Pause", buttonSkin);
-        statusBar.addActor(newGameButton4);
+        TextButton inventoryButton = new TextButton("Inventory", buttonSkin);
+        statusBar.addActor(inventoryButton);
+        TextButton pauseButton = new TextButton("Pause", buttonSkin);
+        statusBar.addActor(pauseButton);
 
         stage.addActor(statusBar);
     }
@@ -75,7 +78,7 @@ public class StatusBar {
         buttonSkin.add("default", font);
 
         //Create a texture
-        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/4, 50, Pixmap.Format.RGB888);
+        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/ITEM_COUNT, HEIGHT, Pixmap.Format.RGB888);
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
         buttonSkin.add("background",new Texture(pixmap));
