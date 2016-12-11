@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -18,9 +19,12 @@ public class StatusBar {
 
     private static final int HEIGHT = 50; //Used to set height of status bar
     private static final int ITEM_COUNT = 4; //Used to set width of controls on bar
+    private static final int WIDTH = (int) Gdx.graphics.getWidth()/ITEM_COUNT;
+    private static final Color BACKGROUND_COLOR = Color.GRAY;
 
     public Stage stage;
     private Skin buttonSkin;
+    private Skin labelSkin;
 
 
     /**
@@ -36,12 +40,16 @@ public class StatusBar {
         statusBar.setPosition(0,0);
         statusBar.setHeight(HEIGHT);
 
-        TextButton newGameButton = new TextButton("Score: 0", buttonSkin);
-        statusBar.addActor(newGameButton);
-        TextButton newGameButton2 = new TextButton("Personality Meter", buttonSkin);
-        statusBar.addActor(newGameButton2);
+        Label scoreLabel = new Label("Score: 0", labelSkin);
+        scoreLabel.setSize(WIDTH, HEIGHT);
+        statusBar.addActor(scoreLabel);
+
+        TextButton personalityMeter = new TextButton("Personality Meter", buttonSkin);
+        statusBar.addActor(personalityMeter);
+
         TextButton inventoryButton = new TextButton("Inventory", buttonSkin);
         statusBar.addActor(inventoryButton);
+
         TextButton pauseButton = new TextButton("Pause", buttonSkin);
         statusBar.addActor(pauseButton);
 
@@ -66,6 +74,7 @@ public class StatusBar {
      */
     private void initSkins() {
         initButtonSkin();
+        initLabelSkin();
     }
 
     /**
@@ -78,19 +87,40 @@ public class StatusBar {
         buttonSkin.add("default", font);
 
         //Create a texture
-        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/ITEM_COUNT, HEIGHT, Pixmap.Format.RGB888);
+        Pixmap pixmap = new Pixmap(WIDTH, HEIGHT, Pixmap.Format.RGB888);
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
         buttonSkin.add("background",new Texture(pixmap));
 
         //Create a button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.up = buttonSkin.newDrawable("background", BACKGROUND_COLOR);
         textButtonStyle.down = buttonSkin.newDrawable("background", Color.BLACK);
-        textButtonStyle.checked = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.checked = buttonSkin.newDrawable("background", BACKGROUND_COLOR);
         textButtonStyle.over = buttonSkin.newDrawable("background", Color.DARK_GRAY);
         textButtonStyle.font = buttonSkin.getFont("default");
         buttonSkin.add("default", textButtonStyle);
+
+    }
+
+    /**
+     * Sets up the skin for labels on the status bar
+     */
+    private void initLabelSkin(){
+        //Create a font
+        BitmapFont font = new BitmapFont();
+        labelSkin = new Skin();
+
+        //Create a texture
+        Pixmap pixmap = new Pixmap(WIDTH, HEIGHT, Pixmap.Format.RGB888);
+        pixmap.setColor(BACKGROUND_COLOR);
+        pixmap.fill();
+        labelSkin.add("background",new Texture(pixmap));
+
+        //Create a button style
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
+        labelStyle.background = labelSkin.getDrawable("background");
+        labelSkin.add("default", labelStyle);
 
     }
 }
