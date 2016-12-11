@@ -41,11 +41,13 @@ public class SpeechBox {
         int textBoxHeight = 100;//the height of the text box
 
         spriteBatch.setProjectionMatrix(camera.combined);
+        //remove this bit...
         spriteBatch.begin();
         BitmapFont font = new BitmapFont();
         font.setColor(Color.CYAN);
         font.draw(spriteBatch, "Hello World!",  5, (-viewport.getWorldHeight()/4+20)); //work out how to place things properly //use worldheight/width
         spriteBatch.end();
+
         //draw textbox background
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1, 1, 1, 1);
@@ -56,11 +58,6 @@ public class SpeechBox {
         shapeRenderer.setColor(1, 0, 1, 1);
         shapeRenderer.rect(padding, 5, viewport.getWorldWidth()*2-2*padding,textBoxHeight);
         shapeRenderer.end();
-    }
-
-    private void draw_box()
-    {
-
     }
 
     public void show()
@@ -77,9 +74,9 @@ public class SpeechBox {
     {
 
     }
-/***
+/*
     public String menu(String optionOne,String optionTwo,String optionThree, String optionFour)
-    {
+    { //use this to add buttons... and stuff
         if (optionOne.length() > 0)
         {
             //add one to write

@@ -11,7 +11,9 @@ import me.lihq.game.living.NPC.WRITING_HAND;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
+import me.lihq.game.models.SpeechBox;
 import me.lihq.game.screen.NavigationScreen;
+import me.lihq.game.screen.SpeechViewScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ public class GameMain extends Game
      * A screen to be used
      */
     private NavigationScreen screen1;
+    private SpeechViewScreen screen2;
 
     /**
      * A player object
@@ -70,6 +73,7 @@ public class GameMain extends Game
         player.setRoom(gameMap.getRoom(0));
         //set up the screen and display the first room
         screen1 = new NavigationScreen(this);
+        screen2 = new SpeechViewScreen(this);
         screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
         this.setScreen(screen1);
         //Instantiate the FPSLogger to show FPS
