@@ -26,6 +26,7 @@ import me.lihq.game.living.controller.PlayerController;
 import me.lihq.game.Assets;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Map;
+import me.lihq.game.StatusBar;
 
 /**
  * This is the screen that is responsible for the navigation of the player around the game.
@@ -39,8 +40,8 @@ public class NavigationScreen extends AbstractScreen {
     private Viewport viewport;
     public PlayerController playerController;
     private SpriteBatch spriteBatch;
-    private Stage stage;
-    private Skin skin;
+
+    private StatusBar statusBar;
 
     //TODO: add more information about this class
     /**
@@ -64,25 +65,7 @@ public class NavigationScreen extends AbstractScreen {
 
         spriteBatch = new SpriteBatch();
 
-        stage = new Stage();
-        createBasicSkin();
-
-        HorizontalGroup statusBar = new HorizontalGroup();
-        statusBar.setPosition(0,0);
-        statusBar.setHeight(50);
-
-        TextButton newGameButton = new TextButton("Score: 0", skin);
-        statusBar.addActor(newGameButton);
-        TextButton newGameButton2 = new TextButton("Personality Meter", skin);
-        statusBar.addActor(newGameButton2);
-        TextButton newGameButton3 = new TextButton("Inventory", skin);
-        statusBar.addActor(newGameButton3);
-        TextButton newGameButton4 = new TextButton("Pause", skin);
-        statusBar.addActor(newGameButton4);
-
-        stage.addActor(statusBar);
-
-
+        statusBar = new StatusBar();
     }
 
     /**
@@ -92,7 +75,7 @@ public class NavigationScreen extends AbstractScreen {
     public void show() {
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerController);
-        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(statusBar.stage);
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -101,29 +84,6 @@ public class NavigationScreen extends AbstractScreen {
 
         playerController.update();
         game.player.update();
-
-    }
-
-    private void createBasicSkin(){
-        //Create a font
-        BitmapFont font = new BitmapFont();
-        skin = new Skin();
-        skin.add("default", font);
-
-        //Create a texture
-        Pixmap pixmap = new Pixmap((int)Gdx.graphics.getWidth()/4, 50, Pixmap.Format.RGB888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        skin.add("background",new Texture(pixmap));
-
-        //Create a button style
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("background", Color.GRAY);
-        textButtonStyle.down = skin.newDrawable("background", Color.BLACK);
-        textButtonStyle.checked = skin.newDrawable("background", Color.GRAY);
-        textButtonStyle.over = skin.newDrawable("background", Color.DARK_GRAY);
-        textButtonStyle.font = skin.getFont("default");
-        skin.add("default", textButtonStyle);
 
     }
 
@@ -149,8 +109,7 @@ public class NavigationScreen extends AbstractScreen {
         game.player.draw(spriteBatch);
         spriteBatch.end();
 
-        stage.act();
-        stage.draw();
+        statusBar.render();
     }
 
     @Override
@@ -177,7 +136,7 @@ public class NavigationScreen extends AbstractScreen {
     public void dispose() {
         map.dispose();
         tiledMapRenderer.dispose();
-        stage.dispose();
+        statusBar.dispose();
     }
 
     public void setTiledMapRenderer(TiledMap map)
