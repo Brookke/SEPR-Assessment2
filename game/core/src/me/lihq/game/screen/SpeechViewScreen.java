@@ -1,17 +1,12 @@
 package me.lihq.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
-import me.lihq.game.living.controller.PlayerController;
-import me.lihq.game.models.SpeechBox;
 
 
 /**
@@ -24,7 +19,7 @@ public class SpeechViewScreen extends AbstractScreen {
     private OrthographicCamera camera = new OrthographicCamera();
     private String PersonTalking = "";
     private SpriteBatch spriteBatch;
-    private SpeechBox speechBox;
+    private SpeechScreen speechBox;
 
     public SpeechViewScreen(GameMain game)
     {
@@ -50,7 +45,7 @@ public class SpeechViewScreen extends AbstractScreen {
     public void show()
     {
         Gdx.input.setInputProcessor(null); //??
-        speechBox = new SpeechBox();
+        speechBox = new SpeechScreen();
     }
 
 

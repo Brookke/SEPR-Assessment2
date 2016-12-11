@@ -1,4 +1,4 @@
-package me.lihq.game.models;
+package me.lihq.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -15,21 +15,22 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 /**
  * Created by Ben on 11/12/2016.
  */
-public class SpeechBox {
+public class SpeechScreen extends AbstractScreen
+{
 
     private Viewport viewport;
     private OrthographicCamera camera = new OrthographicCamera();
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
 
-    public SpeechBox()
+    public SpeechScreen(GameMain game)
     {
-        //needs a 'super'?
+        super(GameMain game);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera.setToOrtho(false,w,h);
         camera.update();
-        viewport = new FitViewport(w/ Settings.ZOOM, h/Settings.ZOOM, camera);
+        viewport = new FitViewport(w, h, camera);
 
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -58,6 +59,24 @@ public class SpeechBox {
         shapeRenderer.end();
     }
 
+    @Override
+    public void resize(int width, int height)
+    {
+
+    }
+
+    @Override
+    public void pause()
+    {
+
+    }
+
+    @Override
+    public void resume()
+    {
+
+    }
+
     private void draw_box()
     {
 
@@ -69,6 +88,12 @@ public class SpeechBox {
     }
 
     public void hide()
+    {
+
+    }
+
+    @Override
+    public void dispose()
     {
 
     }
