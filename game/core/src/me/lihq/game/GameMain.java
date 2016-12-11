@@ -11,12 +11,15 @@ import me.lihq.game.living.NPC.WRITING_HAND;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
+<<<<<<< HEAD
 import me.lihq.game.models.SpeechBox;
+=======
+import me.lihq.game.screen.AbstractScreen;
+>>>>>>> development
 import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.SpeechViewScreen;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -44,13 +47,13 @@ public class GameMain extends Game
     FPSLogger FPS;
 
     /**
-     * A screen to be used
+     * A screen to be used to display standard gameplay within the game , including the status bar.
      */
     private NavigationScreen screen1;
     private SpeechViewScreen screen2;
 
     /**
-     * A player object
+     * A player object for the player of the game
      */
     public Player player;
 
@@ -79,8 +82,9 @@ public class GameMain extends Game
         this.setScreen(screen2);
         //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
-    }
 
+        gameLoop();
+    }
 
     /**
      * This defines what's rendered on the screen for each frame.
@@ -110,6 +114,44 @@ public class GameMain extends Game
         player.setRoom(gameMap.getRoom(to.newRoom));
 
         screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
+    }
+
+    /**
+     * Overrides the getScreen method to return our AbstractScreen type.
+     * This means that we can access the additional methods like update.
+     * @return The current screen of the game.
+     */
+    @Override
+    public AbstractScreen getScreen() {
+        return (AbstractScreen) super.getScreen();
+    }
+
+    public int ticks = 0;
+    public int lastSecond = -1;
+
+    public void gameLoop()
+    {
+        Timer gameTimer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run()
+            {
+                ticks ++;
+
+                Calendar cal = Calendar.getInstance();
+
+                if (cal.get(Calendar.SECOND) != lastSecond)
+                {
+                    lastSecond = cal.get(Calendar.SECOND);
+                    System.out.println("TPSLogger: tps:      " + ticks);
+                    ticks = 0;
+                }
+
+                me.getScreen().update();
+            }
+        };
+
+        gameTimer.schedule(task, 0, 1000 / Settings.TPS);
     }
 
     /**

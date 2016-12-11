@@ -26,7 +26,7 @@ public class NavigationScreen extends AbstractScreen {
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private OrthographicCamera camera = new OrthographicCamera();
     private Viewport viewport;
-    private PlayerController playerController;
+    public PlayerController playerController;
     private SpriteBatch spriteBatch;
 
     //TODO: add more information about this class
@@ -61,11 +61,24 @@ public class NavigationScreen extends AbstractScreen {
         Gdx.input.setInputProcessor(playerController);
     }
 
-    /** Called when the screen should render itself.
+    @Override
+    public void update() {
+
+        playerController.update();
+        game.player.update();
+
+    }
+
+
+    /**
+     * Called when the screen should render itself.
 	 * @param delta The time in seconds since the last render.
      */
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
+        game.player.pushCoordinatesToSprite();
+
         camera.position.x = game.player.getX();
         camera.position.y = game.player.getY();
         camera.update();
