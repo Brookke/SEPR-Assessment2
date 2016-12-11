@@ -2,61 +2,146 @@ package me.lihq.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+//import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+//import com.badlogic.gdx.utils.viewport.Viewport;
+//import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
+import me.lihq.game.living.AbstractPerson;
+import me.lihq.game.living.Player;
 import me.lihq.game.screen.SpeechViewScreen;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import java.util.function.ToIntFunction;
 
 /**
  * Created by Ben on 11/12/2016.
  */
 public class SpeechBoxScreen extends AbstractScreen
 {
-
+    /*
     private Viewport viewport;
     private OrthographicCamera camera = new OrthographicCamera();
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
+    */
+    private ShapeRenderer renderer = new ShapeRenderer();
+    public Stage stage;
+    private Group group;
+    private Skin buttonSkin;
+    private TextField.TextFieldStyle fontStyle;
+    private String personTalking = "TESTPERSON";//the person talking
+    private String voiceTalking = "TESTVOICE";//what the person says
+
+    private int padding = 5;//the padding to put around the textbox
+    private int textBoxHeight = 100;//the height of the text box
 
     public SpeechBoxScreen(GameMain game)
     {
         super(game);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        camera.setToOrtho(false,w,h);
-        camera.update();
-        viewport = new FitViewport(w, h, camera);
 
-        spriteBatch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
+
+        stage = new Stage();
+        initSkins();
+        group = new Group();
+        group.setOrigin(-w/2+padding,-h/2+padding);
+        group.setWidth(w-2*padding);
+        group.setHeight(textBoxHeight);
+        int textBoxWidth = Math.round(w-2*padding); //
+        group.setColor(Color.WHITE);
+
+        renderer.begin(ShapeRenderer.ShapeType.Filled); //cant get this to work - want to draw a rectangle
+        renderer.setColor(Color.RED);
+        renderer.rect(0-padding, 0+padding, textBoxWidth, textBoxHeight);
+        renderer.end();
+
+
+        boolean playerQuestion = false; //decide how to implement this properly
+        if (playerQuestion == true)
+        {
+            TextButton questionButton = new TextButton("Question", buttonSkin);
+            group.addActor(questionButton);
+            TextButton accuseButton = new TextButton("Accuse", buttonSkin);
+            group.addActor(accuseButton);
+            //TextButton ignoreButton = new TextButton("Ignore",buttonSkin); //for the next group to just un-comment - you get the gist from above
+            questionButton.setPosition(0, textBoxHeight / 2);
+            accuseButton.setPosition(0, 0); //use "textBoxWidth/2" to get the button on the right half
+            stage.addActor(group);
+        }
+        else
+        {
+            TextField.TextFieldStyle fontStyle = new TextField.TextFieldStyle();
+            BitmapFont font = new BitmapFont();
+            fontStyle.font = font;
+            fontStyle.fontColor = Color.BLUE;
+            TextField person = new TextField(personTalking, fontStyle);
+            group.addActor(person);
+            TextArea voice = new TextArea(voiceTalking,fontStyle); //what the person says
+            group.addActor(voice);
+            person.setPosition(0,textBoxHeight-10);
+            voice.setPosition(person.getWidth(),0);
+            stage.addActor(group);
+        }
+    }
+
+    private void initSkins()
+    {
+        initButtonSkin();
+    }
+/*
+    private void makeTextBox()
+    {
+        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/2-padding*2, textBoxHeight/2, Pixmap.Format.RGB888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        textBox = new Texture(pixmap);
+    }
+*/
+    private void initButtonSkin()
+    {
+        //Create a font
+        BitmapFont font = new BitmapFont();
+        font.setColor(Color.BLUE);
+        buttonSkin = new Skin();
+        buttonSkin.add("default", font);
+
+        //Create a texture
+        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/2-padding*2, textBoxHeight/2, Pixmap.Format.RGB888); //may need to edit
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        buttonSkin.add("background",new Texture(pixmap));
+
+        //Create a button style
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = buttonSkin.newDrawable("background", Color.GREEN);
+        textButtonStyle.down = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.checked = buttonSkin.newDrawable("background", Color.LIGHT_GRAY);
+        textButtonStyle.over = buttonSkin.newDrawable("background", Color.DARK_GRAY);
+        textButtonStyle.font = buttonSkin.getFont("default");
+        textButtonStyle.font.setColor(Color.BLUE);//why doesn't this work?
+        buttonSkin.add("default", textButtonStyle);
+
     }
 
     public void render(float delta)
     {
-        int padding = 5;//the padding to put around the textbox
-        int textBoxHeight = 100;//the height of the text box
+        stage.act();
+        stage.draw();
+    }
 
-        spriteBatch.setProjectionMatrix(camera.combined);
-        spriteBatch.begin();
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.CYAN);
-        font.draw(spriteBatch, "Hello World!",  5, (-viewport.getWorldHeight()/4+20)); //work out how to place things properly //use worldheight/width
-        spriteBatch.end();
-        //draw textbox background
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1, 1, 1, 1);
-        shapeRenderer.rect(padding, 5, viewport.getWorldWidth()-2*padding,textBoxHeight);
-        shapeRenderer.end();
-        //draw textbox outline
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(1, 0, 1, 1);
-        shapeRenderer.rect(padding, 5, viewport.getWorldWidth()-2*padding,textBoxHeight);
-        shapeRenderer.end();
+    public void setPersonVoice(String person,String voice) //use to set who is talking and what they are saying
+    {
+        personTalking = person+" :";
+        voiceTalking = voice; //might need to check length for so it doesnt go out of the text box
     }
 
     @Override
@@ -77,11 +162,6 @@ public class SpeechBoxScreen extends AbstractScreen
 
     }
 
-    private void draw_box()
-    {
-
-    }
-
     public void show()
     {
 
@@ -95,12 +175,7 @@ public class SpeechBoxScreen extends AbstractScreen
     @Override
     public void dispose()
     {
-
-    }
-
-    public void write()
-    {
-
+        stage.dispose();
     }
 
     @Override
@@ -108,26 +183,4 @@ public class SpeechBoxScreen extends AbstractScreen
     {
 
     }
-/***
-    public String menu(String optionOne,String optionTwo,String optionThree, String optionFour)
-    {
-        if (optionOne.length() > 0)
-        {
-            //add one to write
-            if (optionTwo.length() > 0)
-            {
-                //add two to write
-                if (optionThree.length() > 0)
-                {
-                    //..
-                    if (optionFour.length() > 0)
-                    {
-                        //..
-                    }
-                }
-            }
-        }
-        return(selection);
-    }
- */
 }
