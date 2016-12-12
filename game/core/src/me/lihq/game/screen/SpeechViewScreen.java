@@ -37,15 +37,6 @@ public class SpeechViewScreen extends AbstractScreen {
         spriteBatch = new SpriteBatch();
     }
 
-    @Override
-    public void show()
-    {
-        //NPC npc = new NPC(); //this cant be set here...
-        Gdx.input.setInputProcessor(null); //??
-        speechBox = new SpeechBoxScreen(game);
-        setNPC(npc);//to set the NPC
-    }
-
 
     @Override
     public void render(float delta){
@@ -67,6 +58,15 @@ public class SpeechViewScreen extends AbstractScreen {
     private void setNPC(NPC npc)
     {
         currentNPC = npc;
+    }
+
+    @Override
+    public void show()
+    {
+        //NPC npc = new NPC(); //this cant be set here...
+        Gdx.input.setInputProcessor(null); //??
+        speechBox = new SpeechBoxScreen(game);
+        setNPC(npc);//to set the NPC
     }
 
     @Override
@@ -95,6 +95,7 @@ public class SpeechViewScreen extends AbstractScreen {
         //just 'dispose' everything
         spriteBatch.dispose();
     }
+
     @Override
     public void update()
     {
