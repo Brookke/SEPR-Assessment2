@@ -19,19 +19,13 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.util.function.ToIntFunction;
 
 /**
  * Created by Ben on 11/12/2016.
  */
 public class SpeechBoxScreen extends AbstractScreen
 {
-    /*
-    private Viewport viewport;
-    private OrthographicCamera camera = new OrthographicCamera();
-    private SpriteBatch spriteBatch;
-    private ShapeRenderer shapeRenderer;
-    */
+
     private ShapeRenderer renderer = new ShapeRenderer();
     public Stage stage;
     private Group group;
@@ -97,15 +91,7 @@ public class SpeechBoxScreen extends AbstractScreen
     {
         initButtonSkin();
     }
-/*
-    private void makeTextBox()
-    {
-        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/2-padding*2, textBoxHeight/2, Pixmap.Format.RGB888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        textBox = new Texture(pixmap);
-    }
-*/
+
     private void initButtonSkin()
     {
         //Create a font
@@ -162,14 +148,16 @@ public class SpeechBoxScreen extends AbstractScreen
 
     }
 
+    @Override
     public void show()
     {
 
     }
 
+    @Override
     public void hide()
     {
-
+        stage.dispose();
     }
 
     @Override

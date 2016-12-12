@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
+import me.lihq.game.living.NPC;
 
 
 /**
@@ -14,10 +15,10 @@ import me.lihq.game.Settings;
  */
 public class SpeechViewScreen extends AbstractScreen {
 
+    private NPC currentNPC;
     private Viewport viewport;
     //add a new controller - maybe best to put this in the menu?
     private OrthographicCamera camera = new OrthographicCamera();
-    private String PersonTalking = "";
     private SpriteBatch spriteBatch;
     private SpeechBoxScreen speechBox;
 
@@ -36,16 +37,13 @@ public class SpeechViewScreen extends AbstractScreen {
         spriteBatch = new SpriteBatch();
     }
 
-    public void setPersonTalking(String NPCTalking) //must call this func so that the name and picture are correct.
-    {
-        PersonTalking = NPCTalking;
-    }
-
     @Override
     public void show()
     {
+        //NPC npc = new NPC(); //this cant be set here...
         Gdx.input.setInputProcessor(null); //??
         speechBox = new SpeechBoxScreen(game);
+        setNPC(npc);//to set the NPC
     }
 
 
@@ -66,6 +64,11 @@ public class SpeechViewScreen extends AbstractScreen {
         //place text box etc - needs a new class? - would like to discuss with someone at some point
     }
 
+    private void setNPC(NPC npc)
+    {
+        currentNPC = npc;
+    }
+
     @Override
     public void resize(int width, int height)
     {
@@ -73,7 +76,7 @@ public class SpeechViewScreen extends AbstractScreen {
     }
 
     @Override
-    public void pause() { //does the speech view need pause?
+    public void pause() { //does the speech view need pause? does this just suspend the controllers?
 
     }
 
@@ -84,7 +87,7 @@ public class SpeechViewScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override
