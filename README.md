@@ -1,6 +1,29 @@
 # Lorem Ipsum [![CircleCI](https://circleci.com/gh/Brookke/Lorem-Ipsum.svg?style=svg)](https://circleci.com/gh/Brookke/Lorem-Ipsum)
 Visit out website at http://www.lihq.me, or read the documentation at http://docs.lihq.me
 
+## Get started
+### What you need
+Before you can start working on the game you need to ensure you have Java installed and the latest JDK, you can get java here:
+
+https://java.com/en/download/
+
+and the JDK here:
+
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+You also need the Intellij IDE, you can get this from here:
+
+https://www.jetbrains.com/idea/#chooseYourEdition
+
+The free version is good enough although the paid version is obtainable for free for students.
+### Import the project
+Once both of these are installed you need to clone the GitHub repository on to your local documents. 
+Next open up IntelliJ and select import project then find where you have the project and select the build.gradle file in the game folder. Click ok and then uncheck 'Create separate module per source set' , click ok again and it will import the game , this may take some time. At some point IntelliJ will ask you to set up the JDK, when it does this simply navigate to where the JDK is on your computer, this will be wherever Java is . 
+### Edit the game
+You can now edit the game , we recommend making a new branch, then make changes on that branch. You can use GitHub desktop or equivalent to commit the changes to your branch and then use sync to upload those changes. When you are ready submit a pull request and have someone check it.
+### Run the game
+You can run by first building as described below and then simply clicking run.
+
 ## Building the project
 Import the contents of the `/game` directory using Gradle into IntelliJ IDEA or Eclipse
 https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA
