@@ -6,10 +6,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 
 /**
  * The status bar shown throughout the game
@@ -36,22 +34,24 @@ public class StatusBar {
         stage = new Stage();
         initSkins();
 
-        HorizontalGroup statusBar = new HorizontalGroup();
+        Table statusBar = new Table();
+        statusBar.setSize(Gdx.graphics.getWidth(), HEIGHT);
         statusBar.setPosition(0,0);
-        statusBar.setHeight(HEIGHT);
+        statusBar.row().height(HEIGHT);
+        statusBar.defaults().width(WIDTH);
 
         Label scoreLabel = new Label("Score: 0", labelSkin);
-        scoreLabel.setSize(WIDTH, HEIGHT);
-        statusBar.addActor(scoreLabel);
+        scoreLabel.setAlignment(Align.center, Align.center);
+        statusBar.add(scoreLabel).uniform();
 
         TextButton personalityMeter = new TextButton("Personality Meter", buttonSkin);
-        statusBar.addActor(personalityMeter);
+        statusBar.add(personalityMeter).uniform();
 
         TextButton inventoryButton = new TextButton("Inventory", buttonSkin);
-        statusBar.addActor(inventoryButton);
+        statusBar.add(inventoryButton).uniform();
 
         TextButton pauseButton = new TextButton("Pause", buttonSkin);
-        statusBar.addActor(pauseButton);
+        statusBar.add(pauseButton).uniform();
 
         stage.addActor(statusBar);
     }
