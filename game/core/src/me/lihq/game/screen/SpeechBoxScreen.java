@@ -2,18 +2,10 @@ package me.lihq.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-//import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-//import com.badlogic.gdx.utils.viewport.Viewport;
-//import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
-import me.lihq.game.Settings;
-import me.lihq.game.living.AbstractPerson;
-import me.lihq.game.living.Player;
-import me.lihq.game.screen.SpeechViewScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
