@@ -18,6 +18,7 @@ https://www.jetbrains.com/idea/#chooseYourEdition
 The free version is good enough although the paid version is obtainable for free for students.
 ### Import the project
 Once both of these are installed you need to:
+
 1. Clone the GitHub repository on to your local documents. 
 2. Open up IntelliJ and select import project, then find where you cloned the project to and select the build.gradle file in the game folder. Click ok.
 3. Next uncheck 'Create separate module per source set', click ok again.
