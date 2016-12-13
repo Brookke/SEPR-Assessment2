@@ -11,14 +11,14 @@ and the JDK here:
 
 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
-You also need the Intellij IDE, you can get this from here:
+You also need the Intellij IDEA IDE, you can get this from here:
 
 https://www.jetbrains.com/idea/#chooseYourEdition
 
 The free version is good enough although the paid version is obtainable for free for students.
 ### Import the project
 Once both of these are installed you need to clone the GitHub repository on to your local documents. 
-Next open up IntelliJ and select import project then find where you have the project and select the build.gradle file in the game folder. Click ok and then uncheck 'Create separate module per source set' , click ok again and it will import the game , this may take some time. At some point IntelliJ will ask you to set up the JDK, when it does this simply navigate to where the JDK is on your computer, this will be wherever Java is . 
+Next open up IntelliJ and select import project then find where you have the project and select the build.gradle file in the game folder. Click ok and then uncheck 'Create separate module per source set', click ok again, IntelliJ will then ask you to set up the JDK, when it does this simply navigate to where the JDK is on your computer, this will be wherever Java is.  If it is RED, close the current window, and on the import window select options.  It will then import the game, this may take some time. 
 ### Edit the game
 You can now edit the game , we recommend making a new branch, then make changes on that branch. You can use GitHub desktop or equivalent to commit the changes to your branch and then use sync to upload those changes. When you are ready submit a pull request and have someone check it.
 ### Run the game
