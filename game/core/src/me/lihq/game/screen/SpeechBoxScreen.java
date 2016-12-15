@@ -25,7 +25,7 @@ public class SpeechBoxScreen extends AbstractScreen
     private Skin buttonSkin;
     private TextField.TextFieldStyle fontStyle;
     private String personTalking = "TESTPERSON";//the person talking
-    private String voiceTalking = "TESTVOICE";//what the person says
+    private String voiceTalking = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";//what the person says
     private Table speechBoxTable;
 
     private int padding = 5;//the padding to put around the textbox
@@ -40,10 +40,10 @@ public class SpeechBoxScreen extends AbstractScreen
 
         stage = new Stage();
         initSkins();
-        group = new Group();
-        group.setOrigin(-w/2+padding,-h/2+padding);
-        group.setWidth(w-2*padding);
-        group.setHeight(textBoxHeight);
+        //group = new Group();
+        //group.setOrigin(-w/2+padding,-h/2+padding);
+        //group.setWidth(w-2*padding);
+        //group.setHeight(textBoxHeight);
         int textBoxWidth = Math.round(w-2*padding);
         Pixmap speechBoxBackground = new Pixmap(100,100, Pixmap.Format.RGB888);
         speechBoxBackground.setColor(Color.WHITE);
@@ -77,6 +77,8 @@ public class SpeechBoxScreen extends AbstractScreen
             speechBoxTable.addActor(voice);
             person.setPosition(0,textBoxHeight-10);
             voice.setPosition(person.getWidth(),0);
+            voice.setWidth(textBoxWidth-person.getWidth());
+            voice.setHeight(textBoxHeight);
             stage.addActor(speechBoxTable);
         }
     }
