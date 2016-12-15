@@ -122,6 +122,7 @@ public class NavigationScreen extends AbstractScreen
     
         if (roomTransition) {
 
+
             if (fadeToBlack) {
 
                 BLACK_BACKGROUND.setAlpha(Interpolation.fade.apply(0, 1, animTimer / ANIM_TIME));
