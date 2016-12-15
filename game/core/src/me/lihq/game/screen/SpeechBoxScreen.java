@@ -26,7 +26,7 @@ public class SpeechBoxScreen extends AbstractScreen
     private TextField.TextFieldStyle fontStyle;
     private String personTalking = "TESTPERSON";//the person talking
     private String voiceTalking = "TESTVOICE";//what the person says
-    private ShapeRenderer rectRenderer;
+    private Table speechBoxTable;
 
     private int padding = 5;//the padding to put around the textbox
     private int textBoxHeight = 100;//the height of the text box
@@ -45,23 +45,25 @@ public class SpeechBoxScreen extends AbstractScreen
         group.setWidth(w-2*padding);
         group.setHeight(textBoxHeight);
         int textBoxWidth = Math.round(w-2*padding);
-        ShapeRenderer recRenderer = new ShapeRenderer();
-        recRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        recRenderer.setColor(Color.WHITE);
-        recRenderer.rect(padding,padding,textBoxWidth,textBoxHeight);
-        recRenderer.end();
+        Pixmap speechBoxBackground = new Pixmap(100,100, Pixmap.Format.RGB888);
+        speechBoxBackground.setColor(Color.WHITE);
+        Table speechBoxTable = new Table();
+        speechBoxTable.setColor(Color.WHITE);
+        speechBoxTable.setPosition(padding,padding);
+        speechBoxTable.setHeight(textBoxHeight);
+        speechBoxTable.setWidth(textBoxWidth);
 
         boolean playerQuestion = false; //decide how to implement this properly
         if (playerQuestion == true)
         {
             TextButton questionButton = new TextButton("Question", buttonSkin);
-            group.addActor(questionButton);
+            speechBoxTable.addActor(questionButton);
             TextButton accuseButton = new TextButton("Accuse", buttonSkin);
-            group.addActor(accuseButton);
+            speechBoxTable.addActor(accuseButton);
             //TextButton ignoreButton = new TextButton("Ignore",buttonSkin); //for the next group to just un-comment - you get the gist from above
             questionButton.setPosition(0, textBoxHeight / 2);
             accuseButton.setPosition(0, 0); //use "textBoxWidth/2" to get the button on the right half
-            stage.addActor(group);
+            stage.addActor(speechBoxTable);
         }
         else
         {
@@ -70,12 +72,12 @@ public class SpeechBoxScreen extends AbstractScreen
             fontStyle.font = font;
             fontStyle.fontColor = Color.BLUE;
             TextField person = new TextField(personTalking, fontStyle);
-            group.addActor(person);
+            speechBoxTable.addActor(person);
             TextArea voice = new TextArea(voiceTalking,fontStyle); //what the person says
-            group.addActor(voice);
+            speechBoxTable.addActor(voice);
             person.setPosition(0,textBoxHeight-10);
             voice.setPosition(person.getWidth(),0);
-            stage.addActor(group);
+            stage.addActor(speechBoxTable);
         }
     }
 
