@@ -1,6 +1,5 @@
 package me.lihq.game.living;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -126,7 +125,7 @@ public abstract class AbstractPerson extends Sprite
             }
         } else {
             if (getRoom().isTriggerTile(tileCoordinates.x, tileCoordinates.y) && !justWalkedIn) {
-                GameMain.me.getNavigationScreen().changedRoom();
+                GameMain.me.getNavigationScreen().initialiseRoomChange();
             }
         }
 

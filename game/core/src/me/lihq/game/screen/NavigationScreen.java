@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -63,7 +63,7 @@ public class NavigationScreen extends AbstractScreen
     /**
      * The current animation frame of the fading in/out
      */
-    private float animTime = 0.0f;
+    private float animTimer = 0.0f;
 
     public NavigationScreen(GameMain game)
     {
@@ -122,26 +122,43 @@ public class NavigationScreen extends AbstractScreen
     private void updateTransition()
     {
         if (roomTransition) {
-            if (animTime == ANIM_TIME) {
-                game.gameMap.moveRoom(game.player.getRoom().getID(), game.player.getTileCoordinates().x, game.player.getTileCoordinates().y);
-                fadeToBlack = false;
-                animTime--;
-            } else if (fadeToBlack) {
-                animTime++;
-            } else {
-                animTime--;
-            }
 
-            if (animTime <= 0) {
-                animTime = 0;
-                roomTransition = false;
+            if (fadeToBlack) {
+
+                BLACK_BACKGROUND.setAlpha(Interpolation.fade.apply(0, 1, animTimer / ANIM_TIME));
+                this.animTimer++;
+
+                if (animTimer > ANIM_TIME) {
+                    this.animTimer = 0;
+                    this.fadeToBlack = false;
+                    game.gameMap.moveRoom(game.player.getRoom().getID(), game.player.getTileCoordinates().x, game.player.getTileCoordinates().y);
+                }
+
+            } else {
+
+                BLACK_BACKGROUND.setAlpha(Interpolation.fade.apply(1, 0, animTimer / ANIM_TIME));
+                this.animTimer++;
+
+                if (animTimer > ANIM_TIME) {
+
+                    finishRoomChange();
+
+                }
             }
         }
     }
 
-    public void changedRoom()
+    public void initialiseRoomChange()
     {
-        roomTransition = true;
+        BLACK_BACKGROUND.setAlpha(0);
+        this.roomTransition = true;
+
+    }
+
+    public void finishRoomChange()
+    {
+        this.roomTransition = false;
+        this.animTimer = 0;
     }
 
 
@@ -165,13 +182,6 @@ public class NavigationScreen extends AbstractScreen
 
 
         if (roomTransition) {
-            float alpha = (animTime / (ANIM_TIME * 0.8f));
-
-            if (alpha > 1.0f) {
-                alpha = 1.0f;
-            }
-
-            BLACK_BACKGROUND.setColor(BLACK_BACKGROUND.getColor().r, BLACK_BACKGROUND.getColor().g, BLACK_BACKGROUND.getColor().b, alpha);
 
             spriteBatch.begin();
 
