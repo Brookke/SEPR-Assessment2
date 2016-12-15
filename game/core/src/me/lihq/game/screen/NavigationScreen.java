@@ -119,31 +119,30 @@ public class NavigationScreen extends AbstractScreen
 
     private void updateTransition()
     {
-        if (roomTransition)
-        {
-            BLACK_BACKGROUND.setAlpha(Interpolation.fade.apply(0, 1, animTimer / ANIM_TIME));
+    
+        if (roomTransition) {
 
-            if (fadeToBlack)
-            {
-                animTimer ++;
 
-                if (animTimer == ANIM_TIME)
-                {
+            if (fadeToBlack) {
+
+                BLACK_BACKGROUND.setAlpha(Interpolation.fade.apply(0, 1, animTimer / ANIM_TIME));
+                this.animTimer++;
+
+                if (animTimer > ANIM_TIME) {
+                    this.animTimer = 0;
+                    this.fadeToBlack = false;
                     game.gameMap.moveRoom(game.player.getRoom().getID(), game.player.getTileCoordinates().x, game.player.getTileCoordinates().y);
                 }
 
-                if (animTimer > (ANIM_TIME * 1.2)) //This is so it stays solid black for longer
-                {
-                    fadeToBlack = false;
-                }
-            }
-            else
-            {
-                animTimer --;
+            } else {
 
-                if (animTimer < 0)
-                {
-                    finishRoomTransition();
+                BLACK_BACKGROUND.setAlpha(Interpolation.fade.apply(1, 0, animTimer / ANIM_TIME));
+                this.animTimer++;
+
+                if (animTimer > ANIM_TIME) {
+
+                    finishRoomChange();
+
                 }
             }
         }
@@ -151,7 +150,15 @@ public class NavigationScreen extends AbstractScreen
 
     public void initialiseRoomChange()
     {
-        roomTransition = true;
+        BLACK_BACKGROUND.setAlpha(0);
+        this.roomTransition = true;
+
+    }
+
+    public void finishRoomChange()
+    {
+        this.roomTransition = false;
+        this.animTimer = 0;
     }
 
     public void finishRoomTransition()
@@ -179,9 +186,8 @@ public class NavigationScreen extends AbstractScreen
 
         tiledMapRenderer.render();
 
+        if (roomTransition) {
 
-        if (roomTransition)
-        {
             spriteBatch.begin();
 
             BLACK_BACKGROUND.draw(spriteBatch);
