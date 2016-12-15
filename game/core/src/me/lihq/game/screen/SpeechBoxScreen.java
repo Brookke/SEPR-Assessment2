@@ -3,6 +3,7 @@ package me.lihq.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import me.lihq.game.GameMain;
@@ -25,6 +26,7 @@ public class SpeechBoxScreen extends AbstractScreen
     private TextField.TextFieldStyle fontStyle;
     private String personTalking = "TESTPERSON";//the person talking
     private String voiceTalking = "TESTVOICE";//what the person says
+    private ShapeRenderer rectRenderer;
 
     private int padding = 5;//the padding to put around the textbox
     private int textBoxHeight = 100;//the height of the text box
@@ -42,14 +44,12 @@ public class SpeechBoxScreen extends AbstractScreen
         group.setOrigin(-w/2+padding,-h/2+padding);
         group.setWidth(w-2*padding);
         group.setHeight(textBoxHeight);
-        int textBoxWidth = Math.round(w-2*padding); //
-        group.setColor(Color.WHITE);
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled); //cant get this to work - want to draw a rectangle
-        renderer.setColor(Color.RED);
-        renderer.rect(0-padding, 0+padding, textBoxWidth, textBoxHeight);
-        renderer.end();
-
+        int textBoxWidth = Math.round(w-2*padding);
+        ShapeRenderer recRenderer = new ShapeRenderer();
+        recRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        recRenderer.setColor(Color.WHITE);
+        recRenderer.rect(padding,padding,textBoxWidth,textBoxHeight);
+        recRenderer.end();
 
         boolean playerQuestion = false; //decide how to implement this properly
         if (playerQuestion == true)
