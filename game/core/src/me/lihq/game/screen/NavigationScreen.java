@@ -90,7 +90,6 @@ public class NavigationScreen extends AbstractScreen
 
         spriteBatch = new SpriteBatch();
 
-
         tiledMapRenderer.addSprite(game.player);
 
         statusBar = new StatusBar();
@@ -112,7 +111,6 @@ public class NavigationScreen extends AbstractScreen
     @Override
     public void update()
     {
-
         playerController.update();
         game.player.update();
 
@@ -121,6 +119,7 @@ public class NavigationScreen extends AbstractScreen
 
     private void updateTransition()
     {
+    
         if (roomTransition) {
 
             if (fadeToBlack) {
@@ -161,7 +160,13 @@ public class NavigationScreen extends AbstractScreen
         this.animTimer = 0;
     }
 
+    public void finishRoomTransition()
+    {
+        animTimer = 0;
+        roomTransition = false;
 
+        //TODO : RENDER THE MAP NAME TAG
+    }
     /**
      * Called when the screen should render itself.
      *
@@ -180,7 +185,6 @@ public class NavigationScreen extends AbstractScreen
 
         tiledMapRenderer.render();
 
-
         if (roomTransition) {
 
             spriteBatch.begin();
@@ -191,7 +195,6 @@ public class NavigationScreen extends AbstractScreen
         }
 
         statusBar.render();
-
     }
 
     @Override
