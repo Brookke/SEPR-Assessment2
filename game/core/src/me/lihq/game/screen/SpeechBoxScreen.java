@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -27,6 +30,7 @@ public class SpeechBoxScreen extends AbstractScreen
     private String personTalking = "TESTPERSON";//the person talking
     private String voiceTalking = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";//what the person says
     private Table speechBoxTable;
+    private TextureRegionDrawable background;
 
     private int padding = 5;//the padding to put around the textbox
     private int textBoxHeight = 100;//the height of the text box
@@ -52,6 +56,10 @@ public class SpeechBoxScreen extends AbstractScreen
         speechBoxTable.setPosition(padding,padding);
         speechBoxTable.setHeight(textBoxHeight);
         speechBoxTable.setWidth(textBoxWidth);
+        background = new TextureRegionDrawable();
+        background.tint(Color.WHITE);
+        background.setRegion(new TextureRegion(Color.WHITE,0,0,textBoxWidth,textBoxHeight));
+        speechBoxTable.setBackground(background);
 
         boolean playerQuestion = false; //decide how to implement this properly
         if (playerQuestion == true)
