@@ -3,6 +3,7 @@ package me.lihq.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -32,6 +33,7 @@ public class SpeechBoxScreen extends AbstractScreen
     private Pixmap texture;
 
     private int padding = 5;//the padding to put around the textbox
+    private int lowerBarHeight = 100+padding;//height of the bar thing at the bottom + padding
     private int textBoxHeight = 100;//the height of the text box
 
     public SpeechBoxScreen(GameMain game)
@@ -43,16 +45,16 @@ public class SpeechBoxScreen extends AbstractScreen
 
         stage = new Stage();
         initSkins();
-        //group = new Group();
-        //group.setOrigin(-w/2+padding,-h/2+padding);
-        //group.setWidth(w-2*padding);
-        //group.setHeight(textBoxHeight);
+        group = new Group();
+        group.setOrigin(-w/2+padding,-h/2+padding);
+        group.setWidth(w-2*padding);
+        group.setHeight(textBoxHeight);
         int textBoxWidth = Math.round(w-2*padding);
         Pixmap speechBoxBackground = new Pixmap(100,100, Pixmap.Format.RGB888);
         speechBoxBackground.setColor(Color.WHITE);
         Table speechBoxTable = new Table();
         speechBoxTable.setColor(Color.WHITE);
-        speechBoxTable.setPosition(padding,padding);
+        speechBoxTable.setPosition(padding,lowerBarHeight);
         speechBoxTable.setHeight(textBoxHeight);
         speechBoxTable.setWidth(textBoxWidth);
         //texture = new Pixmap(textBoxWidth,textBoxHeight, Pixmap.Format.RGB888);
@@ -61,7 +63,11 @@ public class SpeechBoxScreen extends AbstractScreen
         //background.setRegion(new TextureRegion(texture,0,0,textBoxWidth,textBoxHeight)); //grrrrr
         //speechBoxTable.setBackground(background);
         Skin skin = new Skin();
-        TextureAtlas uiElements1 = new TextureAtlas("skins/uielements1.txt");
+        String texAtlas = "";
+        Texture myTexture = new Texture(speechBoxBackground);
+        TextureRegion speechBoxBackgrund = new TextureRegion(myTexture,padding,padding,textBoxWidth,textBoxHeight);
+        TextureAtlas uiElements1 = new TextureAtlas();
+        uiElements1.addRegion(texAtlas,speechBoxBackgrund);
         skin.addRegions(uiElements1);
         speechBoxTable.setSkin(skin);
         speechBoxTable.setZIndex(0); //trying to persuade this to draw first
