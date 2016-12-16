@@ -49,7 +49,7 @@ public class SpeechViewScreen extends AbstractScreen {
 
         game.player.draw(spriteBatch); //move Player to the left and draw NPC
         //game.     how do i say 'draw THIS NPC?' how are the NPCs stored?
-       spriteBatch.end();
+        spriteBatch.end();
 
         speechBox.render(delta); //er? help...
         //place text box etc - needs a new class? - would like to discuss with someone at some point

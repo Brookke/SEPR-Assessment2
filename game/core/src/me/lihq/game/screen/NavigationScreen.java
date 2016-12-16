@@ -28,6 +28,7 @@ public class NavigationScreen extends AbstractScreen {
     private Viewport viewport;
     public PlayerController playerController;
     private SpriteBatch spriteBatch;
+    private SpeechBoxScreen speechBox;
 
     //TODO: add more information about this class
     /**
@@ -51,14 +52,19 @@ public class NavigationScreen extends AbstractScreen {
 
         spriteBatch = new SpriteBatch();
 
+
+
     }
 
     /**
      * This is ran when the navigation screen becomes the visible screen in GameMain
      */
     @Override
-    public void show() {
+    public void show()
+    {
         Gdx.input.setInputProcessor(playerController);
+        speechBox = new SpeechBoxScreen(game);
+        speechBox.setPersonVoice("Player1","TESTING,TESTING,123");
     }
 
     @Override
@@ -91,6 +97,7 @@ public class NavigationScreen extends AbstractScreen {
         spriteBatch.begin();
         game.player.draw(spriteBatch);
         spriteBatch.end();
+        speechBox.render(delta);
     }
 
     @Override
