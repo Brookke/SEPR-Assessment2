@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -29,13 +30,13 @@ public class SpeechBoxScreen extends AbstractScreen
     private Group group;
     private Skin buttonSkin;
     private TextField.TextFieldStyle fontStyle;
+
     private String personTalking = "TESTPERSON";//the person talking
     private String voiceTalking = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";//what the person says
-    private Table speechBoxTable;
-    //private TextureRegionDrawable background;
-    //private Pixmap texture;
-    private ShapeRenderer shapeRenderer;
+    private Boolean playerQuestion;
 
+    private Table speechBoxTable;
+    private ShapeRenderer shapeRenderer;
     private int padding = 15;//the padding to put around the textbox
     private int innerPadding = 10;//padding inside the text box
     private int lowerBarHeight = 100+padding;//height of the bar thing at the bottom + padding
@@ -58,7 +59,7 @@ public class SpeechBoxScreen extends AbstractScreen
         speechBoxTable.setHeight(textBoxHeight);
         speechBoxTable.setWidth(textBoxWidth);
 
-        Pixmap backgroundMap = new Pixmap(textBoxWidth,textBoxHeight+innerPadding, Pixmap.Format.RGB888);
+        Pixmap backgroundMap = new Pixmap(textBoxWidth,textBoxHeight+innerPadding, Pixmap.Format.RGB888); //try to use this to affect the back of the text box?
         backgroundMap.setColor(Color.CLEAR);
         Texture backgroundTexture = new Texture(backgroundMap);
         Sprite backgroundSprite = new Sprite(backgroundTexture);
@@ -66,7 +67,7 @@ public class SpeechBoxScreen extends AbstractScreen
         textBoxBackground.setSprite(backgroundSprite);
         speechBoxTable.setBackground(textBoxBackground);
 
-        boolean playerQuestion = false; //decide how to implement this properly
+        playerQuestion = false; //decide how to implement this properly
         if (playerQuestion == true)
         {
             TextButton questionButton = new TextButton("Question", buttonSkin);
@@ -74,8 +75,8 @@ public class SpeechBoxScreen extends AbstractScreen
             TextButton accuseButton = new TextButton("Accuse", buttonSkin);
             speechBoxTable.addActor(accuseButton);
             //TextButton ignoreButton = new TextButton("Ignore",buttonSkin); //for the next group to just un-comment - you get the gist from above
-            questionButton.setPosition(innerPadding, textBoxHeight / 2 +innerPadding);
-            accuseButton.setPosition(innerPadding, 0); //use "textBoxWidth/2" to get the button on the right half
+            questionButton.setPosition(innerPadding, textBoxHeight /2+innerPadding);
+            accuseButton.setPosition(innerPadding, innerPadding); //use "textBoxWidth/2" to get the button on the right half
             stage.addActor(speechBoxTable);
         }
         else
@@ -92,8 +93,6 @@ public class SpeechBoxScreen extends AbstractScreen
             voice.setPosition(person.getWidth()+innerPadding,0);
             voice.setWidth(textBoxWidth-person.getWidth()-innerPadding*2);
             voice.setHeight(textBoxHeight);
-            voice.setZIndex(1);
-            person.setZIndex(1);
             stage.addActor(speechBoxTable);
         }
         speechBoxTable.pack();
@@ -113,15 +112,15 @@ public class SpeechBoxScreen extends AbstractScreen
         buttonSkin.add("default", font);
 
         //Create a texture
-        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/2-padding*2, textBoxHeight/2, Pixmap.Format.RGB888); //may need to edit
+        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth()/2-padding*2, textBoxHeight/2-innerPadding, Pixmap.Format.RGB888); //may need to edit
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
         buttonSkin.add("background",new Texture(pixmap));
 
         //Create a button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = buttonSkin.newDrawable("background", Color.GREEN);
-        textButtonStyle.down = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.up = buttonSkin.newDrawable("background", Color.GRAY);
+        textButtonStyle.down = buttonSkin.newDrawable("background", Color.DARK_GRAY);
         textButtonStyle.checked = buttonSkin.newDrawable("background", Color.LIGHT_GRAY);
         textButtonStyle.over = buttonSkin.newDrawable("background", Color.DARK_GRAY);
         textButtonStyle.font = buttonSkin.getFont("default");
@@ -142,16 +141,25 @@ public class SpeechBoxScreen extends AbstractScreen
         stage.draw();
     }
 
-    public void setPersonVoice(String person,String voice) //use to set who is talking and what they are saying
+    public void setPersonVoice(String person,String voice,Boolean askQuestion) //use to set who is talking and what they are saying
     {
-        personTalking = person+" :";
-        voiceTalking = voice; //might need to check length for so it doesnt go out of the text box
+        if (askQuestion = false){
+            personTalking = person+" :";
+            voiceTalking = voice; //might need to check length for so it doesnt go out of the text box
+        }
+        else
+        {
+            playerQuestion = true; //to set playerQuestion just use 'setPersonVoice("","",true);
+        }
+        update();
     }
 
     @Override
     public void resize(int width, int height)
     {
-        setPersonVoice("test",voiceTalking+"a");
+        //viewport.update(width, height); //find equivalent... er?
+        setPersonVoice("...","hello",false);
+        //shapeRenderer.setProjectionMatrix();
     }
 
     @Override

@@ -64,7 +64,7 @@ public class NavigationScreen extends AbstractScreen {
     {
         Gdx.input.setInputProcessor(playerController);
         speechBox = new SpeechBoxScreen(game);
-        speechBox.setPersonVoice("Player1","TESTING,TESTING,123");
+        speechBox.setPersonVoice("Player1","TESTING,TESTING,123",false);
     }
 
     @Override
@@ -72,7 +72,6 @@ public class NavigationScreen extends AbstractScreen {
 
         playerController.update();
         game.player.update();
-
     }
 
 
@@ -98,6 +97,7 @@ public class NavigationScreen extends AbstractScreen {
         game.player.draw(spriteBatch);
         spriteBatch.end();
         speechBox.render(delta);
+        speechBox.setPersonVoice("Player1","TESTING,TESTING,123",true);
     }
 
     @Override
