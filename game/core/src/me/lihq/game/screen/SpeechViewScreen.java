@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.living.NPC;
+import me.lihq.game.screen.elements.SpeechBox;
 
 
 /**
@@ -20,7 +21,7 @@ public class SpeechViewScreen extends AbstractScreen {
     //add a new controller - maybe best to put this in the menu?
     private OrthographicCamera camera = new OrthographicCamera();
     private SpriteBatch spriteBatch;
-    private SpeechBoxScreen speechBox;
+    private SpeechBox speechBox;
 
     public SpeechViewScreen(GameMain game)
     {
@@ -65,7 +66,7 @@ public class SpeechViewScreen extends AbstractScreen {
     {
         //NPC npc = new NPC(); //this cant be set here...
         Gdx.input.setInputProcessor(null); //??
-        speechBox = new SpeechBoxScreen(game);
+        speechBox = new SpeechBox(game);
         //setNPC(npc);//to set the NPC
     }
 

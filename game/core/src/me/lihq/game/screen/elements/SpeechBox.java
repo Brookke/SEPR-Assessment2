@@ -1,4 +1,4 @@
-package me.lihq.game.screen;
+package me.lihq.game.screen.elements;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,12 +17,13 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import me.lihq.game.screen.AbstractScreen;
 
 
 /**
  * Created by Ben on 11/12/2016.
  */
-public class SpeechBoxScreen extends AbstractScreen
+public class SpeechBox extends AbstractScreen
 {
 
     private ShapeRenderer renderer = new ShapeRenderer();
@@ -45,7 +46,7 @@ public class SpeechBoxScreen extends AbstractScreen
     private Color textBoxOutline = Color.GOLD;//textbox outline colour
     private Color textBoxTextColour = Color.LIGHT_GRAY;//text colour
 
-    public SpeechBoxScreen(GameMain game)
+    public SpeechBox(GameMain game)
     {
         super(game);
         float w = Gdx.graphics.getWidth();

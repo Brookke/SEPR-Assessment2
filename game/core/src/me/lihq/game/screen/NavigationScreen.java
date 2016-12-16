@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.Settings;
 import me.lihq.game.living.controller.PlayerController;
+import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.StatusBar;
 
 /**
@@ -27,7 +28,7 @@ public class NavigationScreen extends AbstractScreen {
     private Viewport viewport;
     public PlayerController playerController;
     private SpriteBatch spriteBatch;
-    private SpeechBoxScreen speechBox;
+    private SpeechBox speechBox;
 
     private StatusBar statusBar;
 
@@ -63,7 +64,7 @@ public class NavigationScreen extends AbstractScreen {
     @Override
     public void show()
     {
-        //speechBox = new SpeechBoxScreen(game);
+        //speechBox = new SpeechBox(game);
         //speechBox.setPersonVoice("Player1","TESTING,TESTING,123",false);
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerController);
