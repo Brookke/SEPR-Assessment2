@@ -23,7 +23,7 @@ import me.lihq.game.screen.AbstractScreen;
 /**
  * Created by Ben on 11/12/2016.
  */
-public class SpeechBox extends AbstractScreen
+public class SpeechBox
 {
 
     private ShapeRenderer renderer = new ShapeRenderer();
@@ -36,23 +36,23 @@ public class SpeechBox extends AbstractScreen
     private String voiceTalking = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";//what the person says
     private Boolean playerQuestion;
 
-    private Table speechBoxTable;
+    //private Table speechBoxTable; not currently used?
     private ShapeRenderer shapeRenderer;
     private int padding = 15;//the padding to put around the textbox
     private int innerPadding = 10;//padding inside the text box
     private int lowerBarHeight = 100+padding;//height of the bar thing at the bottom + padding
     private int textBoxHeight = 100;//the height of the text box
-    private int textBoxWidth = 1;//will be reassigned upon creation of textbox
+    private int textBoxWidth; //will be assigned upon creation of textbox
     private Color textBoxOutline = Color.GOLD;//textbox outline colour
     private Color textBoxTextColour = Color.LIGHT_GRAY;//text colour
 
-    public SpeechBox(GameMain game)
+    public SpeechBox()
     {
-        super(game);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
         stage = new Stage();
+
         initSkins();
         textBoxWidth = Math.round(w-4*padding-2*innerPadding);
         Table speechBoxTable = new Table();
@@ -155,45 +155,12 @@ public class SpeechBox extends AbstractScreen
         update();
     }
 
-    @Override
-    public void resize(int width, int height)
-    {
-        //viewport.update(width, height); //find equivalent... er?
-        setPersonVoice("...","hello",false);
-        //shapeRenderer.setProjectionMatrix();
-    }
 
-    @Override
-    public void pause()
-    {
-
-    }
-
-    @Override
-    public void resume()
-    {
-
-    }
-
-    @Override
-    public void show()
-    {
-        //help!!!
-    }
-
-    @Override
-    public void hide()
-    {
-        dispose();
-    }
-
-    @Override
     public void dispose()
     {
         stage.dispose();
     }
 
-    @Override
     public void update()
     {
 
