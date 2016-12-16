@@ -3,9 +3,12 @@ package me.lihq.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -50,27 +53,36 @@ public class SpeechBoxScreen extends AbstractScreen
         group.setWidth(w-2*padding);
         group.setHeight(textBoxHeight);
         int textBoxWidth = Math.round(w-2*padding);
-        Pixmap speechBoxBackground = new Pixmap(100,100, Pixmap.Format.RGB888);
-        speechBoxBackground.setColor(Color.WHITE);
         Table speechBoxTable = new Table();
-        speechBoxTable.setColor(Color.WHITE);
         speechBoxTable.setPosition(padding,lowerBarHeight);
         speechBoxTable.setHeight(textBoxHeight);
         speechBoxTable.setWidth(textBoxWidth);
+
+        Pixmap backgroundMap = new Pixmap(textBoxWidth,textBoxHeight, Pixmap.Format.RGB888);
+        backgroundMap.setColor(Color.WHITE);
+        Texture backgroundTexture = new Texture(backgroundMap);
+        Sprite backgroundSprite = new Sprite(backgroundTexture);
+        SpriteDrawable textBoxBackground = new SpriteDrawable();
+        textBoxBackground.setSprite(backgroundSprite);
+        speechBoxTable.setBackground(textBoxBackground);
+
+        //Pixmap speechBoxBackground = new Pixmap(textBoxWidth,textBoxHeight, Pixmap.Format.RGB888);
+        //speechBoxBackground.setColor(Color.RED);
+        //speechBoxTable.setColor(Color.RED);
         //texture = new Pixmap(textBoxWidth,textBoxHeight, Pixmap.Format.RGB888);
         //background = new TextureRegionDrawable();
         //background.tint(Color.WHITE);
         //background.setRegion(new TextureRegion(texture,0,0,textBoxWidth,textBoxHeight)); //grrrrr
         //speechBoxTable.setBackground(background);
-        Skin skin = new Skin();
-        String texAtlas = "";
-        Texture myTexture = new Texture(speechBoxBackground);
-        TextureRegion speechBoxBackgrund = new TextureRegion(myTexture,padding,padding,textBoxWidth,textBoxHeight);
-        TextureAtlas uiElements1 = new TextureAtlas();
-        uiElements1.addRegion(texAtlas,speechBoxBackgrund);
-        skin.addRegions(uiElements1);
-        speechBoxTable.setSkin(skin);
-        speechBoxTable.setZIndex(0); //trying to persuade this to draw first
+        //Skin skin = new Skin();
+        //String texAtlas = "";
+        //Texture myTexture = new Texture(speechBoxBackground);
+        //TextureRegion speechBoxBackgrund = new TextureRegion(myTexture,padding,padding,textBoxWidth,textBoxHeight);
+        //TextureAtlas uiElements1 = new TextureAtlas();
+        //uiElements1.addRegion(texAtlas,speechBoxBackgrund);
+        //skin.addRegions(uiElements1);
+        //speechBoxTable.setSkin(skin);
+        //speechBoxTable.setZIndex(0); //trying to persuade this to draw first
 
         boolean playerQuestion = false; //decide how to implement this properly
         if (playerQuestion == true)
@@ -98,6 +110,8 @@ public class SpeechBoxScreen extends AbstractScreen
             voice.setPosition(person.getWidth(),0);
             voice.setWidth(textBoxWidth-person.getWidth());
             voice.setHeight(textBoxHeight);
+            voice.setZIndex(1);
+            person.setZIndex(1);
             stage.addActor(speechBoxTable);
         }
         speechBoxTable.pack();
