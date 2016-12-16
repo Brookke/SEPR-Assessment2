@@ -43,8 +43,8 @@ public class SpeechBox extends AbstractScreen
     private int lowerBarHeight = 100+padding;//height of the bar thing at the bottom + padding
     private int textBoxHeight = 100;//the height of the text box
     private int textBoxWidth = 1;//will be reassigned upon creation of textbox
-    private Color textBoxOutline = Color.GOLD;//textbox outline colour
-    private Color textBoxTextColour = Color.LIGHT_GRAY;//text colour
+    private Color textBoxOutline = Color.GOLDENROD;//textbox outline colour
+    private Color textBoxTextColour = Color.PINK;//text colour
     private int roundRadius = 15;
 
     public SpeechBox(GameMain game)
@@ -57,17 +57,17 @@ public class SpeechBox extends AbstractScreen
         initSkins();
         textBoxWidth = Math.round(w-2*padding-2*innerPadding);
         Table speechBoxTable = new Table();
-        speechBoxTable.setPosition(padding+innerPadding,lowerBarHeight);
+        speechBoxTable.setPosition(padding+innerPadding,lowerBarHeight+padding+innerPadding);
         speechBoxTable.setHeight(textBoxHeight);
         speechBoxTable.setWidth(textBoxWidth);
 
-        //Pixmap backgroundMap = new Pixmap(textBoxWidth,textBoxHeight+innerPadding, Pixmap.Format.RGB888); //try to use this to affect the back of the text box?
-        //backgroundMap.setColor(Color.CLEAR);
-        //Texture backgroundTexture = new Texture(backgroundMap);
-        //Sprite backgroundSprite = new Sprite(backgroundTexture);
-        //SpriteDrawable textBoxBackground = new SpriteDrawable();
-        //textBoxBackground.setSprite(backgroundSprite);
-        //speechBoxTable.setBackground(textBoxBackground);
+        Pixmap backgroundMap = new Pixmap(textBoxWidth,textBoxHeight+innerPadding, Pixmap.Format.RGB888); //try to use this to affect the back of the text box?
+        backgroundMap.setColor(Color.WHITE);
+        Texture backgroundTexture = new Texture(backgroundMap);
+        Sprite backgroundSprite = new Sprite(backgroundTexture);
+        SpriteDrawable textBoxBackground = new SpriteDrawable();
+        textBoxBackground.setSprite(backgroundSprite);
+        speechBoxTable.setBackground(textBoxBackground);
 
         playerQuestion = false; //decide how to implement this properly
         if (playerQuestion == true)
@@ -139,9 +139,9 @@ public class SpeechBox extends AbstractScreen
         shapeRenderer.rect(padding+roundRadius, lowerBarHeight+padding, textBoxWidth+padding*2-2*roundRadius, textBoxHeight+padding*2); //doesnt follow the resizing
         shapeRenderer.rect(padding,lowerBarHeight+padding+roundRadius,textBoxWidth+padding*2,textBoxHeight+padding*2-roundRadius*2);
         shapeRenderer.circle(padding+roundRadius,lowerBarHeight+padding+roundRadius,roundRadius);
-        //shapeRenderer.circle(padding+textBoxWidth,lowerBarHeight,roundRadius);
-        //shapeRenderer.circle(padding,lowerBarHeight+textBoxHeight,roundRadius);
-        //shapeRenderer.circle(padding+textBoxWidth,lowerBarHeight+textBoxHeight,roundRadius);
+        shapeRenderer.circle(padding+textBoxWidth+roundRadius,lowerBarHeight+padding+roundRadius,roundRadius);
+        shapeRenderer.circle(padding+roundRadius,lowerBarHeight+textBoxHeight+padding+roundRadius,roundRadius);
+        shapeRenderer.circle(padding+textBoxWidth+roundRadius,lowerBarHeight+textBoxHeight+padding+roundRadius,roundRadius);
 
         shapeRenderer.end();
         stage.act();
