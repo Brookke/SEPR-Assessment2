@@ -1,6 +1,7 @@
 package me.lihq.game.screen;
 
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -12,9 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.Settings;
 import me.lihq.game.living.controller.PlayerController;
-import me.lihq.game.Assets;
-import me.lihq.game.living.Player;
-import me.lihq.game.models.Map;
+import me.lihq.game.screen.elements.StatusBar;
 
 /**
  * This is the screen that is responsible for the navigation of the player around the game.
@@ -29,6 +28,8 @@ public class NavigationScreen extends AbstractScreen {
     public PlayerController playerController;
     private SpriteBatch spriteBatch;
     private SpeechBoxScreen speechBox;
+
+    private StatusBar statusBar;
 
     //TODO: add more information about this class
     /**
@@ -52,7 +53,7 @@ public class NavigationScreen extends AbstractScreen {
 
         spriteBatch = new SpriteBatch();
 
-
+        statusBar = new StatusBar();
 
     }
 
@@ -62,9 +63,13 @@ public class NavigationScreen extends AbstractScreen {
     @Override
     public void show()
     {
-        Gdx.input.setInputProcessor(playerController);
-        speechBox = new SpeechBoxScreen(game);
-        speechBox.setPersonVoice("Player1","TESTING,TESTING,123",false);
+        //speechBox = new SpeechBoxScreen(game);
+        //speechBox.setPersonVoice("Player1","TESTING,TESTING,123",false);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(playerController);
+        multiplexer.addProcessor(statusBar.stage);
+        Gdx.input.setInputProcessor(multiplexer);
+
     }
 
     @Override
@@ -73,7 +78,6 @@ public class NavigationScreen extends AbstractScreen {
         playerController.update();
         game.player.update();
     }
-
 
     /**
      * Called when the screen should render itself.
@@ -96,8 +100,9 @@ public class NavigationScreen extends AbstractScreen {
         spriteBatch.begin();
         game.player.draw(spriteBatch);
         spriteBatch.end();
-        speechBox.render(delta);
-        speechBox.setPersonVoice("Player1","TESTING,TESTING,123",true);
+        //speechBox.render(delta);
+        statusBar.render();
+
     }
 
     @Override
@@ -124,6 +129,7 @@ public class NavigationScreen extends AbstractScreen {
     public void dispose() {
         map.dispose();
         tiledMapRenderer.dispose();
+        statusBar.dispose();
     }
 
     public void setTiledMapRenderer(TiledMap map)
