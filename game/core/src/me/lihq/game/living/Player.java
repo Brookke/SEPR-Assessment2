@@ -1,10 +1,11 @@
 package me.lihq.game.living;
 
-import me.lihq.game.Settings;
+import me.lihq.game.GameMain;
 import me.lihq.game.models.Inventory;
+import me.lihq.game.models.Room;
 
 /**
- * Created by brookehatton on 18/11/2016.
+ * This class defines the player that the person playing the game will be represented by.
  */
 public class Player extends AbstractPerson
 {
@@ -16,7 +17,11 @@ public class Player extends AbstractPerson
 
     private int score = 0;
 
+    public Boolean move = false;
+
     private String name;
+
+    private Room currentRoom;
 
     public Player(String name, String imgSrc)
     {
@@ -45,16 +50,21 @@ public class Player extends AbstractPerson
 
 
     /**
-     * This moves the player to a new tile
-     * @param dx the amount of tiles to move in the x direction
-     * @param dy the amout of tiles to move in the y direction
+     * This Moves the player to a new tile.
+     * @param dir the direction that the player should move in.
      */
-    public void move(int dx, int dy)
+    public void move(Direction dir)
     {
-        this.tileCoordinates.x += dx;
-        this.tileCoordinates.y += dy;
+        if (this.state != PersonState.STANDING) {
+            return;
+        }
 
-        this.setPosition(this.tileCoordinates.x * Settings.TILE_SIZE, this.tileCoordinates.y * Settings.TILE_SIZE);
+        if (!currentRoom.isWalkableTile(this.tileCoordinates.x + dir.getDx(),this.tileCoordinates.y + dir.getDy())) {
+            setDirection(dir);
+            return;
+        }
+
+        initialiseMove(dir);
     }
 
     public Inventory getInventory()
@@ -70,5 +80,27 @@ public class Player extends AbstractPerson
     public int getPersonality()
     {
         return this.personalityLevel;
+    }
+
+    public void changeRoom(int roomID, int newX, int newY)
+    {
+        changeRoom(GameMain.me.gameMap.getRoom(roomID), newX, newY);
+    }
+
+    public void changeRoom(Room newRoom, int newX, int newY)
+    {
+        currentRoom = newRoom;
+
+        this.setTileCoordinates(newX, newY);
+    }
+
+    public void setRoom(Room room)
+    {
+        this.currentRoom = room;
+    }
+
+    public Room getRoom()
+    {
+        return this.currentRoom;
     }
 }

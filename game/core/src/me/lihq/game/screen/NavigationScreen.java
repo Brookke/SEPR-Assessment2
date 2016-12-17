@@ -1,6 +1,7 @@
 package me.lihq.game.screen;
 
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -12,8 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.Settings;
 import me.lihq.game.living.controller.PlayerController;
-import me.lihq.game.Assets;
-import me.lihq.game.living.Player;
+import me.lihq.game.screen.elements.StatusBar;
 
 /**
  * This is the screen that is responsible for the navigation of the player around the game.
@@ -25,8 +25,10 @@ public class NavigationScreen extends AbstractScreen {
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private OrthographicCamera camera = new OrthographicCamera();
     private Viewport viewport;
-    private PlayerController playerController;
+    public PlayerController playerController;
     private SpriteBatch spriteBatch;
+
+    private StatusBar statusBar;
 
     //TODO: add more information about this class
     /**
@@ -43,8 +45,6 @@ public class NavigationScreen extends AbstractScreen {
 
         viewport = new FitViewport(w/Settings.ZOOM, h/Settings.ZOOM, camera);
 
-
-
         map = new TmxMapLoader().load("map.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 
@@ -52,6 +52,7 @@ public class NavigationScreen extends AbstractScreen {
 
         spriteBatch = new SpriteBatch();
 
+        statusBar = new StatusBar();
     }
 
     /**
@@ -59,14 +60,29 @@ public class NavigationScreen extends AbstractScreen {
      */
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(playerController);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(playerController);
+        multiplexer.addProcessor(statusBar.stage);
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
-    /** Called when the screen should render itself.
+    @Override
+    public void update() {
+
+        playerController.update();
+        game.player.update();
+
+    }
+
+    /**
+     * Called when the screen should render itself.
 	 * @param delta The time in seconds since the last render.
      */
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
+        game.player.pushCoordinatesToSprite();
+
         camera.position.x = game.player.getX();
         camera.position.y = game.player.getY();
         camera.update();
@@ -80,8 +96,7 @@ public class NavigationScreen extends AbstractScreen {
         game.player.draw(spriteBatch);
         spriteBatch.end();
 
-
-
+        statusBar.render();
     }
 
     @Override
@@ -108,5 +123,12 @@ public class NavigationScreen extends AbstractScreen {
     public void dispose() {
         map.dispose();
         tiledMapRenderer.dispose();
+        statusBar.dispose();
+    }
+
+    public void setTiledMapRenderer(TiledMap map)
+    {
+        this.map = map;
+        tiledMapRenderer.setMap(map);
     }
 }

@@ -8,13 +8,13 @@ import me.lihq.game.Settings;
 import java.util.Set;
 
 /**
- * Created by vishal on 21/11/2016.
+ * This class defines the clues that the player needs to find in order to solve the murder.
  */
 public class Clue extends Sprite
 {
     private static String imagePath = "clueSheet.png";
     private String clueName = "Super Secret Clue";
-    private Vector2 position;
+    private Vector2Int position;
 
     //TODO: Clues generate from the killer
     //TODO: Initialise Characters -> Generate Killer -> Generate Clues

@@ -8,12 +8,13 @@ import me.lihq.game.living.NPC;
 import me.lihq.game.living.NPC.ACCESSORY;
 import me.lihq.game.living.NPC.HAIR_COLOR;
 import me.lihq.game.living.NPC.WRITING_HAND;
+import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
+import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -24,11 +25,30 @@ public class GameMain extends Game
     //This is a static reference to itself. Comes in REALLY handy when in other classes that don't have a reference to the main game
     public static GameMain me = null;
     //Game wide variables
-    public List<NPC> NPCs = new ArrayList<NPC>();
-    public List<Room> rooms = new ArrayList<Room>();
 
+    /**
+     * A list holding NPC objects
+     */
+    public List<NPC> NPCs = new ArrayList<NPC>();
+
+    /**
+     * The game map
+     */
+    public Map gameMap;
+
+    /**
+     * An FPSLogger, FPSLogger allows us to check the game FPS is good enough
+     */
     FPSLogger FPS;
+
+    /**
+     * A screen to be used to display standard gameplay within the game , including the status bar.
+     */
     private NavigationScreen screen1;
+
+    /**
+     * A player object for the player of the game
+     */
     public Player player;
 
     /**
@@ -37,16 +57,26 @@ public class GameMain extends Game
     @Override
     public void create()
     {
-        me = this;
-        Assets.load();
-        initialiseAllData();
+        this.me = this;
 
+        gameMap = new Map(); //instantiate game map
+
+        initialiseAllData(); //calls a function that generates all the NPC's, Players and Rooms and maps.
+        
+        Assets.load();// Load in the assets the game needs
+
+        initialiseAllData();//call the function again after assets loaded
+        //place player in first room
+        player.setRoom(gameMap.getRoom(0));
+        //set up the screen and display the first room
         screen1 = new NavigationScreen(this);
+        screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
         this.setScreen(screen1);
-
+        //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
-    }
 
+        gameLoop();
+    }
 
     /**
      * This defines what's rendered on the screen for each frame.
@@ -57,7 +87,7 @@ public class GameMain extends Game
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        FPS.log();
+        FPS.log();//this is where fps is displayed
 
         super.render(); // This calls the render method of the screen that is currently set
 
@@ -68,7 +98,53 @@ public class GameMain extends Game
     {
 
     }
+    /**
+     * Change from one room to another
+     */
+    public void changeMap(Room.Transition to)
+    {
+        player.setRoom(gameMap.getRoom(to.newRoom));
 
+        screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
+    }
+
+    /**
+     * Overrides the getScreen method to return our AbstractScreen type.
+     * This means that we can access the additional methods like update.
+     * @return The current screen of the game.
+     */
+    @Override
+    public AbstractScreen getScreen() {
+        return (AbstractScreen) super.getScreen();
+    }
+
+    public int ticks = 0;
+    public int lastSecond = -1;
+
+    public void gameLoop()
+    {
+        Timer gameTimer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run()
+            {
+                ticks ++;
+
+                Calendar cal = Calendar.getInstance();
+
+                if (cal.get(Calendar.SECOND) != lastSecond)
+                {
+                    lastSecond = cal.get(Calendar.SECOND);
+                    System.out.println("TPSLogger: tps:      " + ticks);
+                    ticks = 0;
+                }
+
+                me.getScreen().update();
+            }
+        };
+
+        gameTimer.schedule(task, 0, 1000 / Settings.TPS);
+    }
 
     /**
      * Generates all the NPC's, Players and Rooms and maps.
@@ -78,6 +154,7 @@ public class GameMain extends Game
         //Add ALL NPCs to the list
         //This is how you initialise an NPC
         player = new Player("Test name","player.png");
+
         {
             //TODO: Add NPC assets
             NPC npc = new NPC(4, 4, 1, "player.png", true)
@@ -104,7 +181,5 @@ public class GameMain extends Game
 
             NPCs.add(npc);
         }
-
-        //Add ALL maps to the map list
     }
 }
