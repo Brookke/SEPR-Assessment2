@@ -20,7 +20,7 @@ public class SpeechBox {
     //Properties
     private String personTalking = "TESTPERSON";//the person talking
     private String voiceTalking = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";//what the person says
-    private Boolean playerQuestion;
+    private Boolean playerQuestion = false;
 
 
     //Styles
@@ -73,7 +73,7 @@ public class SpeechBox {
      * @param table Table to add controls to
      */
     private void fillTableContent(Table table) {
-        playerQuestion = true; //decide how to implement this properly
+        //playerQuestion = true; //decide how to implement this properly
 
         if (playerQuestion == true) {
 
@@ -175,5 +175,21 @@ public class SpeechBox {
 
     public void dispose() {
         stage.dispose();
+    }
+
+    public void setVoice(String person,String speech)
+    {
+        personTalking = person;
+        voiceTalking = speech;
+    }
+
+    public void setVoice(String voice)
+    {
+        voiceTalking = voice;
+    }
+
+    public void setPlayerQuestion(Boolean question)
+    {
+        playerQuestion = question;
     }
 }
