@@ -28,8 +28,8 @@ public class NavigationScreen extends AbstractScreen {
     private Viewport viewport;
     public PlayerController playerController;
     private SpriteBatch spriteBatch;
-    private SpeechBox speechBox;
 
+    private SpeechBox speechBox;
     private StatusBar statusBar;
 
     //TODO: add more information about this class
@@ -54,8 +54,8 @@ public class NavigationScreen extends AbstractScreen {
 
         spriteBatch = new SpriteBatch();
 
+        speechBox = new SpeechBox();
         statusBar = new StatusBar();
-
     }
 
     /**
@@ -68,6 +68,7 @@ public class NavigationScreen extends AbstractScreen {
         //speechBox.setPersonVoice("Player1","TESTING,TESTING,123",false);
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerController);
+        multiplexer.addProcessor(speechBox.stage);
         multiplexer.addProcessor(statusBar.stage);
         Gdx.input.setInputProcessor(multiplexer);
 
@@ -101,7 +102,8 @@ public class NavigationScreen extends AbstractScreen {
         spriteBatch.begin();
         game.player.draw(spriteBatch);
         spriteBatch.end();
-        //speechBox.render(delta);
+
+        speechBox.render();
         statusBar.render();
 
     }
@@ -130,6 +132,7 @@ public class NavigationScreen extends AbstractScreen {
     public void dispose() {
         map.dispose();
         tiledMapRenderer.dispose();
+        speechBox.dispose();
         statusBar.dispose();
     }
 

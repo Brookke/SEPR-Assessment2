@@ -13,7 +13,6 @@ import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
 import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
-import me.lihq.game.screen.SpeechViewScreen;
 
 import java.util.*;
 
@@ -46,7 +45,6 @@ public class GameMain extends Game
      * A screen to be used to display standard gameplay within the game , including the status bar.
      */
     private NavigationScreen screen1;
-    private SpeechViewScreen screen2;
 
     /**
      * A player object for the player of the game
@@ -72,10 +70,8 @@ public class GameMain extends Game
         player.setRoom(gameMap.getRoom(0));
         //set up the screen and display the first room
         screen1 = new NavigationScreen(this);
-        screen2 = new SpeechViewScreen(this);
         screen1.setTiledMapRenderer(player.getRoom().getTiledMap());
-        //this.setScreen(screen1);
-        this.setScreen(screen2);
+        this.setScreen(screen1);
         //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
 
