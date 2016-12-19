@@ -3,14 +3,11 @@ package me.lihq.game.screen.elements;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
 /**
@@ -28,14 +25,17 @@ public class SpeechBox {
 
     //Styles
     private Skin buttonSkin;
+    private Skin textFieldSkin;
+    private static final Color BACKGROUND_COLOR = Color.BLACK;
     private static final Color BORDER_COLOUR = Color.GOLD;
     private static final Color TEXT_COLOUR = Color.LIGHT_GRAY;
 
     //Constants
     private static final int WIDTH = Gdx.graphics.getWidth();
-    private static final int HEIGHT = 90;
-    private static final int PADDING = 10;
+    private static final int HEIGHT = 100;
+    private static final int BORDER_WIDTH = 4;
     private static final int Y_OFFSET = StatusBar.HEIGHT;
+    private static final int PADDING = 4;
 
 
     /**
@@ -48,52 +48,58 @@ public class SpeechBox {
 
         initSkins();
 
-
         //Init container
         Container container = new Container();
         container.setBounds(0, Y_OFFSET, WIDTH, HEIGHT);
         container.setBackground(getBackgroundDrawable(BORDER_COLOUR));
 
-
         //Init table containing contents of speech box
         Table table = new Table();
-        container.setBackground(getBackgroundDrawable(Color.BLACK));
-
+        table.defaults().width(250);
+        table.setBackground(getBackgroundDrawable(BACKGROUND_COLOR));
+        fillTableContent(table);
 
         //Add table to container contents, and add padding
         container.setActor(table);
-        container.pad(PADDING);
+        container.pad(BORDER_WIDTH);
 
         //Add container to stage for rendering later
         stage.addActor(container);
+    }
 
 
-        /*
-        playerQuestion = false; //decide how to implement this properly
+    /**
+     * Add relevant SpeechBox UI controls to table element
+     * @param table Table to add controls to
+     */
+    private void fillTableContent(Table table) {
+        playerQuestion = true; //decide how to implement this properly
+
         if (playerQuestion == true) {
-            TextButton questionButton = new TextButton("Question", buttonSkin);
-            speechBoxTable.addActor(questionButton);
-            TextButton accuseButton = new TextButton("Accuse", buttonSkin);
-            speechBoxTable.addActor(accuseButton);
-            //TextButton ignoreButton = new TextButton("Ignore",buttonSkin); //for the next group to just un-comment - you get the gist from above
-            questionButton.setPosition(PADDING, HEIGHT / 2 + PADDING);
-            accuseButton.setPosition(PADDING, PADDING); //use "textBoxWidth/2" to get the button on the right half
-            stage.addActor(speechBoxTable);
-        } else {
-            TextField.TextFieldStyle fontStyle = new TextField.TextFieldStyle();
-            BitmapFont font = new BitmapFont();
-            fontStyle.font = font;
-            fontStyle.fontColor = textBoxTextColour;
-            TextField person = new TextField(personTalking, fontStyle);
-            speechBoxTable.addActor(person);
-            person.setPosition(PADDING, Y_OFFSET + HEIGHT - PADDING);
 
-            TextArea voice = new TextArea(voiceTalking, fontStyle); //what the person says
-            speechBoxTable.addActor(voice);
-            voice.setPosition(person.getWidth() + PADDING, Y_OFFSET + HEIGHT - PADDING);
+            TextField label = new TextField("What would you like to do?", textFieldSkin);
+            table.add(label).pad(PADDING);
+
+            int BUTTON_ROW_HEIGHT = (HEIGHT - (2 * BORDER_WIDTH)) / 2;
+            table.row().height(BUTTON_ROW_HEIGHT);
+
+            TextButton questionButton = new TextButton("Question", buttonSkin);
+            table.add(questionButton).pad(PADDING);
+
+            TextButton accuseButton = new TextButton("Accuse", buttonSkin);
+            table.add(accuseButton).pad(PADDING);
+
+        } else {
+            table.row().width(WIDTH - 200).height(HEIGHT - 20);
+
+            TextField person = new TextField(personTalking, textFieldSkin);
+            table.add(person).top().width(150);
+
+            TextArea voice = new TextArea(voiceTalking, textFieldSkin); //what the person says
+            table.add(voice).fill();
+
         }
-        speechBoxTable.pack();
-        stage.addActor(speechBoxTable); */
+        table.pack();
     }
 
     /**
@@ -110,6 +116,7 @@ public class SpeechBox {
      */
     private void initSkins() {
         initButtonSkin();
+        initTextFieldSkin();
     }
 
     /**
@@ -123,26 +130,39 @@ public class SpeechBox {
         buttonSkin.add("default", font);
 
         //Create a texture
-        Pixmap pixmap = new Pixmap(WIDTH, HEIGHT, Pixmap.Format.RGB888); //may need to edit
+        Pixmap pixmap = new Pixmap(WIDTH, HEIGHT, Pixmap.Format.RGB888);
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
-        buttonSkin.add("background", new Texture(pixmap));
+        buttonSkin.add("background",new Texture(pixmap));
 
         //Create a button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = buttonSkin.newDrawable("background", Color.GRAY);
-        textButtonStyle.down = buttonSkin.newDrawable("background", Color.DARK_GRAY);
-        textButtonStyle.checked = buttonSkin.newDrawable("background", Color.LIGHT_GRAY);
+        textButtonStyle.down = buttonSkin.newDrawable("background", Color.BLACK);
+        textButtonStyle.checked = buttonSkin.newDrawable("background", Color.GRAY);
         textButtonStyle.over = buttonSkin.newDrawable("background", Color.DARK_GRAY);
         textButtonStyle.font = buttonSkin.getFont("default");
-        textButtonStyle.font.setColor(Color.BLUE);//why doesn't this work?
         buttonSkin.add("default", textButtonStyle);
 
     }
 
+    /**
+     * Sets up the skin for buttons on the speech box
+     */
+    private void initTextFieldSkin() {
+        textFieldSkin = new Skin();
+
+        TextField.TextFieldStyle fontStyle = new TextField.TextFieldStyle();
+        BitmapFont font = new BitmapFont();
+        fontStyle.font = font;
+        fontStyle.fontColor = TEXT_COLOUR;
+
+        textFieldSkin.add("default", fontStyle);
+    }
 
     //We should probs move this into a shared class
-    /** Returns drawable with single colour fill
+    /**
+     * Returns drawable with single colour fill
      * @param color Colour to fill drawable with
      * @return Drawable to use with LibGdx Scene2d controls
      */
@@ -151,17 +171,6 @@ public class SpeechBox {
         pixmap.setColor(color);
         pixmap.fill();
         return new Image(new Texture(pixmap)).getDrawable();
-    }
-
-
-    public void setPersonVoice(String person, String voice, Boolean askQuestion) //use to set who is talking and what they are saying
-    {
-        if (!askQuestion) {
-            personTalking = person + " :";
-            voiceTalking = voice; //might need to check length for so it doesnt go out of the text box
-        } else {
-            playerQuestion = true; //to set playerQuestion just use 'setPersonVoice("","",true);
-        }
     }
 
     public void dispose() {
