@@ -54,7 +54,7 @@ public class NavigationScreen extends AbstractScreen {
 
         spriteBatch = new SpriteBatch();
 
-        speechBox = new SpeechBox();
+        speechBox = new SpeechBox("Example NPC Name", "Hello, my name is Example NPC Name!", false);
         statusBar = new StatusBar();
     }
 
@@ -64,8 +64,6 @@ public class NavigationScreen extends AbstractScreen {
     @Override
     public void show()
     {
-        //speechBox = new SpeechBox(game);
-        //speechBox.setPersonVoice("Player1","TESTING,TESTING,123",false);
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerController);
         multiplexer.addProcessor(speechBox.stage);
