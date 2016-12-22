@@ -10,19 +10,40 @@ import me.lihq.game.models.Room;
 public class Player extends AbstractPerson
 {
 
-    //The personality will be a percent score (0-100) 50 being neutral etc etc
+    /**
+     * The personality will be a percent score (0-100) 50 being neutral etc etc
+     */
     private int personalityLevel = 50;
 
+    /**
+     * inventory holds items collected by the player.
+     */
     private Inventory inventory = new Inventory();
 
+    /**
+     * The score the player has earned so far.
+     */
     private int score = 0;
 
+    /**
+     * Whether the player is moving.
+     */
     public Boolean move = false;
 
+    /**
+     * Player name.
+     */
     private String name;
 
+    /**
+     * The room the player is currently exploring.
+     */
     private Room currentRoom;
 
+    /**
+     * @param name - The name for the new player.
+     * @param imgSrc - The image used to represent it.
+     */
     public Player(String name, String imgSrc)
     {
         super(imgSrc);
@@ -67,26 +88,50 @@ public class Player extends AbstractPerson
         initialiseMove(dir);
     }
 
+    /**
+     * Getter for inventory.
+     * @return - Returns the Inventory of this player.
+     */
     public Inventory getInventory()
     {
         return this.inventory;
     }
 
+    /**
+     * Getter for player name.
+     * @return - Returns the name of this player.
+     */
     public String getPlayername()
     {
         return this.name;
     }
 
+    /**
+     * Getter for personality.
+     * @return - Returns the personality of this player.
+     */
     public int getPersonality()
     {
         return this.personalityLevel;
     }
 
+    /**
+     * Change from one room to another using room ID.
+     * @param roomID - The ID of the room to go to.
+     * @param newX - The x coordinate to go to.
+     * @param newY - The y coordinate to go to.
+     */
     public void changeRoom(int roomID, int newX, int newY)
     {
         changeRoom(GameMain.me.gameMap.getRoom(roomID), newX, newY);
     }
 
+    /**
+     * Change from one room to another using room object.
+     * @param newRoom - The ID of the room to go to.
+     * @param newX - The x coordinate to go to.
+     * @param newY - The y coordinate to go to.
+     */
     public void changeRoom(Room newRoom, int newX, int newY)
     {
         currentRoom = newRoom;
@@ -94,11 +139,19 @@ public class Player extends AbstractPerson
         this.setTileCoordinates(newX, newY);
     }
 
+    /**
+     * Setter for room.
+     * @param room - The room you want to set the player to.
+     */
     public void setRoom(Room room)
     {
         this.currentRoom = room;
     }
 
+    /**
+     * Getter for room.
+     * @return - Returns the room the player is currently in.
+     */
     public Room getRoom()
     {
         return this.currentRoom;
