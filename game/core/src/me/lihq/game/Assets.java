@@ -19,11 +19,18 @@ public class Assets
 
     public static TextureRegion npc1;
 
+    /**
+     * @param file - The file that contains the textures.
+     * @return Returns the new texture.
+     */
     public static Texture loadTexture(String file)
     {
         return new Texture(Gdx.files.internal(file));
     }
 
+    /**
+     * Loads all the elements the game needs such as the player.
+     */
     public static void load()
     {
         opening = loadTexture("title.png");
