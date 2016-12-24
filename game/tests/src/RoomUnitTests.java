@@ -1,13 +1,9 @@
-import me.lihq.game.GameMain;
 import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Map;
-import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Random;
 
 import static me.lihq.game.models.Room.*;
 import static org.junit.Assert.*;
@@ -31,16 +27,16 @@ public class RoomUnitTests extends GameTester
     @Test
     public void testGetTransition()
     {
-        assertEquals(2, map.getRoom(0).getNewRoom(17, 17).newRoom);
-        assertEquals(new Vector2Int(1, 5), map.getRoom(0).getNewRoom(17, 17).to);
-        assertEquals(null, map.getRoom(0).getNewRoom(5, 1));
+        assertEquals(2, map.getRoom(0).getNewRoomData(17, 17).newRoom.getID());
+        assertEquals(new Vector2Int(1, 5), map.getRoom(0).getNewRoomData(17, 17).to);
+        assertEquals(null, map.getRoom(0).getNewRoomData(5, 1));
     }
 
     @Test
     public void testAddTransition()
     {
-        map.getRoom(0).addTransition(new Transition().setFrom(5, 5).setTo(1, 5, 5, AbstractPerson.Direction.EAST));
-        assertEquals(1, map.getRoom(0).getNewRoom(5, 5).newRoom);
+        map.getRoom(0).addTransition(new Transition().setFrom(5, 5).setTo(map.getRoom(1), 5, 5, AbstractPerson.Direction.EAST));
+        assertEquals(1, map.getRoom(0).getNewRoomData(5, 5).newRoom.getID());
     }
 
     @Test
@@ -67,6 +63,6 @@ public class RoomUnitTests extends GameTester
     @Test
     public void testHasTransition()
     {
-        assertEquals(null, map.getRoom(0).getNewRoom(17, 18));
+        assertEquals(null, map.getRoom(0).getNewRoomData(17, 18));
     }
 }

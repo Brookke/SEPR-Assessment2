@@ -7,6 +7,7 @@ package me.lihq.game.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Vector2;
 import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.AbstractPerson.Direction;
 
@@ -255,7 +256,7 @@ public class Room
      * 1 - New X
      * 2 - New Y
      */
-    public Transition getNewRoom(int x, int y)
+    public Transition getNewRoomData(int x, int y)
     {
         return hasTransition(new Vector2Int(x, y));
     }
@@ -290,7 +291,7 @@ public class Room
     {
         public Vector2Int from = new Vector2Int(0, 0);
 
-        public int newRoom = 0;
+        public Room newRoom;
 
         public Direction newDirection = null;
 
@@ -300,17 +301,17 @@ public class Room
         {
         }
 
-        public Transition setTo(int room, int x, int y, Direction dir)
+        public Transition setTo(Room room, int newTileCoordinateX, int newTileCoordinateY, Direction newDirection)
         {
             this.newRoom = room;
-            this.to = new Vector2Int(x, y);
-            this.newDirection = dir;
+            this.to = new Vector2Int(newTileCoordinateX, newTileCoordinateY);
+            this.newDirection = newDirection;
             return this;
         }
 
-        public Transition setFrom(int x, int y)
+        public Transition setFrom(int oldTiledCoordinateX, int oldTiledCoordinateY)
         {
-            this.from = new Vector2Int(x, y);
+            this.from = new Vector2Int(oldTiledCoordinateX, oldTiledCoordinateY);
             return this;
         }
     }
