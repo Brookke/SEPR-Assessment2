@@ -11,7 +11,7 @@ public class Player extends AbstractPerson
 {
 
     /**
-     * The personality will be a percent score (0-100) 50 being neutral etc etc
+     * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
      */
     private int personalityLevel = 50;
 
@@ -26,11 +26,6 @@ public class Player extends AbstractPerson
     private int score = 0;
 
     /**
-     * Whether the player is moving.
-     */
-    public Boolean move = false;
-
-    /**
      * Player name.
      */
     private String name;
@@ -41,6 +36,7 @@ public class Player extends AbstractPerson
     private Room currentRoom;
 
     /**
+     * This is the constructor for player, it creates a new playable person
      * @param name - The name for the new player.
      * @param imgSrc - The image used to represent it.
      */
