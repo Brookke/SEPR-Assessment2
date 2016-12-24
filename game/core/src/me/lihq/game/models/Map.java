@@ -110,7 +110,7 @@ public class Map
 
         Room.Transition newRoomData = currentRoom.getNewRoomData(currentX, currentY);
 
-        GameMain.me.player.setRoom(newRoomData.newRoom);
+        GameMain.me.player.setRoom(newRoomData.getNewRoom());
 
         GameMain.me.navigationScreen.setTiledMapRenderer(GameMain.me.player.getRoom().getTiledMap());
 

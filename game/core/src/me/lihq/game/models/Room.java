@@ -291,7 +291,7 @@ public class Room
     {
         public Vector2Int from = new Vector2Int(0, 0);
 
-        public Room newRoom;
+        private Room newRoom;
 
         public Direction newDirection = null;
 
@@ -313,6 +313,11 @@ public class Room
         {
             this.from = new Vector2Int(oldTiledCoordinateX, oldTiledCoordinateY);
             return this;
+        }
+
+        public Room getNewRoom()
+        {
+            return newRoom;
         }
     }
 }
