@@ -3,15 +3,14 @@ package me.lihq.game.screen.elements;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import me.lihq.game.living.NPC;
-import me.lihq.game.living.Player;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 /**
@@ -24,8 +23,7 @@ public class SpeechBox {
     //Properties
     private String person;
     private String speech;
-    private Boolean playerQuestion = false; //Defines whether SpeechBox asks the player a question or displays a speech
-
+    private ArrayList<SpeechBoxButton> buttons;
 
     //Styles
     private Skin buttonSkin;
@@ -36,7 +34,7 @@ public class SpeechBox {
 
     //Constants
     private static final int WIDTH = Gdx.graphics.getWidth();
-    private static final int HEIGHT = 100;
+    private static final int HEIGHT = 120;
     private static final int BORDER_WIDTH = 4;
     private static final int Y_OFFSET = StatusBar.HEIGHT;
     private static final int PADDING = 4;
@@ -45,13 +43,12 @@ public class SpeechBox {
      * The initializer for the SpeechBox
      * Sets up UI controls and adds them to the stage ready for rendering
      */
-    //Note: we need to discuss these properties
-    public SpeechBox(String personName, String speechText, Boolean isQuestionForPlayer) {
+    public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList) {
 
         //Setup class properties
         person = personName;
         speech = speechText;
-        playerQuestion = isQuestionForPlayer;
+        buttons = buttonList;
 
         //Init stage
         stage = new Stage();
@@ -61,12 +58,11 @@ public class SpeechBox {
         //Init container
         Container container = new Container();
         container.setBounds(0, Y_OFFSET, WIDTH, HEIGHT);
-        container.setBackground(getBackgroundDrawable(BORDER_COLOUR));
+        container.setBackground(UIHelpers.getBackgroundDrawable(BORDER_COLOUR, WIDTH, HEIGHT));
 
         //Init table containing contents of speech box
         Table table = new Table();
-        table.defaults().width(250);
-        table.setBackground(getBackgroundDrawable(BACKGROUND_COLOR));
+        table.setBackground(UIHelpers.getBackgroundDrawable(BACKGROUND_COLOR, WIDTH, HEIGHT));
         fillTableContent(table);
 
         //Add table to container contents, and add padding
@@ -80,35 +76,40 @@ public class SpeechBox {
 
     /**
      * Add relevant SpeechBox UI controls to table element
+     *
      * @param table Table to add controls to
      */
     private void fillTableContent(Table table) {
 
-        if (playerQuestion == true) {
+        table.defaults().width(250).pad(PADDING);
 
-            TextField label = new TextField("What would you like to do?", textFieldSkin);
-            table.add(label).pad(PADDING);
+        table.row();
 
-            int BUTTON_ROW_HEIGHT = (HEIGHT - (2 * BORDER_WIDTH)) / 2;
-            table.row().height(BUTTON_ROW_HEIGHT);
+        TextField personLabel = new TextField(person, textFieldSkin);
+        table.add(personLabel);
 
-            TextButton questionButton = new TextButton("Question", buttonSkin);
-            table.add(questionButton).pad(PADDING);
+        TextArea voiceLabel = new TextArea(speech, textFieldSkin);
+        table.add(voiceLabel);
 
-            TextButton accuseButton = new TextButton("Accuse", buttonSkin);
-            table.add(accuseButton).pad(PADDING);
 
-        } else {
+        table.row().height(50);
 
-            table.row().width(WIDTH - 200).height(HEIGHT - 20);
+        //Iterate over buttons and render them to the screen
+        for (int i = 0; i < buttons.size(); i++) {
+            final SpeechBoxButton buttonDetails = buttons.get(i); //find button in array
 
-            TextField personLabel = new TextField(person, textFieldSkin);
-            table.add(personLabel).top().width(150);
+            TextButton buttonElement = new TextButton(buttonDetails.text, buttonSkin);
 
-            TextArea voiceLabel = new TextArea(speech, textFieldSkin); //what the person says
-            table.add(voiceLabel).fill();
+            //Setup button event handler
+            buttonElement.addListener(new ClickListener() {
+                @Override public void clicked(InputEvent event, float x, float y) {
+                    buttonDetails.eventHandler.handleClick(buttonDetails.text);
+                }
+            });
 
+            table.add(buttonElement);
         }
+
         table.pack();
     }
 
@@ -143,7 +144,7 @@ public class SpeechBox {
         Pixmap pixmap = new Pixmap(WIDTH, HEIGHT, Pixmap.Format.RGB888);
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
-        buttonSkin.add("background",new Texture(pixmap));
+        buttonSkin.add("background", new Texture(pixmap));
 
         //Create a button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -168,19 +169,6 @@ public class SpeechBox {
         fontStyle.fontColor = TEXT_COLOUR;
 
         textFieldSkin.add("default", fontStyle);
-    }
-
-    //We should probs move this into a shared class
-    /**
-     * Returns drawable with single colour fill
-     * @param color Colour to fill drawable with
-     * @return Drawable to use with LibGdx Scene2d controls
-     */
-    private Drawable getBackgroundDrawable(Color color) {
-        Pixmap pixmap = new Pixmap(WIDTH, HEIGHT, Pixmap.Format.RGBA8888);
-        pixmap.setColor(color);
-        pixmap.fill();
-        return new Image(new Texture(pixmap)).getDrawable();
     }
 
     public void dispose() {
