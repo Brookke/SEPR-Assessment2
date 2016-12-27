@@ -114,6 +114,11 @@ public class Map
 
         player.setRoom(newRoomData.getNewRoom());
 
+
+        /*
+        TODO: Look into making a getter for the players Game this way we can do player.getGame() here instead of GameMain.
+         */
+
         GameMain.me.navigationScreen.setTiledMapRenderer(player.getRoom().getTiledMap());
 
         if (newRoomData.newDirection != null)
@@ -126,6 +131,7 @@ public class Map
     }
 
 
+    //TODO: Make this work properly every time or remove it if we dont need it. Having looked it only exists for testing purposes now so should go
     /**
      * This returns a room from the list based on the id.
      *
