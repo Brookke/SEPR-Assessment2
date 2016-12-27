@@ -6,6 +6,8 @@ import me.lihq.game.living.Player;
 import me.lihq.game.models.Clue;
 import me.lihq.game.screen.elements.SpeechBox;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ben on 23/12/2016.
  */
@@ -31,7 +33,10 @@ public class Conversation {
      */
     public void startConversation() //this will be moved, just need to decide what goes where
     {
+        //ArrayList<SpeechBoxButton> buttonList = new ArrayList<SpeechBoxButton>();
+
         //Introduction here
+        //buttonList = ["ADD BUTTONS HERE"];
         speechBox = new SpeechBox(player.getPlayername(),"Placeholder",false); //instead of placeholder use player.getdrivel() or whatever is the correct function
         speechBox = new SpeechBox(npc.getName(),"placeholder",false);
 
@@ -71,7 +76,7 @@ public class Conversation {
                 case 1:
                     result = 1;
                     //ask kind question
-                    speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHOLDER",false);
+                    speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHolder",false);
                     speechBox = new SpeechBox(npc.getName(),"NPC ITEM RESPONSE PLACEHOLDER",false);
                     //npc.addkindness
                     break;
@@ -90,6 +95,10 @@ public class Conversation {
             }
         }
     }
+
+
+    //ArrayList<SpeechBoxButton> buttonList ---- replace 'isQuestionForPlayer' with this
+
 
     private void accuse(SpeechBox speechBox)
     {
