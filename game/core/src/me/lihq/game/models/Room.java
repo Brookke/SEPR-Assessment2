@@ -7,8 +7,6 @@ package me.lihq.game.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Vector2;
-import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.AbstractPerson.Direction;
 
 import java.util.*;
@@ -128,11 +126,11 @@ public class Room
 
     /**
      * This method takes a current X and Y coordinate and checks through all the layers on the map to see if any tile IS NOT
-     * moveable. If any tile IS NOT moveable, it returns false.
+     * movable. If any tile IS NOT movable, it returns false.
      *
      * @param x - The x coordinate to check
      * @param y - The y coordinate to check
-     * @return - Boolean as to whether or not that tile can be walked on.
+     * @return - whether or not that tile can be walked on.
      */
     public boolean isWalkableTile(int x, int y)
     {
@@ -176,7 +174,7 @@ public class Room
      *
      * @param x - The x coordinate to check
      * @param y - The y coordinate to check
-     * @return - Boolean as to whether or not the tile is a trigger tile.
+     * @return -  whether or not the tile is a trigger tile.
      */
     public boolean isTriggerTile(int x, int y)
     {
@@ -212,7 +210,7 @@ public class Room
      * If they aren't on a mat, it returns null
      *
      * @param x - The x coordinate to check
-     * @param y = The y coordinate to check
+     * @param y = The y coordinate to  check
      * @return a String representing the direction they are facing
      */
     public String getMatRotation(int x, int y)
@@ -247,16 +245,14 @@ public class Room
     }
 
     /**
-     * This method will take the current x and y coordinate and attempt to move to another room
+     * This method will get the transition data (if available)
+     * for the associated door mat in this room at the location x y.
      *
-     * @param x - The current x coordinate in the room
-     * @param y - The current y coordinate in the room
+     * @param x - The current x coordinate in the room (in terms of tiles not pixels)
+     * @param y - The current y coordinate in the room (in terms of tiles not pixels)
      * @return - a Transition data type. Which stores the relevant information
-     * 0 - New Room ID
-     * 1 - New X
-     * 2 - New Y
      */
-    public Transition getNewRoomData(int x, int y)
+    public Transition getTransitionData(int x, int y)
     {
         return hasTransition(new Vector2Int(x, y));
     }
@@ -280,22 +276,26 @@ public class Room
     }
 
     /**
-     * This object stores 2 sets of coordinates, a room ID, and a direction
-     *
-     * newRoom - the new Room ID to be moved to
-     * to - The new X, Y coordinates to enter the new room
-     * from - The X, Y coordinates they are moving from THIS room
-     * direction - The direction to face in the new room
+     * This object stores data the links the rooms together
      */
     public static class Transition
     {
         public Vector2Int from = new Vector2Int(0, 0);
 
+        /**
+         * The new room to transition to
+         */
         private Room newRoom;
 
+        /**
+         * The direction the player should face when they enter the roo,
+         */
         public Direction newDirection = null;
 
-        public Vector2Int to = new Vector2Int(0, 0);
+        /**
+         * The entry point to the room in terms of tiles
+         */
+        public Vector2Int newTileCoordinates = new Vector2Int(0, 0);
 
         public Transition()
         {
@@ -304,7 +304,7 @@ public class Room
         public Transition setTo(Room room, int newTileCoordinateX, int newTileCoordinateY, Direction newDirection)
         {
             this.newRoom = room;
-            this.to = new Vector2Int(newTileCoordinateX, newTileCoordinateY);
+            this.newTileCoordinates = new Vector2Int(newTileCoordinateX, newTileCoordinateY);
             this.newDirection = newDirection;
             return this;
         }

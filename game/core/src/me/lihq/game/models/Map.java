@@ -2,6 +2,7 @@ package me.lihq.game.models;
 
 import me.lihq.game.GameMain;
 import me.lihq.game.living.AbstractPerson.Direction;
+import me.lihq.game.living.Player;
 
 import java.util.Arrays;
 import java.util.List;
@@ -99,33 +100,30 @@ public class Map
     }
 
     /**
-     * This takes the current room and location and moves the player to the new room
+     * This takes the current room and location gets the transition data and applies it to the player and game
      *
-     * param currentRoomID - The current room the player is in
+     * @param player - The player to move rooms.
      * @param currentX - The current X coordinate
      * @param currentY - The current Y coordinate
      */
-    public void moveRoom(Room currentRoom, int currentX, int currentY)
+    public void moveRoom(Player player, int currentX, int currentY)
     {
 
-        Room.Transition newRoomData = currentRoom.getNewRoomData(currentX, currentY);
+        Room.Transition newRoomData = player.getRoom().getTransitionData(currentX, currentY);
 
-        GameMain.me.player.setRoom(newRoomData.getNewRoom());
 
-        GameMain.me.navigationScreen.setTiledMapRenderer(GameMain.me.player.getRoom().getTiledMap());
+        player.setRoom(newRoomData.getNewRoom());
+
+        GameMain.me.navigationScreen.setTiledMapRenderer(player.getRoom().getTiledMap());
 
         if (newRoomData.newDirection != null)
         {
-            GameMain.me.player.setDirection(newRoomData.newDirection);
-            GameMain.me.player.updateTextureRegion();
+            player.setDirection(newRoomData.newDirection);
+            player.updateTextureRegion();
         }
 
-        GameMain.me.player.setTileCoordinates(newRoomData.to.x, newRoomData.to.y);
+        player.setTileCoordinates(newRoomData.newTileCoordinates.x, newRoomData.newTileCoordinates.y);
     }
-
-    /**
-     * Change from one room to another
-     */
 
 
     /**
