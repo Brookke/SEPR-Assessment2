@@ -14,7 +14,14 @@ import java.util.ArrayList;
 
 
 /**
- * Created by Ben on 11/12/2016.
+ * SpeechBox class
+ * Used for rendering box containing text and buttons on screen
+ *
+ * Usage:
+ *   SpeechBox sb = new SpeechBox(..)
+ *   sb.render();
+ *
+ *   Note: add to InputMultiplexer if using with other UI elements.
  */
 public class SpeechBox {
 
