@@ -1,8 +1,7 @@
 package me.lihq.game.models;
 
-/**
- * This class defines a room which is a game representation of a real world room in the Ron Cooke Hub.
- */
+//TODO: Tidy up getters and setters add them if needed, some places we are using them others not.
+
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -11,6 +10,9 @@ import me.lihq.game.living.AbstractPerson.Direction;
 
 import java.util.*;
 
+/**
+ * This class defines a room which is a game representation of a real world room in the Ron Cooke Hub.
+ */
 public class Room
 {
     /**

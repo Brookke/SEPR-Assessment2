@@ -15,59 +15,56 @@ import static org.junit.Assert.*;
 public class RoomUnitTests extends GameTester
 {
 
-    Map map;
-    Player p;
+    Room room0, room1;
+
 
     @Before
     public void before()
     {
-        map = new Map();
 
-        //TODO: Stop using maps here and move over to creating our own rooms and testing them, this way we stop needing ID's as we only use id's here in the tests.
-        Room room1 = new Room(1, "testMap.tmx", "Test Room 1");
+        room0 = new Room(0, "testRoom0.tmx", "Test Room 0");
+        room1 = new Room(1, "testRoom1.tmx", "Test Room 1");
 
-        p = new Player("name", "player.png");
+        room0.addTransition(new Room.Transition().setFrom(0, 4).setTo(room1, 0,0, AbstractPerson.Direction.EAST));
     }
 
     @Test
     public void testGetTransition()
     {
-        assertEquals("Porters Office", map.getRoom(0).getTransitionData(17, 17).getNewRoom().getName());
-        assertEquals(new Vector2Int(1, 5), map.getRoom(0).getTransitionData(17, 17).newTileCoordinates);
-        assertEquals(null, map.getRoom(0).getTransitionData(5, 1));
+        assertEquals(room1, room0.getTransitionData(0, 4).getNewRoom());
+        assertEquals("Test Room 1", room0.getTransitionData(0, 4).getNewRoom().getName());
+        assertEquals(new Vector2Int(0, 0), room0.getTransitionData(0, 4).newTileCoordinates);
+        assertEquals(null, room0.getTransitionData(0, 0));
+        assertEquals(AbstractPerson.Direction.EAST, room0.getTransitionData(0, 4).newDirection);
     }
 
     @Test
     public void testAddTransition()
     {
-        map.getRoom(0).addTransition(new Transition().setFrom(5, 5).setTo(map.getRoom(1), 5, 5, AbstractPerson.Direction.EAST));
-        assertEquals("RCH/037 Lecture Theatre", map.getRoom(0).getTransitionData(5, 5).getNewRoom().getName());
+        room1.addTransition(new Transition().setFrom(0, 0).setTo(room0, 0, 4, AbstractPerson.Direction.NORTH));
+        assertEquals(room0, room1.getTransitionData(0, 0).getNewRoom());
     }
 
     @Test
     public void testWalkable()
     {
-        assertEquals(true, map.getRoom(0).isWalkableTile(21, 20));
-        assertEquals(false, map.getRoom(0).isWalkableTile(20, 20));
+        assertEquals(true, room0.isWalkableTile(0, 0));
+        assertEquals(false, room0.isWalkableTile(0, 1));
+        assertEquals(false, room0.isWalkableTile(-10, -5));
     }
 
     @Test
     public void testTrigger()
     {
-        assertEquals(true, map.getRoom(0).isTriggerTile(11, 1));
-        assertEquals(false, map.getRoom(0).isTriggerTile(11, 2));
+        assertEquals(true, room0.isTriggerTile(0, 4));
+        assertEquals(false, room0.isTriggerTile(3, 3));
     }
 
     @Test
-    public void testMapRotation()
+    public void testMatRotation()
     {
-        assertEquals("SOUTH", map.getRoom(0).getMatRotation(11, 1));
-        assertEquals("EAST", map.getRoom(0).getMatRotation(18, 2));
+        assertEquals("NORTH", room0.getMatRotation(0, 4));
+        assertEquals("SOUTH", room1.getMatRotation(0, 0));
     }
 
-    @Test
-    public void testHasTransition()
-    {
-        assertEquals(null, map.getRoom(0).getTransitionData(17, 18));
-    }
 }

@@ -131,7 +131,7 @@ public class Map
     }
 
 
-    //TODO: Make this work properly every time or remove it if we dont need it. Having looked it only exists for testing purposes now so should go
+    //TODO: Make this work properly every time or remove it if we dont need it. Having looked it only exists to give the player an initial room
     /**
      * This returns a room from the list based on the id.
      *
