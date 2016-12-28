@@ -66,7 +66,7 @@ public class NavigationScreen extends AbstractScreen {
         buttons.add(new SpeechBoxButton("Button 1", eventHandler));
         buttons.add(new SpeechBoxButton("Button 2", eventHandler));
         buttons.add(new SpeechBoxButton("Button 3", eventHandler));
-        speechBox = new SpeechBox("Example NPC Name", "Hello, my name is Example NPC Name!", buttons);
+        speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons);
 
         statusBar = new StatusBar();
     }

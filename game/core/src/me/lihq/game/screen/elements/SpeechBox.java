@@ -29,7 +29,7 @@ public class SpeechBox {
 
     //Properties
     private String person;
-    private String speech;
+    private String textContent;
     private ArrayList<SpeechBoxButton> buttons;
 
     //Styles
@@ -39,25 +39,47 @@ public class SpeechBox {
     private static final Color BORDER_COLOUR = Color.GOLD;
     private static final Color TEXT_COLOUR = Color.LIGHT_GRAY;
 
-    //Constants
+    //Layout Constants
     private static final int WIDTH = Gdx.graphics.getWidth();
     private static final int HEIGHT = 120;
+    private static final int PADDING = 4;
     private static final int BORDER_WIDTH = 4;
     private static final int Y_OFFSET = StatusBar.HEIGHT;
-    private static final int PADDING = 4;
+
+    //Element Constants
+    private static final int TABLE_WIDTH = WIDTH - (2 * BORDER_WIDTH);
+    private static final int TABLE_HEIGHT = HEIGHT - (2 * BORDER_WIDTH);
+    private static final int TEXT_ROW_HEIGHT = 60;
+    private static final int BUTTON_ROW_HEIGHT = 40;
 
 
     /**
-     * The initializer for the SpeechBox
-     * Sets up UI controls and adds them to the stage ready for rendering
+     * The constructor for the SpeechBox
+     */
+    public SpeechBox(String content, ArrayList<SpeechBoxButton> buttonList) {
+
+        textContent = content;
+        buttons = buttonList;
+
+        setupStage();
+    }
+
+    /**
+     * The constructor for the SpeechBox with personName
      */
     public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList) {
 
-        //Setup class properties
         person = personName;
-        speech = speechText;
+        textContent = speechText;
         buttons = buttonList;
 
+        setupStage();
+    }
+
+    /**
+     * Sets up stage ready for rendering
+     */
+    private void setupStage() {
         //Init stage
         stage = new Stage();
 
@@ -70,12 +92,13 @@ public class SpeechBox {
 
         //Init table containing contents of speech box
         Table table = new Table();
-        table.setBackground(UIHelpers.getBackgroundDrawable(BACKGROUND_COLOR, WIDTH, HEIGHT));
+        table.setSize(TABLE_WIDTH, TABLE_HEIGHT);
+        table.setBackground(UIHelpers.getBackgroundDrawable(BACKGROUND_COLOR, TABLE_WIDTH, TABLE_HEIGHT));
         fillTableContent(table);
 
         //Add table to container contents, and add padding
-        container.setActor(table);
         container.pad(BORDER_WIDTH);
+        container.setActor(table);
 
         //Add container to stage for rendering later
         stage.addActor(container);
@@ -89,21 +112,25 @@ public class SpeechBox {
      */
     private void fillTableContent(Table table) {
 
-        table.defaults().width(250).pad(PADDING);
+        //table.defaults().pad(PADDING);
+        table.debugAll();
 
-        table.row();
+        int buttonCount = buttons.size();
+        int buttonWidth = (TABLE_WIDTH / buttonCount) - PADDING;
 
-        TextField personLabel = new TextField(person, textFieldSkin);
-        table.add(personLabel);
+        table.row().height(TEXT_ROW_HEIGHT);
 
-        TextArea voiceLabel = new TextArea(speech, textFieldSkin);
-        table.add(voiceLabel);
+        /*TextField personLabel = new TextField(person, textFieldSkin);
+        table.add(personLabel);*/
+
+        TextArea contentLabel = new TextArea(textContent, textFieldSkin);
+        table.add(contentLabel).colspan(buttonCount);
 
 
-        table.row().height(50);
+        table.row().height(BUTTON_ROW_HEIGHT);
 
         //Iterate over buttons and render them to the screen
-        for (int i = 0; i < buttons.size(); i++) {
+        for (int i = 0; i < buttonCount; i++) {
             final SpeechBoxButton buttonDetails = buttons.get(i); //find button in array
 
             TextButton buttonElement = new TextButton(buttonDetails.text, buttonSkin);
@@ -115,7 +142,7 @@ public class SpeechBox {
                 }
             });
 
-            table.add(buttonElement);
+            table.add(buttonElement).width(buttonWidth).pad(0, PADDING / 2, PADDING, PADDING / 2);
         }
 
         table.pack();
@@ -179,6 +206,9 @@ public class SpeechBox {
         textFieldSkin.add("default", fontStyle);
     }
 
+    /**
+     * Disposes of SpeechBox resources
+     */
     public void dispose() {
         stage.dispose();
     }
