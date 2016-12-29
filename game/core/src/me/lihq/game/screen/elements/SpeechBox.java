@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
@@ -57,10 +61,8 @@ public class SpeechBox {
      * The constructor for the SpeechBox
      */
     public SpeechBox(String content, ArrayList<SpeechBoxButton> buttonList) {
-
         textContent = content;
         buttons = buttonList;
-
         setupStage();
     }
 
@@ -68,12 +70,31 @@ public class SpeechBox {
      * The constructor for the SpeechBox with personName
      */
     public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList) {
-
         person = personName;
         textContent = speechText;
         buttons = buttonList;
-
         setupStage();
+    }
+
+    /**
+     * The constructor for the SpeechBox with timeout
+     */
+    public SpeechBox(String content, ArrayList<SpeechBoxButton> buttonList, int timeoutDuration) {
+        textContent = content;
+        buttons = buttonList;
+        setupStage();
+        startTimeout(timeoutDuration);
+    }
+
+    /**
+     * The constructor for the SpeechBox with timeout and personName
+     */
+    public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList, int timeoutDuration) {
+        person = personName;
+        textContent = speechText;
+        buttons = buttonList;
+        setupStage();
+        startTimeout(timeoutDuration);
     }
 
     /**
@@ -177,6 +198,24 @@ public class SpeechBox {
     }
 
     /**
+     * Removes the SpeechBox from view after delay
+     * @param timeoutDuration Delay before SpeechBox removed from view
+     */
+    public void startTimeout(int timeoutDuration) {
+        if (timeoutDuration == 0) return;
+
+        final SpeechBox sb = this;
+        Timer timer = new Timer(timeoutDuration, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                sb.hide();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    /**
      * Renders the speech box
      * Should be called within the render() method of a screen
      */
@@ -247,6 +286,13 @@ public class SpeechBox {
         fontStyle.fontColor = Color.SCARLET;
 
         personLabelSkin.add("default", fontStyle);
+    }
+
+    /**
+     * Hides the SpeechBox from screen if it is visible
+     */
+    public void hide() {
+        stage.getRoot().addAction(Actions.fadeOut(0.5f));
     }
 
     /**
