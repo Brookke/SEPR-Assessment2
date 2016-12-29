@@ -16,12 +16,12 @@ import java.util.ArrayList;
 /**
  * SpeechBox class
  * Used for rendering box containing text and buttons on screen
- *
+ * <p>
  * Usage:
- *   SpeechBox sb = new SpeechBox(..)
- *   sb.render();
- *
- *   Note: add to InputMultiplexer if using with other UI elements.
+ * SpeechBox sb = new SpeechBox(..)
+ * sb.render();
+ * <p>
+ * Note: add to InputMultiplexer if using with other UI elements.
  */
 public class SpeechBox {
 
@@ -34,24 +34,24 @@ public class SpeechBox {
 
     //Styles
     private Skin buttonSkin;
-    private Skin textFieldSkin;
+    private Skin labelSkin;
+    private Skin personLabelSkin;
     private static final Color BACKGROUND_COLOR = Color.BLACK;
-    private static final Color BORDER_COLOUR = Color.GOLD;
+    private static final Color BORDER_COLOUR = Color.RED;
     private static final Color TEXT_COLOUR = Color.LIGHT_GRAY;
 
     //Layout Constants
     private static final int WIDTH = Gdx.graphics.getWidth();
-    private static final int HEIGHT = 120;
-    private static final int PADDING = 4;
-    private static final int BORDER_WIDTH = 4;
+    private static final int PADDING = 8;
+    private static final int BORDER_WIDTH = 2;
     private static final int Y_OFFSET = StatusBar.HEIGHT;
 
-    //Element Constants
     private static final int TABLE_WIDTH = WIDTH - (2 * BORDER_WIDTH);
-    private static final int TABLE_HEIGHT = HEIGHT - (2 * BORDER_WIDTH);
-    private static final int TEXT_ROW_HEIGHT = 60;
+    private static final int TEXT_ROW_HEIGHT = 30;
     private static final int BUTTON_ROW_HEIGHT = 40;
+    private static final int TABLE_HEIGHT = (PADDING * 4) + TEXT_ROW_HEIGHT + BUTTON_ROW_HEIGHT;
 
+    private static final int HEIGHT = TABLE_HEIGHT + (2 * BORDER_WIDTH);
 
     /**
      * The constructor for the SpeechBox
@@ -112,39 +112,57 @@ public class SpeechBox {
      */
     private void fillTableContent(Table table) {
 
-        //table.defaults().pad(PADDING);
-        table.debugAll();
-
+        //Calculate constants for use later
         int buttonCount = buttons.size();
-        int buttonWidth = (TABLE_WIDTH / buttonCount) - PADDING;
+        int buttonWidth = ((TABLE_WIDTH - (2 * PADDING)) / buttonCount) - (PADDING);
 
+
+        //Initialize text row
         table.row().height(TEXT_ROW_HEIGHT);
+        if (person == null) {
 
-        /*TextField personLabel = new TextField(person, textFieldSkin);
-        table.add(personLabel);*/
+            //Display only textContent
+            Label contentLabel = new Label(textContent, labelSkin);
+            table.add(contentLabel).colspan(buttonCount).pad(-PADDING, PADDING, 0, PADDING).top().left();
 
-        TextArea contentLabel = new TextArea(textContent, textFieldSkin);
-        table.add(contentLabel).colspan(buttonCount);
+        } else {
+
+            //Display both person and textContent
+            HorizontalGroup textGroup = new HorizontalGroup();
+
+            Label personLabel = new Label(person + ": ", personLabelSkin);
+            textGroup.addActor(personLabel);
+
+            Label contentLabel = new Label(textContent, labelSkin);
+            textGroup.addActor(contentLabel);
+
+            table.add(textGroup).colspan(buttonCount).pad(-PADDING, PADDING / 2, 0, PADDING / 2).fill();
+
+        }
 
 
+        //Initialize button row
         table.row().height(BUTTON_ROW_HEIGHT);
-
-        //Iterate over buttons and render them to the screen
         for (int i = 0; i < buttonCount; i++) {
+
             final SpeechBoxButton buttonDetails = buttons.get(i); //find button in array
 
+            //Create button, and add listener for click event
             TextButton buttonElement = new TextButton(buttonDetails.text, buttonSkin);
-
-            //Setup button event handler
             buttonElement.addListener(new ClickListener() {
-                @Override public void clicked(InputEvent event, float x, float y) {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
                     buttonDetails.eventHandler.handleClick(buttonDetails.text);
                 }
             });
 
-            table.add(buttonElement).width(buttonWidth).pad(0, PADDING / 2, PADDING, PADDING / 2);
+            //Add button to table, with appropriate spacing
+            table.add(buttonElement).width(buttonWidth).pad(PADDING, PADDING / 2, 0, PADDING / 2);
+
         }
 
+
+        //Pack table
         table.pack();
     }
 
@@ -162,7 +180,8 @@ public class SpeechBox {
      */
     private void initSkins() {
         initButtonSkin();
-        initTextFieldSkin();
+        initLabelSkin();
+        initPersonLabelSkin();
     }
 
     /**
@@ -195,15 +214,29 @@ public class SpeechBox {
     /**
      * Sets up the skin for buttons on the speech box
      */
-    private void initTextFieldSkin() {
-        textFieldSkin = new Skin();
+    private void initLabelSkin() {
+        labelSkin = new Skin();
 
-        TextField.TextFieldStyle fontStyle = new TextField.TextFieldStyle();
+        Label.LabelStyle fontStyle = new Label.LabelStyle();
         BitmapFont font = new BitmapFont();
         fontStyle.font = font;
         fontStyle.fontColor = TEXT_COLOUR;
 
-        textFieldSkin.add("default", fontStyle);
+        labelSkin.add("default", fontStyle);
+    }
+
+    /**
+     * Sets up the skin for buttons on the speech box
+     */
+    private void initPersonLabelSkin() {
+        personLabelSkin = new Skin();
+
+        Label.LabelStyle fontStyle = new Label.LabelStyle();
+        BitmapFont font = new BitmapFont();
+        fontStyle.font = font;
+        fontStyle.fontColor = Color.SCARLET;
+
+        personLabelSkin.add("default", fontStyle);
     }
 
     /**
