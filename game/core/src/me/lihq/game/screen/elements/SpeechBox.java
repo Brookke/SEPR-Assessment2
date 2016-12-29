@@ -115,7 +115,11 @@ public class SpeechBox {
 
         //Calculate constants for use later
         int buttonCount = buttons.size();
-        int buttonWidth = ((TABLE_WIDTH - (2 * PADDING)) / buttonCount) - (PADDING);
+
+
+        //Calculate number of columns for label row to span
+        int labelColSpan = buttonCount;
+        if (buttonCount == 0) labelColSpan = 1;
 
 
         //Initialize text row
@@ -124,7 +128,7 @@ public class SpeechBox {
 
             //Display only textContent
             Label contentLabel = new Label(textContent, labelSkin);
-            table.add(contentLabel).colspan(buttonCount).pad(-PADDING, PADDING, 0, PADDING).top().left();
+            table.add(contentLabel).colspan(labelColSpan).pad(-PADDING, PADDING, 0, PADDING).top().left();
 
         } else {
 
@@ -137,29 +141,34 @@ public class SpeechBox {
             Label contentLabel = new Label(textContent, labelSkin);
             textGroup.addActor(contentLabel);
 
-            table.add(textGroup).colspan(buttonCount).pad(-PADDING, PADDING / 2, 0, PADDING / 2).fill();
+            table.add(textGroup).colspan(labelColSpan).pad(-PADDING, PADDING / 2, 0, PADDING / 2).fill();
 
         }
 
 
         //Initialize button row
-        table.row().height(BUTTON_ROW_HEIGHT);
-        for (int i = 0; i < buttonCount; i++) {
+        if (buttonCount > 0) {
+            table.row().height(BUTTON_ROW_HEIGHT);
 
-            final SpeechBoxButton buttonDetails = buttons.get(i); //find button in array
+            int buttonWidth = ((TABLE_WIDTH - (2 * PADDING)) / buttonCount) - (PADDING);
+            for (int i = 0; i < buttonCount; i++) {
 
-            //Create button, and add listener for click event
-            TextButton buttonElement = new TextButton(buttonDetails.text, buttonSkin);
-            buttonElement.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    buttonDetails.eventHandler.handleClick(buttonDetails.text);
-                }
-            });
+                final SpeechBoxButton button = buttons.get(i); //find button in array
 
-            //Add button to table, with appropriate spacing
-            table.add(buttonElement).width(buttonWidth).pad(PADDING, PADDING / 2, 0, PADDING / 2);
+                //Create button, and add listener for click event
+                TextButton buttonElement = new TextButton(button.text, buttonSkin);
+                buttonElement.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        //Trigger click event handler for current button (see button definition)
+                        button.eventHandler.trigger(button.text);
+                    }
+                });
 
+                //Add button to table, with appropriate spacing
+                table.add(buttonElement).width(buttonWidth).pad(PADDING, PADDING / 2, 0, PADDING / 2);
+
+            }
         }
 
 
