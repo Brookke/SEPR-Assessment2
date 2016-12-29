@@ -5,9 +5,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
+import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.Assets;
 import me.lihq.game.Settings;
 import me.lihq.game.models.Vector2Int;
+import org.json.simple.JSONObject;              //------------------------------------------------------------------------------------------------------------------------------------why cant it find this?
+import org.json.simple.JSONArray;               //------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Random;
+
+import java.util.ArrayList;
 
 /**
  * The abstract person is an abstract representation of a person. A person can be a non playable character or Player.
@@ -15,6 +24,11 @@ import me.lihq.game.models.Vector2Int;
  */
 public abstract class AbstractPerson extends Sprite
 {
+    /**
+     * Dictionary to be populated with dialogue of the character.
+     */
+    Map<String, String[]> dialogue = new HashMap<String, String[]>;
+
     /**
      * This is the location of the person in the room in terms of tiles eg (0,0) would be the bottom left of the room
      * Uses the Vector2Int as the tileCoordinates should never be floats as the person should only be between tiles during the move process.
@@ -257,6 +271,36 @@ public abstract class AbstractPerson extends Sprite
     {
         WALKING,
         STANDING;
+    }
+
+    /**
+     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
+     *
+     * @param fileName
+     */
+    private void importDialogue(String fileName)
+    {
+        JSONParser parser = new JSONParser(); //needs to be included in project
+        Object obj = parser.parse(); //give it the file location
+        for (Item item: obj)
+        {
+            dialogue.put(item[string],item[value]);
+        }
+    } //this is the general idea - once the JSON thing is here will need to play with this a bit.
+
+    /**
+     * Gets a random item from the correct dictionary key clueName.
+     *
+     * @param clueName
+     * @return
+     */
+    public String getSpeech(String clueName)
+    {
+        String[] responseList = dialogue.get(clueName);
+        int rndm = new Random().nextInt(responseList.length);
+        String returnValue = (responseList[rndm]);
+        //String returnValue = responseList[0];
+        return returnValue; //change to random
     }
 
 }

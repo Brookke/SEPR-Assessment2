@@ -5,6 +5,7 @@ import me.lihq.game.living.NPC;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Clue;
 import me.lihq.game.screen.elements.SpeechBox;
+import me.lihq.game.screen.elements.SpeechBoxButton;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class Conversation {
 
     //Buttons array
-    private Button[] questionButtons; //store the buttons like so? if anyone else decides otherwise ust change it - more a placeholder than anything else
+    private ArrayList<SpeechBoxButton> questionButtons; //store the buttons like so? if anyone else decides otherwise ust change it - more a placeholder than anything else
 
     //Persons
     private Player player;
@@ -37,8 +38,8 @@ public class Conversation {
 
         //Introduction here
         //buttonList = ["ADD BUTTONS HERE"];
-        speechBox = new SpeechBox(player.getPlayername(),"Placeholder",false); //instead of placeholder use player.getdrivel() or whatever is the correct function
-        speechBox = new SpeechBox(npc.getName(),"placeholder",false);
+        speechBox = new SpeechBox(player.getPlayername(),player.getSpeech("Introduction"),questionButtons); //instead of placeholder use player.getdrivel() or whatever is the correct function
+        speechBox = new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),questionButtons);
 
         //wait for enter key - needs a 'speechbox controller' - -OR-- how to do timer?
 
@@ -66,7 +67,7 @@ public class Conversation {
         int result = 1;
         while (result != 4)
         {
-            speechBox = new SpeechBox("","What do you want to question theplayer about",false);
+            speechBox = new SpeechBox("","What do you want to question theplayer about",questionButtons);
 
             //Clue item = new Clue(); not sure how to do this...
             //item = return from inventory...
@@ -76,8 +77,8 @@ public class Conversation {
                 case 1:
                     result = 1;
                     //ask kind question
-                    speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHolder",false);
-                    speechBox = new SpeechBox(npc.getName(),"NPC ITEM RESPONSE PLACEHOLDER",false);
+                    speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHolder",questionButtons);
+                    speechBox = new SpeechBox(npc.getName(),"NPC ITEM RESPONSE PLACEHOLDER",questionButtons);
                     //npc.addkindness
                     break;
                 case 2:
@@ -96,50 +97,8 @@ public class Conversation {
         }
     }
 
-
-    //ArrayList<SpeechBoxButton> buttonList ---- replace 'isQuestionForPlayer' with this
-
-
     private void accuse(SpeechBox speechBox)
     {
         //no sure how this works - sort out later
     }
-
-
-//    /**
-//     * PLEASE CHECK THIS - MODIFY AS NECESSARY
-//     */
-//    public void setUpButtons(String[] buttons){ //buttons contains list of button names, max length 4
-//        if (buttons.length < 5){
-//            for (int i=0;i <5;i++)
-//            {
-//                questionButtons[i].setName(buttons[i]);
-//            }
-//            for (int i=buttons.length;i <5;i++) {
-//                questionButtons[i].setDisabled(true);
-//            }
-//        }
-//    }
-//    /**
-//     * set person
-//     * @param inputPerson
-//     */
-
-
-//    public void setPersonSpeech(String inputPerson)
-//    {
-//        person = inputPerson;
-//    }
-//
-//    /**
-//     * set person and speech
-//     * @param inputPerson
-//     * @param inputSpeech
-//     */
-//    public void setPersonSpeech(String inputPerson,String inputSpeech)
-//    {
-//        person = inputPerson;
-//        speech = inputSpeech;
-//    }
-
 }
