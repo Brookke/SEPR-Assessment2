@@ -77,7 +77,8 @@ public class SpeechBox {
     }
 
     /**
-     * Sets up stage ready for rendering
+     * Sets up the SpeechBox stage ready for rendering
+     * The stage is a Scene2D class that deals with putting UI controls on the screen
      */
     private void setupStage() {
         //Init stage
