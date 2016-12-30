@@ -1,12 +1,24 @@
 package me.lihq.game.living;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.Settings;
+import org.json.simple.JSONObject;              //------------------------------------------------------------------------------------------------------------------------------------why cant it find this?
+import org.json.simple.JSONArray;               //------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Random;
+
+import java.util.Random;
 
 /**
  * The class which is responsible for the non-playable characters within the game that the player will meet.
  */
 public class NPC extends AbstractPerson
 {
+    /**
+     * Dictionary to be populated with dialogue of the character.
+     */
+    Map<String, String[]> dialogue = new HashMap<String, String[]>;
 
     //These variables are specific to the NPC only
     /**
@@ -413,4 +425,36 @@ public class NPC extends AbstractPerson
          */
         NONE
     }
+
+
+    /**
+     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
+     *
+     * @param fileName
+     */
+    private void importDialogue(String fileName)
+    {
+        JSONParser parser = new JSONParser(); //needs to be included in project
+        Object obj = parser.parse(); //give it the file location
+        for (Item item: obj)
+        {
+            dialogue.put(item[string],item[value]);
+        }
+    } //this is the general idea - once the JSON thing is here will need to play with this a bit.
+
+    /**
+     * Gets a random item from the correct dictionary key clueName.
+     *
+     * @param clueName
+     * @return
+     */
+    public String getSpeech(String clueName)
+    {
+        String[] responseList = dialogue.get(clueName);
+        int rndm = new Random().nextInt(responseList.length);
+        String returnValue = (responseList[rndm]);
+        //String returnValue = responseList[0];
+        return returnValue; //change to random
+    }
+
 }
