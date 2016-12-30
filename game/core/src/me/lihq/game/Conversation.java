@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class Conversation {
 
     //Buttons array
-    private ArrayList<SpeechBoxButton> questionButtons; //store the buttons like so? if anyone else decides otherwise ust change it - more a placeholder than anything else
+    private ArrayList<SpeechBoxButton> questionButtons; //store the buttons like so? if anyone else decides otherwise just change it - more a placeholder than anything else
+    private ArrayList<SpeechBoxButton> emptyButtons;//empty list of buttons
 
     //Persons
     private Player player;
@@ -34,27 +35,26 @@ public class Conversation {
      */
     public void startConversation() //this will be moved, just need to decide what goes where
     {
+        int result = 0;
         //ArrayList<SpeechBoxButton> buttonList = new ArrayList<SpeechBoxButton>();
-
         //Introduction here
-        //buttonList = ["ADD BUTTONS HERE"];
-        speechBox = new SpeechBox(player.getPlayername(),player.getSpeech("Introduction"),questionButtons); //instead of placeholder use player.getdrivel() or whatever is the correct function
-        speechBox = new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),questionButtons);
-
-        //wait for enter key - needs a 'speechbox controller' - -OR-- how to do timer?
+        speechBox = new SpeechBox(player.getPlayername(),player.getSpeech("Introduction"),emptyButtons); //instead of placeholder use player.getdrivel() or whatever is the correct function
+        speechBox = new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),emptyButtons);
 
         //now decide upon interaction
         //(AAAAAAH - this is gonna be a massive load of logic)
-        int result = 1;
+        setQuestionButtons("Question","Accuse","Ignore","");
+        speechBox = new SpeechBox("","What do you want to do?",questionButtons);
+        result = 1;
         switch(result)
         {
             case 1: result = 1;
                 //go to question function
-                question(speechBox);
+                question();
                 break;
             case 2: result = 2;
                 //go to accuse function
-                accuse(speechBox);
+                accuse();
                 break;
             case 3: result = 3;
                 //go to ignore function
@@ -62,12 +62,12 @@ public class Conversation {
         }//does all this want to be in a loop?
     }
 
-    private void question(SpeechBox speechBox)
+    private void question()
     {
         int result = 1;
         while (result != 4)
         {
-            speechBox = new SpeechBox("","What do you want to question theplayer about",questionButtons);
+            speechBox = new SpeechBox("","What do you want to question the player about",questionButtons);
 
             //Clue item = new Clue(); not sure how to do this...
             //item = return from inventory...
@@ -97,8 +97,65 @@ public class Conversation {
         }
     }
 
-    private void accuse(SpeechBox speechBox)
+    private void accuse()
     {
         //no sure how this works - sort out later
+    }
+
+    /**
+     * sets the contents of questionButtons ArrayList. Set item to "" if it is not wanted
+     *
+     * @param string0
+     * @param string1
+     * @param string2
+     * @param string3
+     */
+    private void setQuestionButtons(String string0,String string1,String string2,String string3)
+    {
+        SpeechBoxButton.EventHandler eventHandler0 = new SpeechBoxButton.EventHandler() {
+            @Override
+            public void handleClick(String buttonText) {
+                //result = 1;
+            }
+        };
+        SpeechBoxButton.EventHandler eventHandler1 = new SpeechBoxButton.EventHandler() {
+            @Override
+            public void handleClick(String buttonText) {
+
+            }
+        };
+        SpeechBoxButton.EventHandler eventHandler2 = new SpeechBoxButton.EventHandler() {
+            @Override
+            public void handleClick(String buttonText) {
+
+            }
+        };
+        SpeechBoxButton.EventHandler eventHandler3 = new SpeechBoxButton.EventHandler() {
+            @Override
+            public void handleClick(String buttonText) {
+
+            }
+        };
+        SpeechBoxButton button0 = new SpeechBoxButton(string0,eventHandler0);
+        SpeechBoxButton button1 = new SpeechBoxButton(string1,eventHandler1);
+        SpeechBoxButton button2 = new SpeechBoxButton(string2,eventHandler2);
+        SpeechBoxButton button3 = new SpeechBoxButton(string3,eventHandler3);
+        questionButtons.clear();
+        if (string0.length()>0)
+        {
+            questionButtons.add(0, button0);
+        }
+        if (string1.length()>0)
+        {
+            questionButtons.add(1, button1);
+        }
+        if (string2.length()>0)
+        {
+            questionButtons.add(2, button2);
+        }
+        if (string3.length()>0)
+        {
+            questionButtons.add(3, button3);
+        }
     }
 }
