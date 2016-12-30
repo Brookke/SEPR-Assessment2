@@ -14,7 +14,7 @@ public class Player extends AbstractPerson
      * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
      */
     private int personalityLevel = 50;
-
+    
     /**
      * inventory holds items collected by the player.
      */
@@ -26,11 +26,6 @@ public class Player extends AbstractPerson
     private int score = 0;
 
     /**
-     * Player name.
-     */
-    private String name;
-
-    /**
      * The room the player is currently exploring.
      */
     private Room currentRoom;
@@ -40,10 +35,9 @@ public class Player extends AbstractPerson
      * @param name - The name for the new player.
      * @param imgSrc - The image used to represent it.
      */
-    public Player(String name, String imgSrc)
+    public Player(String name, String imgSrc, int tileX, int tileY)
     {
-        super(imgSrc);
-        this.name = name;
+        super(name, imgSrc, tileX, tileY);
     }
 
     /**
@@ -68,6 +62,7 @@ public class Player extends AbstractPerson
 
     /**
      * This Moves the player to a new tile.
+     *
      * @param dir the direction that the player should move in.
      */
     public void move(Direction dir)
@@ -76,7 +71,12 @@ public class Player extends AbstractPerson
             return;
         }
 
-        if (!currentRoom.isWalkableTile(this.tileCoordinates.x + dir.getDx(),this.tileCoordinates.y + dir.getDy())) {
+        if (this.isOnTriggerTile() && dir.toString().equals(getRoom().getMatRotation(this.tileCoordinates.x, this.tileCoordinates.y))) {
+            GameMain.me.getNavigationScreen().initialiseRoomChange();
+            return;
+        }
+
+        if (!getRoom().isWalkableTile(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy())) {
             setDirection(dir);
             return;
         }
@@ -93,13 +93,9 @@ public class Player extends AbstractPerson
         return this.inventory;
     }
 
-    /**
-     * Getter for player name.
-     * @return - Returns the name of this player.
-     */
-    public String getPlayername()
-    {
-        return this.name;
+    public boolean isOnTriggerTile() {
+        return this.getRoom().isTriggerTile(this.tileCoordinates.x, this.tileCoordinates.y);
+
     }
 
     /**
@@ -111,45 +107,29 @@ public class Player extends AbstractPerson
         return this.personalityLevel;
     }
 
-    /**
-     * Change from one room to another using room ID.
-     * @param roomID - The ID of the room to go to.
-     * @param newX - The x coordinate to go to.
-     * @param newY - The y coordinate to go to.
-     */
-    public void changeRoom(int roomID, int newX, int newY)
-    {
-        changeRoom(GameMain.me.gameMap.getRoom(roomID), newX, newY);
-    }
+
 
     /**
-     * Change from one room to another using room object.
-     * @param newRoom - The ID of the room to go to.
-     * @param newX - The x coordinate to go to.
-     * @param newY - The y coordinate to go to.
+     * This takes the player at its current position, and automatically gets the transition data for the next room and applies it to the player and game
      */
-    public void changeRoom(Room newRoom, int newX, int newY)
+    public void moveRoom()
     {
-        currentRoom = newRoom;
+        if (isOnTriggerTile()) {
+            Room.Transition newRoomData = this.getRoom().getTransitionData(this.getTileCoordinates().x, this.getTileCoordinates().y);
 
-        this.setTileCoordinates(newX, newY);
-    }
+            this.setRoom(newRoomData.getNewRoom());
 
-    /**
-     * Setter for room.
-     * @param room - The room you want to set the player to.
-     */
-    public void setRoom(Room room)
-    {
-        this.currentRoom = room;
-    }
 
-    /**
-     * Getter for room.
-     * @return - Returns the room the player is currently in.
-     */
-    public Room getRoom()
-    {
-        return this.currentRoom;
+            if (newRoomData.newDirection != null) {
+                this.setDirection(newRoomData.newDirection);
+                this.updateTextureRegion();
+            }
+
+            this.setTileCoordinates(newRoomData.newTileCoordinates.x, newRoomData.newTileCoordinates.y);
+
+            //TODO: Look into making a getter for the players Game this way we can do this.getGame() here instead of GameMain.
+
+            GameMain.me.navigationScreen.updateTiledMapRenderer();
+        }
     }
 }
