@@ -129,43 +129,36 @@ public class Conversation {
         buttonNames[1] = string1;
         buttonNames[2] = string2;
         buttonNames[3] = string3;
-        SpeechBoxButton.EventHandler eventHandler0 = (String name) -> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
+        SpeechBoxButton.EventHandler eventHandler0 = (int buttonResult) -> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
         {
-            if (name == string0)
-            {
-                result = 0;
-            }
-            else
-            {
-                if (name == string1)
-                {
-                    result = 1;
-                }
-                else
-                {
-                    if (name == string2)
-                    {
-                        result = 2;
-                    }
-                    else
-                    {
-                        if (name == string3)
-                        {
-                            result = 3;
-                        }
-                        else
-                        {
-                            result = -1; //if no button has been pressed then set it to -1 :the unused value
-                        }
-                    }
-                }
-            }
+            result = buttonResult;
+            //if (name == string0)
+            //{
+            //    result = 0;
+            //}
+            //else if (name == string1)
+            //    {
+            //        result = 1;
+            //    }
+            //    else if (name == string2)
+            //        {
+            //            result = 2;
+            //        }
+            //        else if (name == string3)
+            //            {
+            //                result = 3;
+            //            }
+            //            else
+            //            {
+            //                result = -1; //if no button has been pressed then set it to -1 :the unused value
+            //            }
         };
-        SpeechBoxButton button0 = new SpeechBoxButton(string0,eventHandler0);
-        SpeechBoxButton button1 = new SpeechBoxButton(string1,eventHandler0);
-        SpeechBoxButton button2 = new SpeechBoxButton(string2,eventHandler0);
-        SpeechBoxButton button3 = new SpeechBoxButton(string3,eventHandler0);
-        questionButtons.clear();
+
+        SpeechBoxButton button0 = new SpeechBoxButton(string0,0,eventHandler0);
+        SpeechBoxButton button1 = new SpeechBoxButton(string1,1,eventHandler0);
+        SpeechBoxButton button2 = new SpeechBoxButton(string2,2,eventHandler0);
+        SpeechBoxButton button3 = new SpeechBoxButton(string3,3,eventHandler0);
+        questionButtons.clear(); //remove all items from the list just in case
         if (string0.length()>0)
         {
             questionButtons.add(0, button0);

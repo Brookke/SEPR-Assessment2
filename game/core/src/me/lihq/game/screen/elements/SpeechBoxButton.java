@@ -6,14 +6,16 @@ package me.lihq.game.screen.elements;
 public class SpeechBoxButton {
 
     public String text;
+    public int result;
     public EventHandler eventHandler;
 
-    public SpeechBoxButton(String buttonText, EventHandler eventHandlerVal) {
+    public SpeechBoxButton(String buttonText,int buttonResult, EventHandler eventHandlerVal) {
         text = buttonText;
+        result = buttonResult;
         eventHandler = eventHandlerVal;
     }
 
     public interface EventHandler {
-        void handleClick(String buttonText);
+        void handleClick(int result);
     }
 }
