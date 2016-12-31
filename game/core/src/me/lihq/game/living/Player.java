@@ -4,8 +4,8 @@ import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.GameMain;
 import me.lihq.game.models.Inventory;
 import me.lihq.game.models.Room;
-import org.json.simple.JSONObject;              //------------------------------------------------------------------------------------------------------------------------------------why cant it find this?
-import org.json.simple.JSONArray;               //------------------------------------------------------------------------------------------------------------------------------------------------------------
+//import org.json.simple.JSONObject;              //------------------------------------------------------------------------------------------------------------------------------------why cant it find this?
+//import org.json.simple.JSONArray;               //------------------------------------------------------------------------------------------------------------------------------------------------------------
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Random;
@@ -20,7 +20,7 @@ public class Player extends AbstractPerson
     /**
      * Dictionary to be populated with dialogue of the character.
      */
-    Map<String, String[]> dialogue = new HashMap<String, String[]>;
+    Map<String, String[]> dialogue = new HashMap<String, String[]>();
 
     //The personality will be a percent score (0-100) 50 being neutral etc etc
     private int personalityLevel = 50;
@@ -124,12 +124,12 @@ public class Player extends AbstractPerson
      */
     private void importDialogue(String fileName)
     {
-        JSONParser parser = new JSONParser(); //needs to be included in project
-        Object obj = parser.parse(); //give it the file location
-        for (Item item: obj)
-        {
-            dialogue.put(item[string],item[value]);
-        }
+        //JSONParser parser = new JSONParser(); //needs to be included in project
+        //Object obj = parser.parse(); //give it the file location
+        //for (Item item: obj)
+        //{
+        //    dialogue.put(item[string],item[value]);
+        //}
     } //this is the general idea - once the JSON thing is here will need to play with this a bit.
 
     /**

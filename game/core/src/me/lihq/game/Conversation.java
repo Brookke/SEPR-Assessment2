@@ -23,6 +23,10 @@ public class Conversation {
     private NPC npc;
     private SpeechBox speechBox;
 
+    //Globals for making EventHandling easier
+    private String[] buttonNames;
+    private int result = -1;
+
     public Conversation(Player inputPlayer, NPC inputNPC)
     {
         player = inputPlayer;
@@ -30,71 +34,77 @@ public class Conversation {
     }
 
     /**
-     * ALSO CHECK THIS
+     * -----------------------------------------------------------------------------------------------------------------------------<<<<CHECK THIS
      * Handles conversation between player and an NPC - method to call from this class
      */
     public void startConversation() //this will be moved, just need to decide what goes where
     {
-        int result = 0;
-        //ArrayList<SpeechBoxButton> buttonList = new ArrayList<SpeechBoxButton>();
-        //Introduction here
+        //Introduction
         speechBox = new SpeechBox(player.getPlayername(),player.getSpeech("Introduction"),emptyButtons); //instead of placeholder use player.getdrivel() or whatever is the correct function
         speechBox = new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),emptyButtons);
 
-        //now decide upon interaction
-        //(AAAAAAH - this is gonna be a massive load of logic)
+        //Deciding upon interaction
         setQuestionButtons("Question","Accuse","Ignore","");
-        speechBox = new SpeechBox("","What do you want to do?",questionButtons);
-        result = 1;
-        switch(result)
+        while (result < 0 || result > 2) //remove loop if wanted
         {
-            case 1: result = 1;
-                //go to question function
-                question();
-                break;
-            case 2: result = 2;
-                //go to accuse function
-                accuse();
-                break;
-            case 3: result = 3;
-                //go to ignore function
-                break;
-        }//does all this want to be in a loop?
+            speechBox = new SpeechBox("", "What do you want to do?", questionButtons);
+            switch (result) {
+                case 0:
+                    //go to question function
+                    question();
+                    break;
+                case 1:
+                    //go to accuse function
+                    accuse();
+                    break;
+                case 2:
+                    //go to ignore function
+                    break;
+            }
+        }
     }
 
     private void question()
     {
-        int result = 1;
-        while (result != 4)
+        while (result < 0 || result > 3)
         {
-            speechBox = new SpeechBox("","What do you want to question the player about",questionButtons);
+            //decide item
+            setQuestionButtons("Glasses","Lipstick","Handedness","Handbag"); //when done this should not be done in buttons, should be done from the journal/inventory class
+            speechBox = new SpeechBox("","What do you want to question the character about",questionButtons);
 
-            //Clue item = new Clue(); not sure how to do this...
-            //item = return from inventory...
-
-            //prints questions
-            switch(result) {
+            String clueName = "";
+            switch (result)
+            {
+                case 0:
+                    clueName = "Glasses";
+                    break;
                 case 1:
-                    result = 1;
-                    //ask kind question
-                    speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHolder",questionButtons);
-                    speechBox = new SpeechBox(npc.getName(),"NPC ITEM RESPONSE PLACEHOLDER",questionButtons);
-                    //npc.addkindness
+                    clueName = "Lipstick";
                     break;
                 case 2:
-                    result = 2;
-                    //ask normal question
-                    //these work as ABOVE -----edit
+                    clueName = "Handedness";
                     break;
                 case 3:
-                    result = 3;
-                    //ask harsh question
+                    clueName = "Handbag";
                     break;
-                case 4:
-                    result = 4;
-                    return;
+            }
+            //decide how to question
+            setQuestionButtons("","","","");
+            speechBox = new SpeechBox("","How do you want to question the character",questionButtons);
+            if (result < 0 || result > 3)
+            {
+                questionNPC(clueName,result);
             }
         }
+    }
+
+    private void questionNPC(String clue, int severity)
+    {
+        speechBox = new SpeechBox(player.getPlayername(),player.getSpeech(clue+severity),emptyButtons); //----how it should look.
+        //should also do something to do with adding/taking away niceness from NPCs
+
+        //speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHolder",questionButtons);
+        //speechBox = new SpeechBox(npc.getName(),"NPC ITEM RESPONSE PLACEHOLDER",questionButtons);
     }
 
     private void accuse()
@@ -103,7 +113,9 @@ public class Conversation {
     }
 
     /**
-     * sets the contents of questionButtons ArrayList. Set item to "" if it is not wanted
+     * Sets the contents of questionButtons ArrayList. Set item to "" if it is not wanted
+     * EventHandler uses two globals String[] buttonNames and int result
+     * eventHandler0 sets result to 0,1,2 or 3 dependant on which button was clicked
      *
      * @param string0
      * @param string1
@@ -112,34 +124,47 @@ public class Conversation {
      */
     private void setQuestionButtons(String string0,String string1,String string2,String string3)
     {
-        SpeechBoxButton.EventHandler eventHandler0 = new SpeechBoxButton.EventHandler() {
-            @Override
-            public void handleClick(String buttonText) {
-                //result = 1;
+        result = -1; //reset result
+        buttonNames[0] = string0;
+        buttonNames[1] = string1;
+        buttonNames[2] = string2;
+        buttonNames[3] = string3;
+        SpeechBoxButton.EventHandler eventHandler0 = (String name) -> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
+        {
+            if (name == string0)
+            {
+                result = 0;
             }
-        };
-        SpeechBoxButton.EventHandler eventHandler1 = new SpeechBoxButton.EventHandler() {
-            @Override
-            public void handleClick(String buttonText) {
-
-            }
-        };
-        SpeechBoxButton.EventHandler eventHandler2 = new SpeechBoxButton.EventHandler() {
-            @Override
-            public void handleClick(String buttonText) {
-
-            }
-        };
-        SpeechBoxButton.EventHandler eventHandler3 = new SpeechBoxButton.EventHandler() {
-            @Override
-            public void handleClick(String buttonText) {
-
+            else
+            {
+                if (name == string1)
+                {
+                    result = 1;
+                }
+                else
+                {
+                    if (name == string2)
+                    {
+                        result = 2;
+                    }
+                    else
+                    {
+                        if (name == string3)
+                        {
+                            result = 3;
+                        }
+                        else
+                        {
+                            result = -1; //if no button has been pressed then set it to -1 :the unused value
+                        }
+                    }
+                }
             }
         };
         SpeechBoxButton button0 = new SpeechBoxButton(string0,eventHandler0);
-        SpeechBoxButton button1 = new SpeechBoxButton(string1,eventHandler1);
-        SpeechBoxButton button2 = new SpeechBoxButton(string2,eventHandler2);
-        SpeechBoxButton button3 = new SpeechBoxButton(string3,eventHandler3);
+        SpeechBoxButton button1 = new SpeechBoxButton(string1,eventHandler0);
+        SpeechBoxButton button2 = new SpeechBoxButton(string2,eventHandler0);
+        SpeechBoxButton button3 = new SpeechBoxButton(string3,eventHandler0);
         questionButtons.clear();
         if (string0.length()>0)
         {
