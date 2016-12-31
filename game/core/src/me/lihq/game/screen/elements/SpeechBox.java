@@ -103,7 +103,7 @@ public class SpeechBox {
             //Setup button event handler
             buttonElement.addListener(new ClickListener() {
                 @Override public void clicked(InputEvent event, float x, float y) {
-                    buttonDetails.eventHandler.handleClick(buttonDetails.text);
+                    buttonDetails.eventHandler.handleClick(buttonDetails.result);
                 }
             });
 
