@@ -230,7 +230,7 @@ public class SpeechBox {
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
         new BitmapFont();
-        fontStyle.font = font;
+        //fontStyle.font = font;
         fontStyle.fontColor = TEXT_COLOUR;
 
         labelSkin.add("default", fontStyle);
