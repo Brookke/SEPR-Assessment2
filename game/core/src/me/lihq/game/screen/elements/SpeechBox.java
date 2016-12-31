@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -14,7 +15,14 @@ import java.util.ArrayList;
 
 
 /**
- * Created by Ben on 11/12/2016.
+ * SpeechBox class
+ * Used for rendering box containing text and buttons on screen
+ * <p>
+ * Usage:
+ * SpeechBox sb = new SpeechBox(..)
+ * sb.render();
+ * <p>
+ * Note: add to InputMultiplexer if using with other UI elements.
  */
 public class SpeechBox {
 
@@ -22,34 +30,55 @@ public class SpeechBox {
 
     //Properties
     private String person;
-    private String speech;
+    private String textContent;
     private ArrayList<SpeechBoxButton> buttons;
+    public int timeoutDuration;
 
     //Styles
     private Skin buttonSkin;
-    private Skin textFieldSkin;
+    private Skin labelSkin;
+    private Skin personLabelSkin;
     private static final Color BACKGROUND_COLOR = Color.BLACK;
-    private static final Color BORDER_COLOUR = Color.GOLD;
+    private static final Color BORDER_COLOUR = Color.RED;
     private static final Color TEXT_COLOUR = Color.LIGHT_GRAY;
 
-    //Constants
+    //Layout Constants
     private static final int WIDTH = Gdx.graphics.getWidth();
-    private static final int HEIGHT = 120;
-    private static final int BORDER_WIDTH = 4;
+    private static final int PADDING = 8;
+    private static final int BORDER_WIDTH = 2;
     private static final int Y_OFFSET = StatusBar.HEIGHT;
-    private static final int PADDING = 4;
+
+    private static final int TABLE_WIDTH = WIDTH - (2 * BORDER_WIDTH);
+    private static final int TEXT_ROW_HEIGHT = 30;
+    private static final int BUTTON_ROW_HEIGHT = 40;
+    private static final int TABLE_HEIGHT = (PADDING * 4) + TEXT_ROW_HEIGHT + BUTTON_ROW_HEIGHT;
+
+    private static final int HEIGHT = TABLE_HEIGHT + (2 * BORDER_WIDTH);
 
     /**
-     * The initializer for the SpeechBox
-     * Sets up UI controls and adds them to the stage ready for rendering
+     * The constructor for the SpeechBox
+     */
+    public SpeechBox(String content, ArrayList<SpeechBoxButton> buttonList) {
+        textContent = content;
+        buttons = buttonList;
+        setupStage();
+    }
+
+    /**
+     * The constructor for the SpeechBox with personName
      */
     public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList) {
-
-        //Setup class properties
         person = personName;
-        speech = speechText;
+        textContent = speechText;
         buttons = buttonList;
+        setupStage();
+    }
 
+    /**
+     * Sets up the SpeechBox stage ready for rendering
+     * The stage is a Scene2D class that deals with putting UI controls on the screen
+     */
+    private void setupStage() {
         //Init stage
         stage = new Stage();
 
@@ -62,12 +91,15 @@ public class SpeechBox {
 
         //Init table containing contents of speech box
         Table table = new Table();
-        table.setBackground(UIHelpers.getBackgroundDrawable(BACKGROUND_COLOR, WIDTH, HEIGHT));
+
+        table.setSize(TABLE_WIDTH, TABLE_HEIGHT);
+        table.setBackground(UIHelpers.getBackgroundDrawable(BACKGROUND_COLOR, TABLE_WIDTH, TABLE_HEIGHT));
         fillTableContent(table);
 
         //Add table to container contents, and add padding
-        container.setActor(table);
         container.pad(BORDER_WIDTH);
+        container.setActor(table);
+
 
         //Add container to stage for rendering later
         stage.addActor(container);
@@ -81,35 +113,66 @@ public class SpeechBox {
      */
     private void fillTableContent(Table table) {
 
-        table.defaults().width(250).pad(PADDING);
-
-        table.row();
-
-        TextField personLabel = new TextField(person, textFieldSkin);
-        table.add(personLabel);
-
-        TextArea voiceLabel = new TextArea(speech, textFieldSkin);
-        table.add(voiceLabel);
+        //Calculate constants for use later
+        int buttonCount = buttons.size();
 
 
-        table.row().height(50);
+        //Calculate number of columns for label row to span
+        int labelColSpan = buttonCount;
+        if (buttonCount == 0) labelColSpan = 1;
 
-        //Iterate over buttons and render them to the screen
-        for (int i = 0; i < buttons.size(); i++) {
-            final SpeechBoxButton buttonDetails = buttons.get(i); //find button in array
 
-            TextButton buttonElement = new TextButton(buttonDetails.text, buttonSkin);
+        //Initialize text row
+        table.row().height(TEXT_ROW_HEIGHT);
+        if (person == null) {
 
-            //Setup button event handler
-            buttonElement.addListener(new ClickListener() {
-                @Override public void clicked(InputEvent event, float x, float y) {
-                    buttonDetails.eventHandler.handleClick(buttonDetails.result);
-                }
-            });
+            //Display only textContent
+            Label contentLabel = new Label(textContent, labelSkin);
+            table.add(contentLabel).colspan(labelColSpan).pad(-PADDING, PADDING, 0, PADDING).top().left();
 
-            table.add(buttonElement);
+        } else {
+
+            //Display both person and textContent
+            HorizontalGroup textGroup = new HorizontalGroup();
+
+            Label personLabel = new Label(person + ": ", personLabelSkin);
+            textGroup.addActor(personLabel);
+
+            Label contentLabel = new Label(textContent, labelSkin);
+            textGroup.addActor(contentLabel);
+
+            table.add(textGroup).colspan(labelColSpan).pad(-PADDING, PADDING / 2, 0, PADDING / 2).fill();
+
         }
 
+
+        //Initialize button row
+        if (buttonCount > 0) {
+            table.row().height(BUTTON_ROW_HEIGHT);
+
+            int buttonWidth = ((TABLE_WIDTH - (2 * PADDING)) / buttonCount) - (PADDING);
+            for (int i = 0; i < buttonCount; i++) {
+
+                final SpeechBoxButton button = buttons.get(i); //find button in array
+
+                //Create button, and add listener for click event
+                TextButton buttonElement = new TextButton(button.text, buttonSkin);
+                buttonElement.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        //Trigger click event handler for current button (see button definition)
+                        button.eventHandler.trigger(button.text);
+                    }
+                });
+
+                //Add button to table, with appropriate spacing
+                table.add(buttonElement).width(buttonWidth).pad(PADDING, PADDING / 2, 0, PADDING / 2);
+
+            }
+        }
+
+
+        //Pack table
         table.pack();
     }
 
@@ -127,7 +190,8 @@ public class SpeechBox {
      */
     private void initSkins() {
         initButtonSkin();
-        initTextFieldSkin();
+        initLabelSkin();
+        initPersonLabelSkin();
     }
 
     /**
@@ -160,16 +224,42 @@ public class SpeechBox {
     /**
      * Sets up the skin for buttons on the speech box
      */
-    private void initTextFieldSkin() {
-        textFieldSkin = new Skin();
 
-        TextField.TextFieldStyle fontStyle = new TextField.TextFieldStyle();
-        BitmapFont font = new BitmapFont();
+    private void initLabelSkin() {
+        labelSkin = new Skin();
+
+        Label.LabelStyle fontStyle = new Label.LabelStyle();
+        new BitmapFont();
         fontStyle.font = font;
         fontStyle.fontColor = TEXT_COLOUR;
 
-        textFieldSkin.add("default", fontStyle);
+        labelSkin.add("default", fontStyle);
     }
+
+    /**
+     * Sets up the skin for buttons on the speech box
+     */
+    private void initPersonLabelSkin() {
+        personLabelSkin = new Skin();
+
+        Label.LabelStyle fontStyle = new Label.LabelStyle();
+        BitmapFont font = new BitmapFont();
+        fontStyle.font = font;
+        fontStyle.fontColor = Color.SCARLET;
+
+        personLabelSkin.add("default", fontStyle);
+    }
+
+    /**
+     * Hides the SpeechBox from screen if it is visible
+     */
+    public void fadeOut(float duration) {
+        stage.getRoot().addAction(Actions.fadeOut(duration));
+    }
+
+    /**
+     * Disposes of SpeechBox resources
+     */
 
     public void dispose() {
         stage.dispose();
