@@ -161,7 +161,7 @@ public class SpeechBox {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         //Trigger click event handler for current button (see button definition)
-                        button.eventHandler.trigger(button.text);
+                        button.eventHandler.trigger(button.result);
                     }
                 });
 
@@ -229,8 +229,8 @@ public class SpeechBox {
         labelSkin = new Skin();
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
-        new BitmapFont();
-        //fontStyle.font = font;
+        BitmapFont font = new BitmapFont();
+        fontStyle.font = font;
         fontStyle.fontColor = TEXT_COLOUR;
 
         labelSkin.add("default", fontStyle);

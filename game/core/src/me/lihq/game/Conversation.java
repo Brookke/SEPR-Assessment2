@@ -129,8 +129,9 @@ public class Conversation {
         buttonNames[1] = string1;
         buttonNames[2] = string2;
         buttonNames[3] = string3;
-        SpeechBoxButton.EventHandler eventHandler0 = (String name)->//int buttonResult -> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
+        SpeechBoxButton.EventHandler eventHandler0 = (int buttonResult)->//int buttonResult -> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
         {
+            result = buttonResult;
             //result = buttonResult;
             //if (name == string0)
             //{
@@ -154,10 +155,10 @@ public class Conversation {
             //            }
         };
 
-        SpeechBoxButton button0 = new SpeechBoxButton(string0,eventHandler0); //remember to add '0',1,2 etc
-        SpeechBoxButton button1 = new SpeechBoxButton(string1,eventHandler0);
-        SpeechBoxButton button2 = new SpeechBoxButton(string2,eventHandler0);
-        SpeechBoxButton button3 = new SpeechBoxButton(string3,eventHandler0);
+        SpeechBoxButton button0 = new SpeechBoxButton(string0,0,eventHandler0); //remember to add '0',1,2 etc
+        SpeechBoxButton button1 = new SpeechBoxButton(string1,1,eventHandler0);
+        SpeechBoxButton button2 = new SpeechBoxButton(string2,2,eventHandler0);
+        SpeechBoxButton button3 = new SpeechBoxButton(string3,3,eventHandler0);
         questionButtons.clear(); //remove all items from the list just in case
         if (string0.length()>0)
         {

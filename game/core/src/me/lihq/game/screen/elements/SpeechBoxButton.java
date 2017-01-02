@@ -7,6 +7,7 @@ package me.lihq.game.screen.elements;
 public class SpeechBoxButton {
 
     public String text;
+    public int result;
     public EventHandler eventHandler;
 
     /**
@@ -14,8 +15,9 @@ public class SpeechBoxButton {
      * @param buttonText String to display on button
      * @param eventHandlerVal On click event handler - use a Lambda function (Java8 only)
      */
-    public SpeechBoxButton(String buttonText, EventHandler eventHandlerVal) {
+    public SpeechBoxButton(String buttonText, int buttonresult, EventHandler eventHandlerVal) {
         text = buttonText;
+        result = buttonresult;
         eventHandler = eventHandlerVal;
     }
 
@@ -33,6 +35,6 @@ public class SpeechBoxButton {
      *    SpeechBoxButton.eventHandler.trigger();
      */
     public interface EventHandler {
-        void trigger(String buttonText);
+        void trigger(int result);
     }
 }

@@ -131,12 +131,12 @@ public class NavigationScreen extends AbstractScreen
         arrow = new RoomArrow(game.player);
 
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
-        SpeechBoxButton.EventHandler eventHandler = (String name) -> {
-            System.out.println(name + " was pressed");
+        SpeechBoxButton.EventHandler eventHandler = (int result) -> {
+            System.out.println(result);
         };
-        buttons.add(new SpeechBoxButton("Button 1", eventHandler));
-        buttons.add(new SpeechBoxButton("Button 2", eventHandler));
-        buttons.add(new SpeechBoxButton("Button 3", eventHandler));
+        buttons.add(new SpeechBoxButton("Button 1",0, eventHandler));
+        buttons.add(new SpeechBoxButton("Button 2",1, eventHandler));
+        buttons.add(new SpeechBoxButton("Button 3",2, eventHandler));
         speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons);
         statusBar = new StatusBar();
 
