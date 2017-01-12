@@ -29,6 +29,7 @@ public class PlayerController extends InputAdapter
         if (keycode == Input.Keys.ENTER)
         {
             interact = true;
+            return true;
         }
 
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
@@ -61,6 +62,7 @@ public class PlayerController extends InputAdapter
         if (keycode == Input.Keys.ENTER)
         {
             interact = false;
+            return true;
         }
 
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
@@ -88,6 +90,8 @@ public class PlayerController extends InputAdapter
 
     public void update()
     {
+        player.setInteracting(interact);
+
         if (!south && !north && !east && !west) {
             timer = 0;
         }
@@ -116,6 +120,5 @@ public class PlayerController extends InputAdapter
         if (player.getState() != PersonState.WALKING) {
             player.setDirection(goTo);
         }
-
     }
 }

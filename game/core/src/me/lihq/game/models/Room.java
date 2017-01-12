@@ -3,11 +3,15 @@ package me.lihq.game.models;
 //TODO: Tidy up getters and setters add them if needed, some places we are using them others not.
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import me.lihq.game.GameMain;
 import me.lihq.game.living.AbstractPerson.Direction;
+import me.lihq.game.screen.elements.RoomTag;
 
+import java.nio.file.DirectoryStream;
 import java.util.*;
 
 /**
@@ -129,6 +133,30 @@ public class Room
     {
         if (cluesInRoom.contains(toRemove)) {
             cluesInRoom.remove(toRemove);
+        }
+    }
+
+    /**
+     * This method takes a location parameter and is called only when the player presses "Enter"
+     *
+     * @param x - The x coordinate the player is at
+     * @param y - The y coordinate the player is at
+     */
+    public void interactAt(int x, int y, Direction dir)
+    {
+        //Apply direction change
+        x += dir.getDx();
+        y += dir.getDy();
+
+        //Check for a clue at that coordinate
+        for (Clue c : cluesInRoom)
+        {
+            if (c.getPosition().x == x && c.getPosition().y == y)
+            {
+                //This is just temporary indicator that you have found the clue
+                //We will use the speech box in the future
+                GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You got a clue"));
+            }
         }
     }
 

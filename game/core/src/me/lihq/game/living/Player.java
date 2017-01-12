@@ -84,6 +84,13 @@ public class Player extends AbstractPerson
         initialiseMove(dir);
     }
 
+    public void setInteracting(boolean interacting)
+    {
+        if (!interacting) return;
+
+        getRoom().interactAt(getTileCoordinates().x, getTileCoordinates().y, getDirection());
+    }
+
     /**
      * Getter for inventory.
      * @return - Returns the Inventory of this player.
