@@ -12,8 +12,19 @@ import java.util.Set;
  */
 public class Clue extends Sprite
 {
+    /**
+     * The image to be used for the clue.
+     */
     private static String imagePath = "clueSheet.png";
+
+    /**
+     * The name of the clue.
+     */
     private String clueName = "Super Secret Clue";
+
+    /**
+     * The 2D vector position of the clue.
+     */
     private Vector2Int position;
 
     //TODO: Clues generate from the killer
@@ -24,7 +35,16 @@ public class Clue extends Sprite
     private int imageSrcX;
     private int imageSrcY;
 
-    public Clue(String name, int imageSrcX, int imageSrcY)
+    /**
+     * Creates a new clue.
+     * @param name - Clue name.
+     * @param roomID - RoomID of room the clue is in.
+     * @param x - x coordinate of clues position.
+     * @param y - y coordinate of clues position.
+     * @param imageSrcX - x coordinate of imageSrc.
+     * @param imageSrcY - y coordinate of clues imageSrc.
+     */
+    public Clue(String name, int roomID, int x, int y, int imageSrcX, int imageSrcY)
     {
         super(new Texture(imagePath));
         this.clueName = name;
@@ -35,6 +55,10 @@ public class Clue extends Sprite
         this.imageSrcY = imageSrcY * Settings.TILE_SIZE;
     }
 
+    /**
+     * @param obj - The clue object.
+     * @return - Returns if it is equal as a boolean result.
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -49,6 +73,10 @@ public class Clue extends Sprite
         return false;
     }
 
+    /**
+     * Getter for Clue name.
+     * @return - Returns name of clue.
+     */
     public String getClueName()
     {
         return this.clueName;
@@ -64,6 +92,11 @@ public class Clue extends Sprite
         return setCoords(v.x, v.y);
     }
 
+    /**
+     * Setter for clue coordinates.
+     * @param x - The x coordinate for where the clue is.
+     * @param y - The y coordinate for where the clue is.
+     */
     public Clue setCoords(int x, int y)
     {
         this.position.x = x;
@@ -83,6 +116,10 @@ public class Clue extends Sprite
         return this;
     }
 
+    /**
+     * Getter for RoomID.
+     * @return - Returns the ID.
+     */
     public int getRoomID()
     {
         return roomID;
