@@ -16,6 +16,8 @@ public class PlayerController extends InputAdapter
     private boolean north, south, west, east;
     private Player player;
 
+    private boolean interact = false;
+
     public PlayerController(Player player)
     {
         this.player = player;
@@ -24,6 +26,11 @@ public class PlayerController extends InputAdapter
     @Override
     public boolean keyDown(int keycode)
     {
+        if (keycode == Input.Keys.ENTER)
+        {
+            interact = true;
+        }
+
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             this.west = true;
             return true;
@@ -51,6 +58,11 @@ public class PlayerController extends InputAdapter
     @Override
     public boolean keyUp(int keycode)
     {
+        if (keycode == Input.Keys.ENTER)
+        {
+            interact = false;
+        }
+
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
             this.west = false;
             return true;

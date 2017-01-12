@@ -44,7 +44,7 @@ public class Clue extends Sprite
      * @param imageSrcX - x coordinate of imageSrc.
      * @param imageSrcY - y coordinate of clues imageSrc.
      */
-    public Clue(String name, int roomID, int x, int y, int imageSrcX, int imageSrcY)
+    public Clue(String name, int imageSrcX, int imageSrcY)
     {
         super(new Texture(imagePath));
         this.clueName = name;
