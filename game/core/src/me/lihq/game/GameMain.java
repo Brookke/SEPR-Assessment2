@@ -4,16 +4,23 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.NPC.ACCESSORY;
 import me.lihq.game.living.NPC.HAIR_COLOR;
 import me.lihq.game.living.NPC.WRITING_HAND;
+import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
+import me.lihq.game.models.Room;
+import me.lihq.game.models.Vector2Int;
 import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
 
 import java.util.*;
+
+import static com.badlogic.gdx.maps.tiled.TiledMapTileLayer.*;
 
 
 /**
@@ -63,6 +70,7 @@ public class GameMain extends Game
 
         initialiseAllPeople();
 
+        initialiseClues();
 
         //set up the screen and display the first room
         navigationScreen = new NavigationScreen(this);
@@ -177,5 +185,67 @@ public class GameMain extends Game
 
             NPCs.add(npc);
         }
+    }
+
+    private void initialiseClues()
+    {
+        //This is a temporary list of clues
+        List<Clue> tempClues = new ArrayList<Clue>();
+
+        tempClues.add(new Clue("Clue 1", 0, 0));
+        tempClues.add(new Clue("Clue 2", 0, 0));
+        tempClues.add(new Clue("Clue 3", 0, 0));
+        tempClues.add(new Clue("Clue 4", 0, 0));
+        tempClues.add(new Clue("Clue 5", 0, 0));
+        tempClues.add(new Clue("Clue 6", 0, 0));
+        tempClues.add(new Clue("Clue 7", 0, 0));
+        tempClues.add(new Clue("Clue 8", 0, 0));
+        tempClues.add(new Clue("Clue 9", 0, 0));
+        tempClues.add(new Clue("Clue 10", 0, 0));
+
+        Collections.shuffle(tempClues);
+
+        for (Room room : gameMap.getRooms())
+        {
+            if (tempClues.isEmpty()) return;
+
+            List<Vector2Int> possibleLocations = new ArrayList<Vector2Int>();
+
+            int roomWidth = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getWidth();
+            int roomHeight = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getHeight();
+
+            for (int x = 0; x < roomWidth; x ++)
+            {
+                for (int y = 0; y < roomHeight; y ++)
+                {
+                    for (MapLayer layer : room.getTiledMap().getLayers())
+                    {
+                        TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
+                        Cell cellInTile = thisLayer.getCell(x, y);
+
+                        if (cellInTile == null) continue;
+
+                        if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
+
+                        if (Boolean.valueOf(cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")))
+                        {
+                            possibleLocations.add(new Vector2Int(x, y));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (possibleLocations.isEmpty())
+            {
+                continue;
+            }
+
+            Collections.shuffle(possibleLocations);
+
+            room.addClue(tempClues.get(0).setCoords(possibleLocations.get(0)).setRoomID(room.getID()));
+            tempClues.remove(0);
+        }
+
     }
 }

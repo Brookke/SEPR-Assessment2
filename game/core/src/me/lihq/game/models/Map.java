@@ -113,4 +113,5 @@ public class Map
         return rooms.get(id);
     }
 
+    public List<Room> getRooms() {return rooms;}
 }

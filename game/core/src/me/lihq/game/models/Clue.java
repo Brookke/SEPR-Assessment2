@@ -19,21 +19,18 @@ public class Clue extends Sprite
     //TODO: Clues generate from the killer
     //TODO: Initialise Characters -> Generate Killer -> Generate Clues
 
-    //TODO: Don't we need to associate a clue with a list of applicable NPCs?
-    //~Jason
-    //=== NEEDS DISCUSSING ===
-    //TODO: Does a clue need a room ID as a room has a list of clues in it...
-    private int roomID = -1;
+    private int roomID;
+
     private int imageSrcX;
     private int imageSrcY;
 
-    public Clue(String name, int roomID, int x, int y, int imageSrcX, int imageSrcY)
+    public Clue(String name, int imageSrcX, int imageSrcY)
     {
         super(new Texture(imagePath));
         this.clueName = name;
-        this.roomID = roomID;
-        this.position.x = x;
-        this.position.y = y;
+
+        this.position = new Vector2Int(0,0);
+
         this.imageSrcX = imageSrcX * Settings.TILE_SIZE;
         this.imageSrcY = imageSrcY * Settings.TILE_SIZE;
     }
@@ -62,12 +59,28 @@ public class Clue extends Sprite
         this.clueName = name;
     }
 
-    public void setCoords(int x, int y)
+    public Clue setCoords(Vector2Int v)
+    {
+        return setCoords(v.x, v.y);
+    }
+
+    public Clue setCoords(int x, int y)
     {
         this.position.x = x;
         this.position.y = y;
 
-        this.setPosition(x * Settings.TILE_SIZE, y * Settings.TILE_SIZE);
+        return this;
+    }
+
+    public Vector2Int getPosition()
+    {
+        return this.position;
+    }
+
+    public Clue setRoomID(int roomID)
+    {
+        this.roomID = roomID;
+        return this;
     }
 
     public int getRoomID()
