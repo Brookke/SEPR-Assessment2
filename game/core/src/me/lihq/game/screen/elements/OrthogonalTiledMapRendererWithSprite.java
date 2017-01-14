@@ -40,6 +40,17 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
         sprites.add(sprite);
     }
 
+
+    public void addSprites(List<Sprite> sprites)
+    {
+        this.sprites.addAll(sprites);
+    }
+
+    public void clearSprites()
+    {
+        sprites.clear();
+    }
+
     /**
      * This overrides the render method in the super class.
      * <p>

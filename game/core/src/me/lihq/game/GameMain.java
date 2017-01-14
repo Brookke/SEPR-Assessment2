@@ -4,9 +4,11 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import me.lihq.game.living.NPC;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
+import me.lihq.game.models.Room;
 import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
 
@@ -150,18 +152,27 @@ public class GameMain extends Game
         player = new Player("Test name", "player.png", 3, 6);
         player.setRoom(gameMap.getRoom(0));
 
-        {
-            //TODO: Add NPC assets
-            NPC npc = new NPC("Bill", "player.png", 4, 4, 1, true);
+        //TODO: Add NPC assets
+        NPC npc = new NPC("Bill", "player.png", 15, 17, gameMap.getRoom(0), true);
 
-            NPCs.add(npc);
+        NPCs.add(npc);
+
+
+        NPC npc2 = new NPC("Bob", "player.png",4,4, gameMap.getRoom(1), true);
+        NPCs.add(npc2);
+
+
+    }
+
+    public List<? extends Sprite> getNPCS(Room room)
+    {
+        List<NPC> npcsInRoom = new ArrayList<>();
+        for (NPC n : this.NPCs) {
+            if (n.getRoom() == room) {
+                npcsInRoom.add(n);
+            }
         }
 
-        {
-            NPC npc = new NPC("Bob", "player.png",4,4, 2, true);
-
-
-            NPCs.add(npc);
-        }
+        return npcsInRoom;
     }
 }

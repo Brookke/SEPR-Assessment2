@@ -17,6 +17,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.Settings;
+import me.lihq.game.living.NPC;
 import me.lihq.game.living.controller.PlayerController;
 
 import me.lihq.game.screen.elements.OrthogonalTiledMapRendererWithSprite;
@@ -52,6 +53,8 @@ public class NavigationScreen extends AbstractScreen
      * This boolean determines whether the map needs to be updated in the next render loop
      */
     private boolean changeMap = false;
+
+    private List<? extends Sprite> currentNPCS;
 
     /**
      *
@@ -169,6 +172,11 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
+
+            for (NPC n : (List<NPC>) currentNPCS) {
+                n.update();
+            }
+
         }
 
         //Some things should be updated all the time.
@@ -177,6 +185,8 @@ public class NavigationScreen extends AbstractScreen
         if (roomTag != null) {
             roomTag.update();
         }
+
+
     }
 
     private void updateTransition()
@@ -190,7 +200,7 @@ public class NavigationScreen extends AbstractScreen
                 if (animTimer == ANIM_TIME) {
                     game.player.moveRoom();
                 }
-                
+
                 if (animTimer > ANIM_TIME) {
                     fadeToBlack = false;
                 }
@@ -228,9 +238,16 @@ public class NavigationScreen extends AbstractScreen
     public void render(float delta)
     {
         game.player.pushCoordinatesToSprite();
+        for (NPC n : (List<NPC>) currentNPCS) {
+            n.pushCoordinatesToSprite();
+
+        }
 
         if (changeMap) {
             tiledMapRenderer.setMap(game.player.getRoom().getTiledMap());
+            tiledMapRenderer.clearSprites();
+            tiledMapRenderer.addSprites((List<Sprite>) currentNPCS);
+            tiledMapRenderer.addSprite(game.player);
             changeMap = false;
         }
 
@@ -306,6 +323,7 @@ public class NavigationScreen extends AbstractScreen
     public void updateTiledMapRenderer()
     {
         this.changeMap = true;
+        this.currentNPCS = game.getNPCS(game.player.getRoom());
     }
 
     public void setRoomTag(RoomTag tag)

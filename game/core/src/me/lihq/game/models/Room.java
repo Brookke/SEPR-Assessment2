@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import me.lihq.game.living.AbstractPerson.Direction;
+import me.lihq.game.living.NPC;
 
 import java.util.*;
 
@@ -68,6 +69,17 @@ public class Room
         this.map = new TmxMapLoader().load("maps/" + this.mapFile);
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Room) {
+        Room r = (Room) obj;
+        return r.getID() == this.getID();
+    }
+
+        return false;
+    }
+
     /**
      * Returns True if it's the room the murder took place in
      */
@@ -105,6 +117,7 @@ public class Room
             clue.setTileCoordinates(x, y);
         }
     }
+
 
     /**
      * Adds a clue to the room.
