@@ -13,7 +13,7 @@ import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
  */
 public class Assets
 {
-    public static Texture clues;
+    public static Texture CLUE_SHEET;
     public static Texture opening;
 
     public static TextureRegion introFrame1;
@@ -63,6 +63,8 @@ public class Assets
         UP_ARROW = new TextureRegion(arrows, 32, 32, 32, 32);
 
         TAG_BORDER = loadTexture("border.png");
+
+        CLUE_SHEET = loadTexture("clueSheet.png");
     }
 
     public static TextureRegion getArrowDirection(String direction)

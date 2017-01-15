@@ -4,9 +4,11 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import me.lihq.game.living.NPC;
+import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
@@ -177,16 +179,16 @@ public class GameMain extends Game
         //This is a temporary list of clues
         List<Clue> tempClues = new ArrayList<Clue>();
 
-        tempClues.add(new Clue("Clue 1", 0, 0));
-        tempClues.add(new Clue("Clue 2", 0, 0));
-        tempClues.add(new Clue("Clue 3", 0, 0));
-        tempClues.add(new Clue("Clue 4", 0, 0));
-        tempClues.add(new Clue("Clue 5", 0, 0));
-        tempClues.add(new Clue("Clue 6", 0, 0));
-        tempClues.add(new Clue("Clue 7", 0, 0));
-        tempClues.add(new Clue("Clue 8", 0, 0));
-        tempClues.add(new Clue("Clue 9", 0, 0));
-        tempClues.add(new Clue("Clue 10", 0, 0));
+        tempClues.add(new Clue("Clue 1", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 2", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 3", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 4", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 5", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 6", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 7", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 8", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 9", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 10", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
 
         Collections.shuffle(tempClues);
 
@@ -228,7 +230,7 @@ public class GameMain extends Game
 
             Collections.shuffle(possibleLocations);
 
-            room.addClue(tempClues.get(0).setCoords(possibleLocations.get(0)).setRoomID(room.getID()));
+            room.addClue(tempClues.get(0).setTileCoordinates(possibleLocations.get(0)));
             tempClues.remove(0);
         }
 

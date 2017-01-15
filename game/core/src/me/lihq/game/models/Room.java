@@ -117,7 +117,7 @@ public class Room
      */
     public void addClue(Clue newClue)
     {
-        System.out.println("Added Clue " + newClue.getClueName() + " at location " + newClue.getPosition() + " in room " + newClue.getRoomID());
+        System.out.println("Added Clue " + newClue.getName() + " at location " + newClue.getPosition() + " in room " + getID());
 
         if (!cluesInRoom.contains(newClue)) {
             cluesInRoom.add(newClue);

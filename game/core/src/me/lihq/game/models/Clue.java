@@ -69,9 +69,9 @@ public class Clue extends Sprite
         return this.description;
     }
 
-    public Clue setCoords(Vector2Int v)
+    public Clue setTileCoordinates(Vector2Int v)
     {
-        return setCoords(v.x, v.y);
+        return setTileCoordinates(v.x, v.y);
     }
 
     /**
@@ -79,7 +79,7 @@ public class Clue extends Sprite
      * @param x - The x coordinate for where the clue is, in terms of tiles.
      * @param y - The y coordinate for where the clue is, in terms of tiles.
      */
-    public void setTileCoordinates(int x, int y)
+    public Clue setTileCoordinates(int x, int y)
     {
         this.tileCoordinates.x = x;
         this.tileCoordinates.y = y;
@@ -89,13 +89,7 @@ public class Clue extends Sprite
 
     public Vector2Int getPosition()
     {
-        return this.position;
-    }
-
-    public Clue setRoomID(int roomID)
-    {
-        this.roomID = roomID;
-        return this;
+        return this.tileCoordinates;
     }
 
     public int getTileX() {
