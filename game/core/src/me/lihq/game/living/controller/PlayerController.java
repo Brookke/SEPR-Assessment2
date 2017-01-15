@@ -90,7 +90,10 @@ public class PlayerController extends InputAdapter
 
     public void update()
     {
-        player.setInteracting(interact);
+        if (interact)
+        {
+            player.interact();
+        }
 
         if (!south && !north && !east && !west) {
             timer = 0;

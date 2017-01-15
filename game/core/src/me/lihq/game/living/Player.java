@@ -84,10 +84,8 @@ public class Player extends AbstractPerson
         initialiseMove(dir);
     }
 
-    public void setInteracting(boolean interacting)
+    public void interact()
     {
-        if (!interacting) return;
-
         getRoom().interactAt(getTileCoordinates().x, getTileCoordinates().y, getDirection());
     }
 

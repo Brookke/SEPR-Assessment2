@@ -84,6 +84,8 @@ public class Clue extends Sprite
         this.tileCoordinates.x = x;
         this.tileCoordinates.y = y;
 
+        setPosition(x * Settings.TILE_SIZE, y * Settings.TILE_SIZE);
+
         return this;
     }
 
