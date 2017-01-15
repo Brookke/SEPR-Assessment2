@@ -11,7 +11,6 @@ import me.lihq.game.GameMain;
 import me.lihq.game.living.AbstractPerson.Direction;
 import me.lihq.game.screen.elements.RoomTag;
 
-import java.nio.file.DirectoryStream;
 import java.util.*;
 
 /**
@@ -78,6 +77,15 @@ public class Room
     public boolean isMurderRoom()
     {
         return murderRoom;
+    }
+
+    /**
+     * Sets the room to be the murder room
+     */
+    public void setMurderRoom()
+    {
+        this.murderRoom = true;
+        System.out.println("Room " + getID() + " is the murder room");
     }
 
     /**
