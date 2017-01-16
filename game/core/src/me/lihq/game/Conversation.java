@@ -98,6 +98,11 @@ public class Conversation {
         }
     }
 
+    /**
+     *
+     * @param clue
+     * @param severity
+     */
     private void questionNPC(String clue, int severity)
     {
         speechBox = new SpeechBox("Player",player.getSpeech(clue+severity),emptyButtons); //----how it should look.
@@ -129,30 +134,9 @@ public class Conversation {
         buttonNames[1] = string1;
         buttonNames[2] = string2;
         buttonNames[3] = string3;
-        SpeechBoxButton.EventHandler eventHandler0 = (int buttonResult)->//int buttonResult -> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
+        SpeechBoxButton.EventHandler eventHandler0 = (int buttonResult)-> //if you guys can make this more elegant then say how/change it - this was the easiest way I could see.
         {
             result = buttonResult;
-            //result = buttonResult;
-            //if (name == string0)
-            //{
-            //    result = 0;
-            //}
-            //else if (name == string1)
-            //    {
-            //        result = 1;
-            //    }
-            //    else if (name == string2)
-            //        {
-            //            result = 2;
-            //        }
-            //        else if (name == string3)
-            //            {
-            //                result = 3;
-            //            }
-            //            else
-            //            {
-            //                result = -1; //if no button has been pressed then set it to -1 :the unused value
-            //            }
         };
 
         SpeechBoxButton button0 = new SpeechBoxButton(string0,0,eventHandler0); //remember to add '0',1,2 etc
