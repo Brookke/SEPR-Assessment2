@@ -164,8 +164,11 @@ public class Room
                 //This is just temporary indicator that you have found the clue
                 //We will use the speech box in the future
                 GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You got a clue"));
+                return;
             }
         }
+
+        //Check for interacting at an interactable tile
     }
 
     /**
