@@ -1,10 +1,9 @@
 package me.lihq.game.living;
+
 import me.lihq.game.models.Clue;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Random;
 
 
 /**
@@ -18,8 +17,6 @@ public class NPC extends AbstractPerson
      * The roomID specifies which room the NPC will be in during the game.
      */
     private int roomID = -1;
-
-    /**
 
     /**
      * The motive string details why the NPC committed the murder.
@@ -156,30 +153,4 @@ public class NPC extends AbstractPerson
         this.motive = motive;
         return this;
     }
-
-    private void importDialogue(String fileName)
-    {
-        //JSONParser parser = new JSONParser(); //needs to be included in project
-        //Object obj = parser.parse(); //give it the file location
-        //for (Item item: obj)
-        //{
-        //    dialogue.put(item[string],item[value]);
-        //}
-    } //this is the general idea - once the JSON thing is here will need to play with this a bit.
-
-    /**
-     * Gets a random item from the correct dictionary key clueName.
-     *
-     * @param clueName
-     * @return
-     */
-    public String getSpeech(String clueName)
-    {
-        String[] responseList = dialogue.get(clueName);
-        int rndm = new Random().nextInt(responseList.length);
-        String returnValue = (responseList[rndm]);
-        //String returnValue = responseList[0];
-        return returnValue; //change to random
-    }
-
 }

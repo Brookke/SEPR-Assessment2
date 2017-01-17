@@ -149,35 +149,6 @@ public class Player extends AbstractPerson
         }
     }
 
+    
 
-    /**
-     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
-     *
-     * @param fileName
-     */
-    private void importDialogue(String fileName)
-    {
-        JsonValue root = new JsonReader().parse(Gdx.files.internal(fileName));
-    } //this is the general idea - once the JSON thing is here will need to play with this a bit.
-
-    /**
-     * Gets a random item from the correct dictionary key clueName.
-     *
-     * @param id
-     * @return
-     */
-    public String getSpeech(String id)
-    {
-        String[] responseList = dialogue.get(id);
-        int rndm = new Random().nextInt(responseList.length);
-        String returnValue = (responseList[rndm]);
-        //String returnValue = responseList[0];
-        return returnValue; //change to random
-    }
-
-    public String getSpeech(Clue clue) {
-
-        return this.getSpeech(clue.getName());
-
-    }
 }

@@ -1,16 +1,20 @@
 package me.lihq.game.living;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.Assets;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
+import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
 
@@ -65,6 +69,8 @@ public abstract class AbstractPerson extends Sprite
     protected float animTime = Settings.TPS / 3.5f;
     protected Texture spriteSheet;
     protected TextureRegion currentRegion;
+
+    protected JsonValue jsonData;
     /**
      * The direction determines the way the character is facing.
      */
@@ -180,6 +186,39 @@ public abstract class AbstractPerson extends Sprite
         updateTextureRegion();
     }
 
+    /**
+     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
+     *
+     * @param fileName
+     */
+    public void importDialogue(String fileName)
+    {
+        jsonData = new JsonReader().parse(Gdx.files.internal(fileName));
+
+
+
+    } //this is the general idea - once the JSON thing is here will need to play with this a bit.
+
+    /**
+     * Gets a random item from the correct dictionary key.
+     *
+     * @param key
+     * @return
+     */
+    public String getSpeech(String key)
+    {
+        //TODO: Randomise the noneResponse
+        if (!jsonData.get("Responses").has(key)) {
+            return jsonData.get("noneResponses").getString(0);
+        } else {
+            return jsonData.get("Responses").getString(key);
+        }
+    }
+
+    public String getSpeech(Clue clue)
+    {
+        return this.getSpeech(clue.getName());
+    }
 
     /**
      * Updates the texture region based upon how far though the animation time it is.
