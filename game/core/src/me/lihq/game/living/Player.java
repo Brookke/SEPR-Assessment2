@@ -1,7 +1,11 @@
 package me.lihq.game.living;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.GameMain;
+import me.lihq.game.models.Clue;
 import me.lihq.game.models.Inventory;
 import me.lihq.game.models.Room;
 //import org.json.simple.JSONObject;              //------------------------------------------------------------------------------------------------------------------------------------why cant it find this?
@@ -153,26 +157,27 @@ public class Player extends AbstractPerson
      */
     private void importDialogue(String fileName)
     {
-        //JSONParser parser = new JSONParser(); //needs to be included in project
-        //Object obj = parser.parse(); //give it the file location
-        //for (Item item: obj)
-        //{
-        //    dialogue.put(item[string],item[value]);
-        //}
+        JsonValue root = new JsonReader().parse(Gdx.files.internal(fileName));
     } //this is the general idea - once the JSON thing is here will need to play with this a bit.
 
     /**
      * Gets a random item from the correct dictionary key clueName.
      *
-     * @param clueName
+     * @param id
      * @return
      */
-    public String getSpeech(String clueName)
+    public String getSpeech(String id)
     {
-        String[] responseList = dialogue.get(clueName);
+        String[] responseList = dialogue.get(id);
         int rndm = new Random().nextInt(responseList.length);
         String returnValue = (responseList[rndm]);
         //String returnValue = responseList[0];
         return returnValue; //change to random
+    }
+
+    public String getSpeech(Clue clue) {
+
+        return this.getSpeech(clue.getName());
+
     }
 }
