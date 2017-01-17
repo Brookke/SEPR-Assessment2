@@ -30,6 +30,7 @@ import me.lihq.game.screen.elements.StatusBar;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This is the screen that is responsible for the navigation of the player around the game.
  * It displays the current room that the player is in, and allows the user to move the player around between rooms.
@@ -62,6 +63,7 @@ public class NavigationScreen extends AbstractScreen
     private SpriteBatch spriteBatch;
     private InputMultiplexer multiplexer;
     private boolean pause = false;
+
 
     //TODO: add more information about this class
 
@@ -127,7 +129,11 @@ public class NavigationScreen extends AbstractScreen
         playerController = new PlayerController(game.player);
 
         spriteBatch = new SpriteBatch();
-        
+
+
+        statusBar = new StatusBar(game);
+
+
         tiledMapRenderer.addSprite(game.player);
 
         arrow = new RoomArrow(game.player);
@@ -136,10 +142,11 @@ public class NavigationScreen extends AbstractScreen
         SpeechBoxButton.EventHandler eventHandler = (int result) -> {
             System.out.println(result);
         };
-        buttons.add(new SpeechBoxButton("Button 1",0, eventHandler));
-        buttons.add(new SpeechBoxButton("Button 2",1, eventHandler));
-        buttons.add(new SpeechBoxButton("Button 3",2, eventHandler));
-        statusBar = new StatusBar();
+
+        buttons.add(new SpeechBoxButton("Button 1", eventHandler));
+        buttons.add(new SpeechBoxButton("Button 2", eventHandler));
+        buttons.add(new SpeechBoxButton("Button 3", eventHandler));
+        speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons);
 
     }
 
@@ -224,6 +231,7 @@ public class NavigationScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
+
         game.player.pushCoordinatesToSprite();
 
         if (changeMap) {
@@ -266,6 +274,8 @@ public class NavigationScreen extends AbstractScreen
     public void resize(int width, int height)
     {
         viewport.update(width, height);
+        speechBox.resize(width,height);
+        statusBar.resize(width, height);
     }
 
     @Override
