@@ -136,7 +136,6 @@ public class NavigationScreen extends AbstractScreen
         SpeechBoxButton.EventHandler eventHandler = (int result) -> {
             System.out.println(result);
         };
-        convMng = new Conversation();
         buttons.add(new SpeechBoxButton("Button 1",0, eventHandler));
         buttons.add(new SpeechBoxButton("Button 2",1, eventHandler));
         buttons.add(new SpeechBoxButton("Button 3",2, eventHandler));
