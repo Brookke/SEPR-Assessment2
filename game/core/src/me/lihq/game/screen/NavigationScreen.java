@@ -133,6 +133,7 @@ public class NavigationScreen extends AbstractScreen
 
         statusBar = new StatusBar(game);
 
+        convMng = new Conversation(null, null);
 
         tiledMapRenderer.addSprite(game.player);
 
