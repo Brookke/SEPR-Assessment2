@@ -65,7 +65,6 @@ public class SpeechBox {
         buttons = buttonList;
         this.timeoutDuration = timeout * Settings.TPS;
         setupStage();
-
     }
 
     /**
@@ -75,6 +74,27 @@ public class SpeechBox {
         person = personName;
         textContent = speechText;
         buttons = buttonList;
+        this.timeoutDuration = timeout * Settings.TPS;
+        setupStage();
+    }
+
+    /**
+     * The constructor for the SpeechBox without buttons
+     */
+    public SpeechBox(String content, int timeout) {
+        textContent = content;
+        buttons = new ArrayList<>();
+        this.timeoutDuration = timeout * Settings.TPS;
+        setupStage();
+    }
+
+    /**
+     * The constructor for the SpeechBox without buttons with personName
+     */
+    public SpeechBox(String personName, String speechText, int timeout) {
+        person = personName;
+        textContent = speechText;
+        buttons = new ArrayList<>();
         this.timeoutDuration = timeout * Settings.TPS;
         setupStage();
     }
