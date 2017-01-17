@@ -1,6 +1,7 @@
 package me.lihq.game.screen;
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 
 import com.badlogic.gdx.InputMultiplexer;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import me.lihq.game.Conversation;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
@@ -63,7 +65,7 @@ public class NavigationScreen extends AbstractScreen
 
     //TODO: add more information about this class
 
-    private SpeechBox speechBox;
+    private Conversation convMng;
 
     private StatusBar statusBar;
     /**
@@ -134,10 +136,10 @@ public class NavigationScreen extends AbstractScreen
         SpeechBoxButton.EventHandler eventHandler = (int result) -> {
             System.out.println(result);
         };
+        convMng = new Conversation();
         buttons.add(new SpeechBoxButton("Button 1",0, eventHandler));
         buttons.add(new SpeechBoxButton("Button 2",1, eventHandler));
         buttons.add(new SpeechBoxButton("Button 3",2, eventHandler));
-        speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons);
         statusBar = new StatusBar();
 
     }
@@ -150,10 +152,11 @@ public class NavigationScreen extends AbstractScreen
     {
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerController);
-        multiplexer.addProcessor(speechBox.stage);
+        //TODO: Add the convMng processor in here
         multiplexer.addProcessor(statusBar.stage);
 
         Gdx.input.setInputProcessor(multiplexer);
+
 
     }
 
@@ -164,6 +167,7 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
+            convMng.update();
         }
         //Some things should be updated all the time.
         updateTransition();
@@ -227,7 +231,6 @@ public class NavigationScreen extends AbstractScreen
             tiledMapRenderer.setMap(game.player.getRoom().getTiledMap());
             changeMap = false;
         }
-
         camera.position.x = game.player.getX();
         camera.position.y = game.player.getY();
         camera.update();
@@ -255,8 +258,8 @@ public class NavigationScreen extends AbstractScreen
 
         spriteBatch.end();
 
-        speechBox.render();
         statusBar.render();
+        convMng.render();
 
     }
 
@@ -289,7 +292,6 @@ public class NavigationScreen extends AbstractScreen
     {
         map.dispose();
         tiledMapRenderer.dispose();
-        speechBox.dispose();
         statusBar.dispose();
         spriteBatch.dispose();
     }

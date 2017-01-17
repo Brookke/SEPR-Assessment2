@@ -8,6 +8,7 @@ import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.SpeechBoxButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ben on 23/12/2016.
@@ -23,6 +24,8 @@ public class Conversation {
     private NPC npc;
     private SpeechBox speechBox;
 
+    private List<SpeechBox> stack = new ArrayList<>();
+
     //Globals for making EventHandling easier
     private String[] buttonNames;
     private int result = -1;
@@ -37,17 +40,41 @@ public class Conversation {
      * -----------------------------------------------------------------------------------------------------------------------------<<<<CHECK THIS
      * Handles conversation between player and an NPC - method to call from this class
      */
+
+    public void addSpeechBox(SpeechBox speechBox) {
+        stack.add(speechBox);
+    }
+
+    public void render()
+    {
+        if (!this.stack.isEmpty()) {
+            this.stack.get(0).render();
+        }
+    }
+
+    public void update()
+    {
+        if (!this.stack.isEmpty()) {
+            if (this.stack.get(0).timeoutDuration == 0) {
+                this.stack.remove(0);
+            } else {
+                this.stack.get(0).update();
+            }
+        }
+    }
+
     public void startConversation() //this will be moved, just need to decide what goes where
     {
+
         //Introduction
-        speechBox = new SpeechBox("player",player.getSpeech("Introduction"),emptyButtons); //instead of placeholder use player.getdrivel() or whatever is the correct function
-        speechBox = new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),emptyButtons);
+        addSpeechBox(new SpeechBox("player",player.getSpeech("Introduction"),emptyButtons, 5)); //instead of placeholder use player.getdrivel() or whatever is the correct function
+        addSpeechBox(new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),emptyButtons, 5));
 
         //Deciding upon interaction
         setQuestionButtons("Question","Accuse","Ignore","");
         while (result < 0 || result > 2) //remove loop if wanted
         {
-            speechBox = new SpeechBox("", "What do you want to do?", questionButtons);
+            speechBox = new SpeechBox("", "What do you want to do?", questionButtons, -1);
             switch (result) {
                 case 0:
                     //go to question function
@@ -70,7 +97,7 @@ public class Conversation {
         {
             //decide item
             setQuestionButtons("Glasses","Lipstick","Handedness","Handbag"); //when done this should not be done in buttons, should be done from the journal/inventory class
-            speechBox = new SpeechBox("","What do you want to question the character about",questionButtons);
+            speechBox = new SpeechBox("","What do you want to question the character about",questionButtons, -1);
 
             String clueName = "";
             switch (result)
@@ -90,7 +117,7 @@ public class Conversation {
             }
             //decide how to question
             setQuestionButtons("","","","");
-            speechBox = new SpeechBox("","How do you want to question the character",questionButtons);
+            speechBox = new SpeechBox("","How do you want to question the character",questionButtons, -1);
             if (result < 0 || result > 3)
             {
                 questionNPC(clueName,result);
@@ -105,7 +132,7 @@ public class Conversation {
      */
     private void questionNPC(String clue, int severity)
     {
-        speechBox = new SpeechBox("Player",player.getSpeech(clue+severity),emptyButtons); //----how it should look.
+        speechBox = new SpeechBox("Player",player.getSpeech(clue+severity),emptyButtons, -1); //----how it should look.
         //should also do something to do with adding/taking away niceness from NPCs
 
         //speechBox = new SpeechBox(player.getPlayername(),"ITEM QUESTION PLACEHolder",questionButtons);

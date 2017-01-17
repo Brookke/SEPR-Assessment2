@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import me.lihq.game.Settings;
 
 import java.util.ArrayList;
 
@@ -58,19 +59,22 @@ public class SpeechBox {
     /**
      * The constructor for the SpeechBox
      */
-    public SpeechBox(String content, ArrayList<SpeechBoxButton> buttonList) {
+    public SpeechBox(String content, ArrayList<SpeechBoxButton> buttonList, int timeout) {
         textContent = content;
         buttons = buttonList;
+        this.timeoutDuration = timeout * Settings.TPS;
         setupStage();
+
     }
 
     /**
      * The constructor for the SpeechBox with personName
      */
-    public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList) {
+    public SpeechBox(String personName, String speechText, ArrayList<SpeechBoxButton> buttonList, int timeout) {
         person = personName;
         textContent = speechText;
         buttons = buttonList;
+        this.timeoutDuration = timeout * Settings.TPS;
         setupStage();
     }
 
@@ -183,6 +187,17 @@ public class SpeechBox {
     public void render() {
         stage.act();
         stage.draw();
+    }
+
+    public void update()
+    {
+        if (this.timeoutDuration > 0) {
+            timeoutDuration--;
+
+        } else if (this.timeoutDuration == 0) {
+            this.fadeOut(1);
+            this.dispose();
+        }
     }
 
     /**
