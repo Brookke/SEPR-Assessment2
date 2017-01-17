@@ -96,7 +96,7 @@ public class Conversation {
         while (result < 0 || result > 3)
         {
             //decide item
-            setQuestionButtons("Glasses","Lipstick","Handedness","Handbag"); //when done this should not be done in buttons, should be done from the journal/inventory class
+            setQuestionButtons("Glasses","Lipstick","Handedness","Handbag"); //when game is finished this should not be done in buttons, should be done from the journal/inventory class
             speechBox = new SpeechBox("","What do you want to question the character about",questionButtons, -1);
 
             String clueName = "";

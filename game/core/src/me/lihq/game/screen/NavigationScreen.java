@@ -143,10 +143,10 @@ public class NavigationScreen extends AbstractScreen
             System.out.println(result);
         };
 
-        buttons.add(new SpeechBoxButton("Button 1", eventHandler));
-        buttons.add(new SpeechBoxButton("Button 2", eventHandler));
-        buttons.add(new SpeechBoxButton("Button 3", eventHandler));
-        speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons);
+        buttons.add(new SpeechBoxButton("Button 1",1, eventHandler));
+        buttons.add(new SpeechBoxButton("Button 2",2, eventHandler));
+        buttons.add(new SpeechBoxButton("Button 3",3, eventHandler));
+        SpeechBox speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons,100);
 
     }
 
@@ -274,7 +274,7 @@ public class NavigationScreen extends AbstractScreen
     public void resize(int width, int height)
     {
         viewport.update(width, height);
-        speechBox.resize(width,height);
+        //speechBox.resize(width,height);
         statusBar.resize(width, height);
     }
 
