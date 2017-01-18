@@ -57,7 +57,7 @@ public class NPC extends AbstractPerson
         this.setRoomID(roomID);
 
         this.canBeKiller = canBeKiller;
-        importDialogue("Colin.JSON");
+        importDialogue(name+".JSON");
 
     }
 

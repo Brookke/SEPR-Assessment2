@@ -54,6 +54,7 @@ public class Player extends AbstractPerson
     public Player(String name, String imgSrc, int tileX, int tileY)
     {
         super(name, imgSrc, tileX, tileY);
+        importDialogue("Player.JSON");
     }
 
     /**

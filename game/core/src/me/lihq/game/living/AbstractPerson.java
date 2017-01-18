@@ -193,7 +193,13 @@ public abstract class AbstractPerson extends Sprite
      */
     public void importDialogue(String fileName)
     {
-        jsonData = new JsonReader().parse(Gdx.files.internal(fileName));
+        try {
+            jsonData = new JsonReader().parse(Gdx.files.internal(fileName));
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not find JSON file for"+fileName);
+        }
 
 
 
@@ -205,13 +211,18 @@ public abstract class AbstractPerson extends Sprite
      * @param key
      * @return
      */
-    public String getSpeech(String key)
-    {
+    public String getSpeech(String key) {
         //TODO: Randomise the noneResponse
-        if (!jsonData.get("Responses").has(key)) {
-            return jsonData.get("noneResponses").getString(0);
-        } else {
-            return jsonData.get("Responses").getString(key);
+        try {
+            if (!jsonData.get("Responses").has(key)) {
+                return jsonData.get("noneResponses").getString(0);
+            } else {
+                return jsonData.get("Responses").getString(key);
+            }
+        }
+        catch (Exception e)
+        {
+            return "Error";
         }
     }
 

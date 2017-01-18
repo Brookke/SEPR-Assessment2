@@ -16,8 +16,8 @@ import java.util.List;
 public class Conversation {
 
     //Buttons array
-    private ArrayList<SpeechBoxButton> questionButtons; //store the buttons like so? if anyone else decides otherwise just change it - more a placeholder than anything else
-    private ArrayList<SpeechBoxButton> emptyButtons;//empty list of buttons
+    private ArrayList<SpeechBoxButton> questionButtons = new ArrayList<SpeechBoxButton>(); //store the buttons like so? if anyone else decides otherwise just change it - more a placeholder than anything else
+    private ArrayList<SpeechBoxButton> emptyButtons = new ArrayList<SpeechBoxButton>();//empty list of buttons
 
     //Persons
     private Player player;
@@ -27,13 +27,15 @@ public class Conversation {
     private List<SpeechBox> stack = new ArrayList<>();
 
     //Globals for making EventHandling easier
-    private String[] buttonNames;
+    private String[] buttonNames = new String[4];
     private int result = -1;
 
+    //do i need this? ---------------------------------------------------------------------------------------------------------<<CHECK THIS
     public Conversation(Player inputPlayer, NPC inputNPC)
     {
         player = inputPlayer;
         npc = inputNPC;
+        startConversation(); //i dont know which way people would prefer - is it better to initialise conversation THEN startConversation, or just do it in 'one line'?
     }
 
     /**
@@ -63,9 +65,8 @@ public class Conversation {
         }
     }
 
-    public void startConversation() //this will be moved, just need to decide what goes where
+    private void startConversation() //this will be moved, just need to decide what goes where
     {
-
         //Introduction
         addSpeechBox(new SpeechBox("player",player.getSpeech("Introduction"),emptyButtons, 5)); //instead of placeholder use player.getdrivel() or whatever is the correct function
         addSpeechBox(new SpeechBox(npc.getName(),npc.getSpeech("Introduction"),emptyButtons, 5));

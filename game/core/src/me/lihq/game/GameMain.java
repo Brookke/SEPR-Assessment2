@@ -161,21 +161,22 @@ public class GameMain extends Game
     {
         //Add ALL NPCs to the list
         //This is how you initialise an NPC
-        player = new Player("Test name", "player.png", 3, 6);
+        player = new Player("Player", "player.png", 3, 6);
         player.setRoom(gameMap.getRoom(0));
 
         {
             //TODO: Add NPC assets
-            NPC npc = new NPC("Bill", "player.png", 4, 4, 1, true);
+            NPC npc = new NPC("NPC", "player.png", 4, 4, 1, true);
 
             NPCs.add(npc);
         }
 
-        {
-            NPC npc = new NPC("Bob", "player.png",4,4, 2, true);
+        //{
+        //    NPC npc = new NPC("Bob", "player.png",4,4, 2, true);
 
 
-            NPCs.add(npc);
-        }
+//            NPCs.add(npc);
+//        }
+
     }
 }

@@ -67,7 +67,7 @@ public class NavigationScreen extends AbstractScreen
 
     //TODO: add more information about this class
 
-    private Conversation convMng;
+    //private Conversation convMng;
 
     private StatusBar statusBar;
     /**
@@ -133,7 +133,7 @@ public class NavigationScreen extends AbstractScreen
 
         statusBar = new StatusBar(game);
 
-        convMng = new Conversation(null, null);
+        //convMng = new Conversation(null, null);
 
         tiledMapRenderer.addSprite(game.player);
 
@@ -174,7 +174,7 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
-            convMng.update();
+            //convMng.update();
         }
         //Some things should be updated all the time.
         updateTransition();
@@ -267,7 +267,7 @@ public class NavigationScreen extends AbstractScreen
         spriteBatch.end();
 
         statusBar.render();
-        convMng.render();
+        //convMng.render();
 
     }
 

@@ -139,7 +139,15 @@ public class SpeechBox {
     private void fillTableContent(Table table) {
 
         //Calculate constants for use later
-        int buttonCount = buttons.size();
+        int buttonCount = 0;
+        try
+        {
+            buttonCount = buttons.size();
+        }
+        catch (Exception noButtons)
+        {
+                buttonCount = 0;
+        }
 
 
         //Calculate number of columns for label row to span
