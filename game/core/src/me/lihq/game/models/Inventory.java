@@ -13,7 +13,7 @@ import java.util.List;
 public class Inventory
 {
 
-    private List<Item> items = new ArrayList<Item>();
+    private List<Clue> clues = new ArrayList<>();
 
     //Constructor
     public Inventory()
@@ -21,87 +21,55 @@ public class Inventory
 
     }
 
-    public void addItem(Item item)
-    {
-        if (hasItem(item.getName())) {
-            //Increase stack size vs not adding?
-        } else {
-            items.add(item);
-        }
-    }
 
-    /*
-        This method will check whether an item is in the inventory or not based on its name
-
-        @param String name - The name of the item to be checks
-
-        @returns boolean - Whether the item exists or not
+    /**
+     * Adds a clue to the inventory
+     * @param clue
      */
-    public boolean hasItem(String name)
+    public void addClue(Clue clue)
     {
-        return hasItem(new Item(name, "", -1, -1));
+        if (!this.hasClue(clue)) {
+            clues.add(clue);
+        }
     }
 
-    public boolean hasItem(Item item)
+
+    /**
+     * Checks to see if a clue is in the inventory based on a name.
+     * @param name the name of the clue to check
+     * @return true if it does contain the clue, false otherwise
+     */
+    public boolean hasClue(String name)
     {
-        return getItems().contains(item);
-    }
-
-    //Returns the list of items in the inventory
-    public List<Item> getItems()
-    {
-        return this.items;
-    }
-
-    //My justification is only the Inventory will hold items, so to save space, keep it in this class
-    public static class Item
-    {
-        String name = "";
-        String description = "";
-
-        TextureRegion textureRegion;
-
-        public Item(String itemName, String description, int imageX, int imageY)
-        {
-            this.name = itemName;
-            this.description = description;
-
-            //* 32 because we can give the position of the image, eg. x=2, y=1. Then it gets the pixel locations by timesing by the pixel size (32 default)
-            //TODO: Needs UNCOMMENTING when we have items assets
-            //textureRegion = new TextureRegion(Assets.items, imageX * Settings.TILE_SIZE, imageY * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
-        }
-
-        //Returns the name of the item
-        public String getName()
-        {
-            return this.name;
-        }
-
-        public String getDescription()
-        {
-            return description;
-        }
-
-        /*
-            This is a standard Object method that checks if 2 objects are the same.
-            It is called in instances such as list.remove(item). item1 == item2 etc
-
-            @param obj - The object it is being compared to
-
-            @returns boolean - Whether the parameter obj is equal to the current object
-         */
-        @Override
-        public boolean equals(Object obj)
-        {
-
-            if (obj instanceof Item) {
-                Item other = (Item) obj;
-
-                return other.getName().equals(this.getName());
-            } else {
-                return false;
+        for (Clue c: getClues()) {
+            if (c.getName() == name) {
+                return true;
             }
-
         }
+        return false;
     }
+
+
+    /**
+     * Checks to see if a clue is in the inventory based on a name.
+     * @param clue the clue to check
+     * @return true if it does contain the clue, false otherwise
+     */
+    public boolean hasClue(Clue clue)
+    {
+        return getClues().contains(clue);
+    }
+
+
+    /**
+     * This the list of clues contained in the inventory
+     * @return List of clues
+     */
+    public List<Clue> getClues()
+    {
+        return this.clues;
+    }
+
+
+
 }
