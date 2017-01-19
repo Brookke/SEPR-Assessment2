@@ -15,6 +15,7 @@ import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
 import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
+import me.lihq.game.screen.MainMenuScreen;
 
 import java.util.*;
 
@@ -45,10 +46,18 @@ public class GameMain extends Game
     public Player player;
     public int ticks = 0;
     public int lastSecond = -1;
+    
+
+    /**
+     * The main menu screen that shows up when the game is first started
+     */
+    private MainMenuScreen menuScreen;
+    
     /**
      * A screen to be used to display standard gameplay within the game , including the status bar.
      */
     public NavigationScreen navigationScreen;
+
     /**
      * An FPSLogger, FPSLogger allows us to check the game FPS is good enough
      */
@@ -71,9 +80,14 @@ public class GameMain extends Game
         initialiseClues();
 
         //set up the screen and display the first room
+
+        //Set up the Menu
+        menuScreen = new MainMenuScreen(this);
+        this.setScreen(menuScreen);
+
         navigationScreen = new NavigationScreen(this);
         navigationScreen.updateTiledMapRenderer();
-        this.setScreen(navigationScreen);
+
         //Instantiate the FPSLogger to show FPS
         FPS = new FPSLogger();
 
