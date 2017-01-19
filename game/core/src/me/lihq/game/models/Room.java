@@ -225,25 +225,32 @@ public class Room
             return false;
         }
 
-        /*
-        Check to see if the player is standing in the target destination
-         */
-        if (GameMain.me.player.getTileCoordinates().x == x && GameMain.me.player.getTileCoordinates().y == y)
+        try
         {
-            return false;
-        }
-
-        /*
-        Check to see if any NPCs are standing in the target destination
-         */
-        for (Sprite sprite : GameMain.me.getNavigationScreen().getNPCs())
-        {
-            NPC npc = (NPC) sprite;
-
-            if (npc.getTileCoordinates().x == x && npc.getTileCoordinates().y == y)
+             /*
+            Check to see if the player is standing in the target destination
+            */
+            if (GameMain.me.player.getTileCoordinates().x == x && GameMain.me.player.getTileCoordinates().y == y)
             {
                 return false;
             }
+
+             /*
+             Check to see if any NPCs are standing in the target destination
+             */
+            for (Sprite sprite : GameMain.me.getNavigationScreen().getNPCs())
+            {
+                NPC npc = (NPC) sprite;
+
+                if (npc.getTileCoordinates().x == x && npc.getTileCoordinates().y == y)
+                {
+                    return false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+
         }
 
         /*
