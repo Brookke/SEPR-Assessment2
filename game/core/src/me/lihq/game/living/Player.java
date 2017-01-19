@@ -1,8 +1,11 @@
 package me.lihq.game.living;
 
 import me.lihq.game.GameMain;
-import me.lihq.game.models.Inventory;
+import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class defines the player that the person playing the game will be represented by.
@@ -14,11 +17,8 @@ public class Player extends AbstractPerson
      * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
      */
     private int personalityLevel = 50;
-    
-    /**
-     * inventory holds items collected by the player.
-     */
-    private Inventory inventory = new Inventory();
+
+    public List<Clue> collectedClues = new ArrayList<>();
 
     /**
      * The score the player has earned so far.
@@ -89,14 +89,7 @@ public class Player extends AbstractPerson
         getRoom().interactAt(getTileCoordinates().x, getTileCoordinates().y, getDirection());
     }
 
-    /**
-     * Getter for inventory.
-     * @return - Returns the Inventory of this player.
-     */
-    public Inventory getInventory()
-    {
-        return this.inventory;
-    }
+
 
     public boolean isOnTriggerTile() {
         return this.getRoom().isTriggerTile(this.tileCoordinates.x, this.tileCoordinates.y);
