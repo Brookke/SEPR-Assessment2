@@ -153,13 +153,12 @@ public class GameMain extends Game
         player.setRoom(gameMap.getRoom(0));
 
         //TODO: Add NPC assets
-        NPC npc = new NPC("Bill", "player.png", 15, 17, gameMap.getRoom(0), true);
-
+        NPC npc = new NPC("Colin", "colin.png", 15, 17, gameMap.getRoom(0), true);
         NPCs.add(npc);
 
-
-        NPC npc2 = new NPC("Bob", "player.png",4,4, gameMap.getRoom(1), true);
+        NPC npc2 = new NPC("Diana", "diana.png",4,4, gameMap.getRoom(1), true);
         NPCs.add(npc2);
+
 
 
     }

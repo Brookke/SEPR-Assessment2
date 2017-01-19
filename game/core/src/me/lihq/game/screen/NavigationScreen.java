@@ -330,4 +330,9 @@ public class NavigationScreen extends AbstractScreen
     {
         this.roomTag = tag;
     }
+
+    public List<? extends Sprite> getNPCs()
+    {
+        return currentNPCS;
+    }
 }

@@ -23,9 +23,6 @@ public class NPC extends AbstractPerson
      */
     private String motive = "";
 
-    //The NPCs 'blood' graphics will also be on the regular NPCs sprite sheet
-
-
     //These are characteristics about the NPC that could be used as clues by the player in a "Guess who" style.
 
     /**
@@ -51,12 +48,10 @@ public class NPC extends AbstractPerson
      */
     public NPC(String name, String spriteSheet, int tileX, int tileY, Room room, boolean canBeKiller)
     {
-
-        super(name, spriteSheet, tileX, tileY);
+        super(name, "npc/" + spriteSheet, tileX, tileY);
         this.setRoom(room);
         this.random = new Random();
         this.canBeKiller = canBeKiller;
-
     }
 
 
@@ -70,15 +65,15 @@ public class NPC extends AbstractPerson
      */
     public void move(Direction dir)
     {
-
         if (this.state != PersonState.STANDING) {
             return;
         }
 
-
         if (!getRoom().isWalkableTile(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy())) {
+            setDirection(dir);
             return;
         }
+
         if (GameMain.me.player.tileCoordinates.x == this.tileCoordinates.x + dir.getDx() && GameMain.me.player.tileCoordinates.y == this.tileCoordinates.y + dir.getDy())
         {
             return;
@@ -87,7 +82,9 @@ public class NPC extends AbstractPerson
         initialiseMove(dir);
     }
 
-    private void randomMove() {
+    private void randomMove()
+    {
+        if (getState() == PersonState.WALKING) return;
 
         if (random.nextDouble() > 0.01) {
             return;
@@ -124,7 +121,6 @@ public class NPC extends AbstractPerson
     public boolean hasClue(Clue clue)
     {
         return this.associatedClues.contains(clue);
-
     }
 
 

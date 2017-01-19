@@ -3,9 +3,11 @@ package me.lihq.game.models;
 //TODO: Tidy up getters and setters add them if needed, some places we are using them others not.
 
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import me.lihq.game.GameMain;
 import me.lihq.game.living.AbstractPerson.Direction;
 import me.lihq.game.living.NPC;
 
@@ -49,6 +51,12 @@ public class Room
     private TiledMap map;
 
     /**
+     * This stores the coordinates of the map in a 2x2 array. If a player/NPC attempts to move to a location, it locks
+     * the location before it moves, to avoid anything else moving to it.
+     */
+    private boolean[][] lockedTiles = null;
+
+    /**
      * Room transitions stored as custom Transition object. Defines where the transition is from and where it goes to
      */
     private List<Transition> roomTransitions = new ArrayList<Transition>();
@@ -67,6 +75,18 @@ public class Room
         this.name = name;
 
         this.map = new TmxMapLoader().load("maps/" + this.mapFile);
+
+        int roomWidth = ((TiledMapTileLayer) map.getLayers().get(0)).getWidth();
+        int roomHeight = ((TiledMapTileLayer) map.getLayers().get(0)).getHeight();
+
+        this.lockedTiles = new boolean[roomWidth][roomHeight];
+        for (int w = 0; w < roomWidth; w ++)
+        {
+            for (int h = 0; h < roomHeight; h ++)
+            {
+                this.lockedTiles[w][h] = false;
+            }
+        }
     }
 
     @Override
@@ -144,6 +164,28 @@ public class Room
     }
 
     /**
+     * This method locks the specified coordinates so no other living object can move to it
+     *
+     * @param x - The x coordinate to lock
+     * @param y - The y coordinate to lock
+     */
+    public void lockCoordinate(int x, int y)
+    {
+        this.lockedTiles[x][y] = true;
+    }
+
+    /**
+     * This method unlocks the specified coordinates so other living object can move to it
+     *
+     * @param x - The x coordinate to unlock
+     * @param y - The y coordinate to unlock
+     */
+    public void unlockCoordinate(int x, int y)
+    {
+        this.lockedTiles[x][y] = false;
+    }
+
+    /**
      * This method takes a current X and Y coordinate and checks through all the layers on the map to see if any tile IS NOT
      * movable. If any tile IS NOT movable, it returns false.
      *
@@ -180,6 +222,35 @@ public class Room
         if it does the this must be an empty area of the map that is not walkable
          */
         if (emptyCellCount == amountOfLayers) {
+            return false;
+        }
+
+        /*
+        Check to see if the player is standing in the target destination
+         */
+        if (GameMain.me.player.getTileCoordinates().x == x && GameMain.me.player.getTileCoordinates().y == y)
+        {
+            return false;
+        }
+
+        /*
+        Check to see if any NPCs are standing in the target destination
+         */
+        for (Sprite sprite : GameMain.me.getNavigationScreen().getNPCs())
+        {
+            NPC npc = (NPC) sprite;
+
+            if (npc.getTileCoordinates().x == x && npc.getTileCoordinates().y == y)
+            {
+                return false;
+            }
+        }
+
+        /*
+        Check to see if any living object has locked the target destination for them to move to
+         */
+        if (this.lockedTiles[x][y] == true)
+        {
             return false;
         }
 

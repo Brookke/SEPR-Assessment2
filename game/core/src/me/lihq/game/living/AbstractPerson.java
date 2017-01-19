@@ -149,6 +149,8 @@ public abstract class AbstractPerson extends Sprite
      */
     public void initialiseMove(Direction dir)
     {
+        getRoom().lockCoordinate(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy());
+
         this.direction = dir;
 
         this.startTile.x = this.tileCoordinates.x;
@@ -170,6 +172,8 @@ public abstract class AbstractPerson extends Sprite
         animTimer = 0f;
 
         this.state = PersonState.STANDING;
+
+        getRoom().unlockCoordinate(tileCoordinates.x, tileCoordinates.y);
 
         updateTextureRegion();
     }
@@ -202,7 +206,7 @@ public abstract class AbstractPerson extends Sprite
         }
 
         if (animTimer > threeQuarters) {
-            setRegion(new TextureRegion(spriteSheet, 64, row * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT));
+            setRegion(new TextureRegion(spriteSheet, 96, row * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT));
         } else if (animTimer > half) {
             setRegion(new TextureRegion(spriteSheet, 0, row * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT));
         } else if (animTimer > quarter) {
