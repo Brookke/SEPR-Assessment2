@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class Player extends AbstractPerson
 {
-
     /**
      * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
      */

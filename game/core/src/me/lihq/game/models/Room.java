@@ -4,10 +4,15 @@ package me.lihq.game.models;
 
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import me.lihq.game.Assets;
 import me.lihq.game.GameMain;
+import me.lihq.game.Settings;
 import me.lihq.game.living.AbstractPerson.Direction;
 import me.lihq.game.screen.elements.RoomTag;
 
@@ -160,6 +165,19 @@ public class Room
         return out;
     }
 
+    private float animationStateTime = 0f;
+
+    public void drawClues(float delta, Batch batch)
+    {
+        animationStateTime += delta;
+
+        for (Clue c : cluesInRoom)
+        {
+            TextureRegion currentFrame = Assets.CLUE_GLINT.getKeyFrame(animationStateTime, true);
+            batch.draw(currentFrame, c.getTileX() * Settings.TILE_SIZE, c.getTileY() * Settings.TILE_SIZE);
+        }
+    }
+
     public boolean isHidingPlace(int x, int y) {
         int amountOfLayers = map.getLayers().getCount() - 1;
 
@@ -198,6 +216,12 @@ public class Room
 
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             TiledMapTileLayer tiledLayer = (TiledMapTileLayer) map.getLayers().get(currentLayer);
+
+            if (tiledLayer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom())
+            {
+                //Don't check the layer as the blood splat isn't there
+                continue;
+            }
 
             if (tiledLayer.getCell(x, y) == null) {
                 emptyCellCount++; //for every empty cell increase the emptyCellCount by 1
