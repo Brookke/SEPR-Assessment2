@@ -1,16 +1,16 @@
 package me.lihq.game.living;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import me.lihq.game.Assets;
-import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
+
+import java.util.Comparator;
 
 /**
  * The abstract person is an abstract representation of a person. A person can be a non playable character or Player.
@@ -352,6 +352,13 @@ public abstract class AbstractPerson extends Sprite
          * Person is standing still.
          */
         STANDING;
+    }
+
+    public static class PersonPositionComparator implements Comparator<AbstractPerson> {
+        @Override
+        public int compare(AbstractPerson o1, AbstractPerson o2) {
+            return o2.getTileCoordinates().y - o1.getTileCoordinates().y;
+        }
     }
 
 }

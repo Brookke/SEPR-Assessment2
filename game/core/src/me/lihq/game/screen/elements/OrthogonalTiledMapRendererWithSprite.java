@@ -5,8 +5,12 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import me.lihq.game.living.AbstractPerson;
+import me.lihq.game.living.AbstractPerson.PersonPositionComparator;
+import me.lihq.game.living.NPC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +66,18 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
     {
         beginRender();
 
+        /*
+        Convert the sprites list into a list of AbstractPerson to be sorted
+         */
+        List<AbstractPerson> people = new ArrayList<AbstractPerson>();
+
+        for (Sprite sprite : sprites)
+        {
+            people.add((AbstractPerson) sprite);
+        }
+
+        Collections.sort(people, new PersonPositionComparator());
+
         int amountOfLayers = map.getLayers().getCount();
 
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
@@ -70,7 +86,9 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
             renderTileLayer((TiledMapTileLayer) layer);
 
             if (currentLayer == amountOfLayers - 2 || amountOfLayers == 1) {
-                for (Sprite s : sprites) {
+
+                for (Sprite s : people)
+                {
                     s.draw(this.getBatch());
                 }
             }
