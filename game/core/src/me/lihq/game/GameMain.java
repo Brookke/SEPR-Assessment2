@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import me.lihq.game.living.NPC;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
+import me.lihq.game.models.Vector2Int;
 import me.lihq.game.screen.AbstractScreen;
 import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.MainMenuScreen;
@@ -173,8 +175,76 @@ public class GameMain extends Game
         NPC npc2 = new NPC("Diana", "diana.png",4,4, gameMap.getRoom(1), true);
         NPCs.add(npc2);
 
+        NPC npc3 = new NPC("Lily", "lily.png", 0, 0, gameMap.getRoom(0), true);
+        NPCs.add(npc3);
 
+        NPC npc4 = new NPC("Mary", "mary.png", 0, 0, gameMap.getRoom(0), true);
+        NPCs.add(npc4);
 
+        NPC npc5 = new NPC("Mike", "mike.png", 0, 0, gameMap.getRoom(0), true);
+        NPCs.add(npc5);
+
+        NPC npc6 = new NPC("Will", "will.png", 0, 0, gameMap.getRoom(0), true);
+        NPCs.add(npc6);
+
+        int amountOfRooms = gameMap.getAmountOfRooms();
+
+        List<Integer> roomsLeft = new ArrayList<Integer>();
+
+        for (int i = 0; i < amountOfRooms; i ++)
+        {
+            roomsLeft.add(i);
+        }
+
+        for (NPC loopNpc : NPCs)
+        {
+            /*
+            Refill the rooms left list if there are more NPCs than Rooms. This will put AT LEAST one NPC per room if so.
+             */
+            if (roomsLeft.isEmpty())
+            {
+                for (int i = 0; i < amountOfRooms; i ++)
+                {
+                    roomsLeft.add(i);
+                }
+            }
+
+            /*
+            Pick a random room and put that NPC in it
+             */
+            int toTake = new Random().nextInt(roomsLeft.size() - 1);
+            int selectedRoom = roomsLeft.get(toTake);
+            roomsLeft.remove(toTake);
+
+            loopNpc.setRoom(gameMap.getRoom(selectedRoom));
+            Vector2Int position = getRandomLocation(gameMap.getRoom(selectedRoom));
+            loopNpc.setTileCoordinates(position.x, position.y);
+
+            System.out.println(loopNpc.getName() + " has been placed in room " + selectedRoom + " at " + position);
+        }
+    }
+
+    public Vector2Int getRandomLocation(Room room)
+    {
+        int roomWidth = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getWidth();
+        int roomHeight = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getHeight();
+
+        List<Vector2Int> possibleLocations = new ArrayList<Vector2Int>();
+
+        for (int w = 0; w < roomWidth; w ++)
+        {
+            for (int h = 0; h < roomHeight; h ++)
+            {
+                if (room.isWalkableTile(w, h))
+                {
+                    possibleLocations.add(new Vector2Int(w, h));
+                }
+            }
+        }
+
+        Collections.shuffle(possibleLocations);
+
+        return possibleLocations.get(0);
     }
 
     public List<? extends Sprite> getNPCS(Room room)

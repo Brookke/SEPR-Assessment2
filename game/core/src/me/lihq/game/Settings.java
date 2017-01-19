@@ -17,4 +17,9 @@ public class Settings
      * The maximum amount of ticks per second
      */
     public static final int TPS = 30;
+
+    /**
+     * This is whether to draw some debug features to the screen
+     */
+    public static boolean DEBUG = true;
 }

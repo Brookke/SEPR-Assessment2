@@ -61,4 +61,14 @@ public class Vector2Int
         if (y != other.y) return false;
         return true;
     }
+
+    /**
+     * This method returns a String representation of the Vector2Int object
+     *
+     * @return String - Representing the values stored in this object
+     */
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
 }

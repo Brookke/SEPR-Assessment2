@@ -111,7 +111,16 @@ public class Map
      */
     public Room getRoom(int id)
     {
-        return rooms.get(id);
+        for (Room room : rooms)
+        {
+            if (room.getID() == id) return room;
+        }
+
+        return null;
     }
 
+    public int getAmountOfRooms()
+    {
+        return rooms.size();
+    }
 }
