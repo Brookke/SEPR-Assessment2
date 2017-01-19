@@ -38,7 +38,7 @@ public class Room
     /**
      * This is a list of the clues in the room.
      */
-    private List<Clue> cluesInRoom = new ArrayList<Clue>();
+    private List<Clue> cluesInRoom = new ArrayList<>();
 
     /**
      * This stores whether or not the room is the room where the murder happened
@@ -132,30 +132,17 @@ public class Room
         }
     }
 
-    /**
-     * This removes a clue from the room
-     *
-     * @param toRemove - The clue to remove
-     */
-    public void removeClue(Clue toRemove)
-    {
-        if (cluesInRoom.contains(toRemove)) {
-            cluesInRoom.remove(toRemove);
-        }
-    }
 
     /**
-     * This method takes a location parameter and is called only when the player presses "Enter"
+     * This method takes a location parameter and checks it for a clue, if a clue is found it is removed from the map and retunr
      *
      * @param x - The x coordinate the player is at
      * @param y - The y coordinate the player is at
      */
-    public void interactAt(int x, int y, Direction dir)
+    public Clue getClue(int x, int y)
     {
         //Apply direction change
-        x += dir.getDx();
-        y += dir.getDy();
-
+        Clue out = null;
         //Check for a clue at that coordinate
         for (Clue c : cluesInRoom)
         {
@@ -163,12 +150,35 @@ public class Room
             {
                 //This is just temporary indicator that you have found the clue
                 //We will use the speech box in the future
-                GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You got a clue"));
-                return;
+                out = c;
             }
         }
+        if (out != null) {
+            this.cluesInRoom.remove(out);
+        }
 
-        //Check for interacting at an interactable tile
+        return out;
+    }
+
+    public boolean isHidingPlace(int x, int y) {
+        int amountOfLayers = map.getLayers().getCount() - 1;
+
+        for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
+            TiledMapTileLayer tl = (TiledMapTileLayer) map.getLayers().get(currentLayer);
+
+            if (tl.getCell(x, y) == null) {
+                continue;
+            }
+
+            if (!tl.getCell(x, y).getTile().getProperties().containsKey("hidingSpot")) {
+                continue;
+            }
+
+            if (tl.getCell(x, y).getTile().getProperties().get("hidingSpot").toString().equals("true")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -198,10 +208,11 @@ public class Room
                 continue;
             }
 
-            if (Boolean.valueOf(tiledLayer.getCell(x, y).getTile().getProperties().get("walkable").toString().equals("false"))) {
+            if (tiledLayer.getCell(x, y).getTile().getProperties().get("walkable").toString().equals("false")) {
                 return false;
             }
         }
+
 
         /*
         Check to see if the number of empty layer cells matches the number of layers,
@@ -241,7 +252,7 @@ public class Room
                 continue;
             }
 
-            if (Boolean.valueOf(tl.getCell(x, y).getTile().getProperties().get("trigger").toString().equals("true"))) {
+            if (tl.getCell(x, y).getTile().getProperties().get("trigger").toString().equals("true")) {
                 return true;
             }
         }

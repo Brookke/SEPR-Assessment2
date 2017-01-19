@@ -3,6 +3,7 @@ package me.lihq.game.living;
 import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
+import me.lihq.game.screen.elements.RoomTag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,7 @@ public class Player extends AbstractPerson
      */
     public void move(Direction dir)
     {
+        System.out.println(this.getTileCoordinates().x + ": " + this.getTileCoordinates().y);
         if (this.state != PersonState.STANDING) {
             return;
         }
@@ -84,9 +86,23 @@ public class Player extends AbstractPerson
         initialiseMove(dir);
     }
 
-    public void interact()
+    public void checkForClue()
     {
-        getRoom().interactAt(getTileCoordinates().x, getTileCoordinates().y, getDirection());
+        int x = getTileCoordinates().x + getDirection().getDx();
+        int y = getTileCoordinates().y + getDirection().getDy();
+
+
+        if (!this.getRoom().isHidingPlace(x, y)) {
+            return;
+        }
+
+        Clue clueFound = getRoom().getClue(x, y);
+        if (clueFound != null) {
+            GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You got a clue"));
+            this.collectedClues.add(clueFound);
+        } else {
+            GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("No clue here"));
+        }
     }
 
 

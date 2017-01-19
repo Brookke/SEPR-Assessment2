@@ -92,7 +92,7 @@ public class PlayerController extends InputAdapter
     {
         if (interact)
         {
-            player.interact();
+            player.checkForClue();
         }
 
         if (!south && !north && !east && !west) {
