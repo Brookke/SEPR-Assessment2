@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import me.lihq.game.Assets;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
@@ -239,7 +240,6 @@ public class NavigationScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
-
         game.player.pushCoordinatesToSprite();
         for (NPC n : (List<NPC>) currentNPCS) {
             n.pushCoordinatesToSprite();
@@ -277,6 +277,19 @@ public class NavigationScreen extends AbstractScreen
 
         if (roomTag != null) {
             roomTag.render(spriteBatch);
+        }
+
+        if (Settings.DEBUG)
+        {
+
+            Sprite border = OrthogonalTiledMapRendererWithSprite.getColoredTileSprite(Color.BLACK);
+            border.setPosition(Gdx.graphics.getWidth() - 400, Gdx.graphics.getHeight() - 190);
+            border.setSize(390, 180);
+            border.draw(spriteBatch);
+
+            Assets.getFontWithSize(30).draw(spriteBatch, "====== DEBUG MODE ====== \n" +
+                                                                    "Press H to toggle showHideable\n" +
+                                                                    "Press J to Toggle showWalkable ", Gdx.graphics.getWidth() - 360, Gdx.graphics.getHeight() - 50);
         }
 
         spriteBatch.end();

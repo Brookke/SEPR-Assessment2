@@ -45,6 +45,18 @@ public class PlayerController extends InputAdapter
             return true;
         }
 
+        if (keycode == Input.Keys.J)
+        {
+            Settings.DEBUG_OPTIONS.put("showWalkable", !Settings.DEBUG_OPTIONS.get("showWalkable"));
+            return true;
+        }
+
+        if (keycode == Input.Keys.H)
+        {
+            Settings.DEBUG_OPTIONS.put("showHideable", !Settings.DEBUG_OPTIONS.get("showHideable"));
+            return true;
+        }
+
         return false;
     }
 

@@ -1,5 +1,6 @@
 package me.lihq.game.screen.elements;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -14,6 +15,7 @@ import me.lihq.game.Settings;
 import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.AbstractPerson.PersonPositionComparator;
 import me.lihq.game.living.NPC;
+import me.lihq.game.models.Vector2Int;
 
 import java.util.*;
 
@@ -102,19 +104,11 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
             /*
             Draw a filter over showing whether or not a tile is "walkable"
              */
-            Sprite greenSprite = new Sprite();
-            Pixmap greenMap = new Pixmap(Settings.TILE_SIZE, Settings.TILE_SIZE, Pixmap.Format.RGBA8888);
-            greenMap.setColor(Color.GREEN);
-            greenMap.fill();
-            greenSprite = new Sprite(new Texture(greenMap));
-            greenSprite.setAlpha(0.4f);
+            Sprite greenSprite = getColoredTileSprite(Color.GREEN);
 
-            Sprite redSprite = new Sprite();
-            Pixmap redMap = new Pixmap(Settings.TILE_SIZE, Settings.TILE_SIZE, Pixmap.Format.RGBA8888);
-            redMap.setColor(Color.RED);
-            redMap.fill();
-            redSprite = new Sprite(new Texture(redMap));
-            redSprite.setAlpha(0.4f);
+            Sprite redSprite = getColoredTileSprite(Color.RED);
+
+            Sprite yellowSprite = getColoredTileSprite(Color.GOLD);
 
             int roomWidth = ((TiledMapTileLayer) map.getLayers().get(0)).getWidth();
             int roomHeight = ((TiledMapTileLayer) map.getLayers().get(0)).getHeight();
@@ -123,20 +117,54 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
             {
                 for (int h = 0; h < roomHeight; h ++)
                 {
-                    if (GameMain.me.player.getRoom().isWalkableTile(w, h))
+                    if (Settings.DEBUG_OPTIONS.get("showWalkable"))
                     {
-                        greenSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
-                        greenSprite.draw(this.getBatch());
+                        if (GameMain.me.player.getRoom().isWalkableTile(w, h))
+                        {
+                            greenSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
+                            greenSprite.draw(this.getBatch());
+                        }
+                        else
+                        {
+                            redSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
+                            redSprite.draw(this.getBatch());
+                        }
                     }
-                    else
+
+                    if (Settings.DEBUG_OPTIONS.get("showHideable"))
                     {
-                        redSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
-                        redSprite.draw(this.getBatch());
+                        for (MapLayer layer : map.getLayers())
+                        {
+                            TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
+                            TiledMapTileLayer.Cell cellInTile = thisLayer.getCell(w, h);
+
+                            if (cellInTile == null) continue;
+
+                            if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
+                        
+                            if (Boolean.valueOf(cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")))
+                            {
+                                yellowSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
+                                yellowSprite.draw(this.getBatch());
+                                break;
+                            }
+                        }
                     }
                 }
             }
         }
 
         endRender();
+    }
+
+    public static Sprite getColoredTileSprite(Color color)
+    {
+        Pixmap map = new Pixmap(Settings.TILE_SIZE, Settings.TILE_SIZE, Pixmap.Format.RGBA8888);
+        map.setColor(color);
+        map.fill();
+        Sprite sprite = new Sprite(new Texture(map));
+        sprite.setAlpha(0.4f);
+
+        return sprite;
     }
 }

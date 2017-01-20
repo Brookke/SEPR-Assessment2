@@ -3126,7 +3126,7 @@
  </tile>
  <tile id="445">
   <properties>
-   <property name="hidingSpot" type="bool" value="false"/>
+   <property name="hidingSpot" type="bool" value="true"/>
    <property name="interactable" type="bool" value="false"/>
    <property name="walkable" type="bool" value="false"/>
   </properties>
