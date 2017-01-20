@@ -43,6 +43,8 @@ Contents
    Assessment2/riskAssessmentandMitigation
    Assessment2/methods
    Assessment2/architecture
+   Assessment2/executableTestPlan
    Assessment2/appendixA
    Assessment2/appendixB
    Assessment2/appendixC
+
