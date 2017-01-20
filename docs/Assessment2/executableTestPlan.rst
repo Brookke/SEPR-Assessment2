@@ -48,6 +48,7 @@ from when the tests were run.
 
 Also, CircleCI collects test "artifacts", which are located in the
 "Artifacts" tab. This contains useful output files such as:
+
 - HTML output: A website that provides a visual testing report with more details
 - JUnit XML output: XML files for each class that provide raw data about each run test
 
