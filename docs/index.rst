@@ -27,22 +27,11 @@ Contents
    :maxdepth: 2
    :caption: Assessment 1
 
-   requirements
-   riskAssessmentandMitigation
-   methods
-   architecture
-   appendixA
-   appendixB
-   appendixC
+   Assessment1/requirements
+   Assessment1/riskAssessmentandMitigation
+   Assessment1/methods
+   Assessment1/architecture
+   Assessment1/appendixA
+   Assessment1/appendixB
+   Assessment1/appendixC
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Assessment 2
-
-   requirements2
-   riskAssessmentandMitigation2
-   methods2
-   architecture2
-   appendixA
-   appendixB
-   appendixC
