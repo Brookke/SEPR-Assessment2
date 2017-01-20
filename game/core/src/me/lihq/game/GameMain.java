@@ -26,7 +26,7 @@ public class GameMain extends Game
     /**
      * A list holding NPC objects
      */
-    public List<NPC> NPCs = new ArrayList<NPC>();
+    public List<NPC> NPCs = new ArrayList<>();
 
     /**
      * The game map

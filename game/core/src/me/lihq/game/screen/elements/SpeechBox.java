@@ -56,7 +56,6 @@ public class SpeechBox {
     private static final int TABLE_HEIGHT = (PADDING * 4) + TEXT_ROW_HEIGHT + BUTTON_ROW_HEIGHT;
 
     private static final int HEIGHT = TABLE_HEIGHT + (2 * BORDER_WIDTH);
-
     /**
      * The constructor for the SpeechBox
      */
@@ -222,10 +221,6 @@ public class SpeechBox {
     {
         if (this.timeoutDuration > 0) {
             timeoutDuration--;
-
-        } else if (this.timeoutDuration == 0) {
-            this.fadeOut(1);
-            this.dispose();
         }
     }
 
@@ -294,17 +289,11 @@ public class SpeechBox {
         personLabelSkin.add("default", fontStyle);
     }
 
-    /**
-     * Hides the SpeechBox from screen if it is visible
-     */
-    public void fadeOut(float duration) {
-        stage.getRoot().addAction(Actions.fadeOut(duration));
-    }
+
 
     /**
      * Disposes of SpeechBox resources
      */
-
     public void dispose() {
         stage.dispose();
     }

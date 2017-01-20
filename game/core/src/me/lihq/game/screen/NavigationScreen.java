@@ -67,7 +67,7 @@ public class NavigationScreen extends AbstractScreen
 
     //TODO: add more information about this class
 
-    //private Conversation convMng;
+    private Conversation convMng;
 
     private StatusBar statusBar;
     /**
@@ -144,6 +144,8 @@ public class NavigationScreen extends AbstractScreen
             System.out.println(result);
         };
 
+
+        convMng = new Conversation(game.player);
         buttons.add(new SpeechBoxButton("Button 1",1, eventHandler));
         buttons.add(new SpeechBoxButton("Button 2",2, eventHandler));
         buttons.add(new SpeechBoxButton("Button 3",3, eventHandler));
@@ -158,10 +160,11 @@ public class NavigationScreen extends AbstractScreen
     public void show()
     {
         InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(convMng.multiplexer);
         multiplexer.addProcessor(playerController);
-        //TODO: Add the convMng processor in here
-        multiplexer.addProcessor(statusBar.stage);
 
+        multiplexer.addProcessor(statusBar.stage);
+        convMng.startConversation(game.NPCs.get(0));
         Gdx.input.setInputProcessor(multiplexer);
 
 
@@ -174,7 +177,7 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
-            //convMng.update();
+            convMng.update();
         }
         //Some things should be updated all the time.
         updateTransition();
@@ -267,7 +270,7 @@ public class NavigationScreen extends AbstractScreen
         spriteBatch.end();
 
         statusBar.render();
-        //convMng.render();
+        convMng.render();
 
     }
 
