@@ -3,6 +3,7 @@ package me.lihq.game;
 import com.badlogic.gdx.InputMultiplexer;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.Player;
+import me.lihq.game.models.Clue;
 import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.SpeechBoxButton;
 
@@ -19,28 +20,39 @@ public class Conversation {
     public InputMultiplexer multiplexer;
 
     private Player player;
-    private NPC npc;
+
+    /**
+     * Stores the current NPC that is being questioned
+     */
+    private NPC tempNPC;
 
     private List<SpeechBox> stack = new ArrayList<>();
 
-    //Globals for making EventHandling easier
-    private String[] buttonNames = new String[4];
-    private int result = -1;
+    /**
+     * This stores the position of the clue in the players list for use in the questioning
+     */
+    private int tempCluePos;
 
-    //do i need this? ---------------------------------------------------------------------------------------------------------<<CHECK THIS
+    /**
+     * This stores the style of questioning for how the player wants to ask the question
+     * 0 = Nice
+     * 1 = Neutral
+     * 2 = Harsh
+     */
+    private int tempQuestionStyle;
+
+
     public Conversation(Player inputPlayer)
     {
         multiplexer = new InputMultiplexer();
         player = inputPlayer;
     }
 
-    /**
-     * -----------------------------------------------------------------------------------------------------------------------------<<<<CHECK THIS
-     * Handles conversation between player and an NPC - method to call from this class
-     */
 
     public void addSpeechBox(SpeechBox speechBox) {
-        stack.add(speechBox);
+        this.stack.add(speechBox);
+
+
     }
 
 
@@ -55,23 +67,36 @@ public class Conversation {
     {
         if (!this.stack.isEmpty()) {
             if (this.stack.get(0).timeoutDuration == 0) {
-                multiplexer.removeProcessor(stack.get(0).stage);
+                this.multiplexer.removeProcessor(this.stack.get(0).stage);
                 this.stack.remove(0);
-                multiplexer.addProcessor(stack.get(0).stage);
             } else {
                 this.stack.get(0).update();
+
             }
+        }
+        updateInputProcessor();
+    }
+
+    private void updateInputProcessor() {
+        if (this.multiplexer.getProcessors().size == 0 && !this.stack.isEmpty()) {
+            this.multiplexer.addProcessor(this.stack.get(0).stage);
         }
     }
 
+
     public void startConversation(NPC npc)
     {
-        this.npc = npc;
+        //reset temp stores
+        this.tempCluePos = -1;
+        this.tempQuestionStyle = -1;
+        this.tempNPC = npc;
+
+        //TODO: move this to the abstractPerson construct
         this.player.importDialogue("colin.JSON");
-        this.npc.importDialogue("colin.JSON");
+        this.tempNPC.importDialogue("colin.JSON");
         //Introduction
         addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5)); //instead of placeholder use player.getdrivel() or whatever is the correct function
-        addSpeechBox(new SpeechBox(this.npc.getName(), this.npc.getSpeech("Introduction"), 5));
+        addSpeechBox(new SpeechBox(this.tempNPC.getName(), this.tempNPC.getSpeech("Introduction"), 5));
 
 
         queryQuestionType();
@@ -79,6 +104,10 @@ public class Conversation {
 
 
     }
+
+    /**
+     * This constructs the speech box that finds out what question the player wishes to ask the NPC
+     */
     private void queryQuestionType() {
 
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
@@ -86,11 +115,14 @@ public class Conversation {
 
         buttons.add(new SpeechBoxButton("Question?",0, eventHandler));
         buttons.add(new SpeechBoxButton("Accuse?",1, eventHandler));
-        stack.add(new SpeechBox("What do you want to do?", buttons,-1));
+        addSpeechBox(new SpeechBox("What do you want to do?", buttons,-1));
 
     }
 
 
+    /**
+     * This constructs the speechbox that asks the player how they wish to ask the question
+     */
     private void queryQuestionStyle() {
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
         SpeechBoxButton.EventHandler eventHandler = (result) -> handleResponse(QuestionStage.STYLE, result);
@@ -98,26 +130,35 @@ public class Conversation {
         buttons.add(new SpeechBoxButton("Nice",0, eventHandler));
         buttons.add(new SpeechBoxButton("Neutral",1, eventHandler));
         buttons.add(new SpeechBoxButton("Harsh",2, eventHandler));
-        stack.add(new SpeechBox("How do you want to ask the question?", buttons,-1));
+        addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons,-1));
 
     }
 
-    private void queryWhichClue(int style) {
+    /**
+     * This constructs the speechbox that asks the player what clue they wish to ask about
+     */
+    private void queryWhichClue() {
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
-        SpeechBoxButton.EventHandler eventHandler = (result) -> handleResponse(QuestionStage.CLUE, result);
+        SpeechBoxButton.EventHandler eventHandler = (result) -> {
+            handleResponse(QuestionStage.CLUE, result);
+        };
 
+        //TODO: finish when clues have been merged
+//        for (Clue c: this.player.clues) {
+//            buttons.add(new SpeechBoxButton(clue.getName(), );
+//        }
 
-        //for (player)
+        addSpeechBox(new SpeechBox("What clue doe you want to ask about?", buttons,-1));
+    }
 
-        buttons.add(new SpeechBoxButton("",0, eventHandler));
-        buttons.add(new SpeechBoxButton("Neutral",1, eventHandler));
-        buttons.add(new SpeechBoxButton("Harsh",1, eventHandler));
-        stack.add(new SpeechBox("How do you want to ask the question?", buttons,-1));
+    private void questionNPC() {
+        //TODO: finish when clues have been merged
     }
 
     private void handleResponse(QuestionStage stage, int option) {
         switch (stage) {
             case TYPE:
+                this.stack.get(0).timeoutDuration = 0;
                 if (option == 0) {
                     queryQuestionStyle();
                 } else if (option == 1) {
@@ -126,11 +167,15 @@ public class Conversation {
                 break;
 
             case STYLE:
-                //queryWhichClue(option)
+                this.stack.get(0).timeoutDuration = 0;
+                this.tempQuestionStyle = option;
+                queryWhichClue();
                 break;
 
             case CLUE:
-                //questionNPC(option);
+                this.stack.get(0).timeoutDuration = 0;
+                this.tempCluePos = option;
+                //questionNPC();
                 break;
 
 
@@ -144,10 +189,24 @@ public class Conversation {
     public enum QuestionStage
     {
 
+        /**
+         * This stage indicates that the player has been asked what type of question they have asked
+         * e.g. question or accuse
+         */
         TYPE,
+
+        /**
+         * Thus stage means that the player has been asked the how they want to ask the question
+         * e.g. nice, neutral or harsh
+         */
         STYLE,
+
+        /**
+         * This stage indicates that the player has been asked what clue they want to ask about.
+         */
         CLUE
 
 
     }
+
 }
