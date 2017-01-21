@@ -57,6 +57,12 @@ public class PlayerController extends InputAdapter
             return true;
         }
 
+        if (keycode == Input.Keys.F3)
+        {
+            Settings.DEBUG = !Settings.DEBUG;
+            return true;
+        }
+
         return false;
     }
 

@@ -56,7 +56,7 @@ public abstract class AbstractPerson extends Sprite
      */
     protected Vector2Int destinationTile = new Vector2Int(0, 0);
     protected float animTimer;
-    protected float animTime = Settings.TPS / 3.5f;
+    protected float animTime = Settings.TPS / 3f;
     protected Texture spriteSheet;
     protected TextureRegion currentRegion;
     /**

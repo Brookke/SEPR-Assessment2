@@ -23,9 +23,9 @@ public class Settings
     /**
      * This is whether to draw some debug features to the screen
      *
-     * WARNING: DEBUG MODE IS REALLY LIKELY TO REDUCE FRAME RATE
+     * WARNING: DEBUG MODE IS LIKELY TO REDUCE FRAME RATE
      */
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     /**
      * This stores the debug options
@@ -36,6 +36,5 @@ public class Settings
         DEBUG_OPTIONS = new HashMap<String, Boolean>();
         DEBUG_OPTIONS.put("showHideable", true);
         DEBUG_OPTIONS.put("showWalkable", false);
-        DEBUG_OPTIONS.put("showPlayerInfo", false);
     }
 }
