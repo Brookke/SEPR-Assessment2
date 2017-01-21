@@ -15,12 +15,12 @@ import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
 public class Assets
 {
     public static Texture CLUE_SHEET;
-    public static Texture opening;
+    public static Texture OPENING;
 
-    public static TextureRegion introFrame1;
-    public static TextureRegion introFrame2;
+    public static TextureRegion INTROFRAME1;
+    public static TextureRegion INTROFRAME2;
 
-    /**
+     /**
      * These TextureRegions store the 4 different directions that the room changing
      * arrows can face.
      */
@@ -55,9 +55,9 @@ public class Assets
         FONT = generator.generateFont(parameter);
         generator.dispose();
 
-        opening = loadTexture("title.png");
-        introFrame1 = new TextureRegion(opening, 0, 0, 1000, 750);
-        introFrame2 = new TextureRegion(opening, 0, 750, 1000, 750);
+        OPENING = loadTexture("title.png");
+        INTROFRAME1 = new TextureRegion(OPENING, 0, 0, 1000, 750);
+        INTROFRAME2 = new TextureRegion(OPENING, 0, 750, 1000, 750);
 
         Texture arrows = loadTexture("arrows.png");
         LEFT_ARROW = new TextureRegion(arrows, 0, 0, 32, 32);
