@@ -277,7 +277,6 @@ public class NavigationScreen extends AbstractScreen
         viewport.update(width, height);
         //speechBox.resize(width,height);
         statusBar.resize(width, height);
-        speechboxMngr.resize(width, height);
     }
 
     @Override
