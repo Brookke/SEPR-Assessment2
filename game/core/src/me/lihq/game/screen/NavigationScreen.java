@@ -1,7 +1,6 @@
 package me.lihq.game.screen;
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 
 import com.badlogic.gdx.InputMultiplexer;
@@ -12,13 +11,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import me.lihq.game.Conversation;
+import me.lihq.game.ConversationManagement;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.Settings;
+import me.lihq.game.living.SpeechboxManager;
 import me.lihq.game.living.controller.PlayerController;
 import me.lihq.game.screen.elements.OrthogonalTiledMapRendererWithSprite;
 import me.lihq.game.screen.elements.RoomArrow;
@@ -28,7 +28,6 @@ import me.lihq.game.screen.elements.SpeechBoxButton;
 import me.lihq.game.screen.elements.StatusBar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -39,10 +38,12 @@ public class NavigationScreen extends AbstractScreen
 {
 
     public PlayerController playerController;
+
     /**
      * This boolean determines whether the black is fading in or out
      */
-    boolean fadeToBlack = true;
+    private boolean fadeToBlack = true;
+
 
     /**
      * This is the current map that is being shown
@@ -67,14 +68,16 @@ public class NavigationScreen extends AbstractScreen
 
     //TODO: add more information about this class
 
-    private Conversation convMng;
+    private SpeechboxManager speechboxManager;
 
     private StatusBar statusBar;
+
     /**
      * This determines whether the player is currently changing rooms, it will fade out to black, change
      * the room, then fade back in.
      */
     private boolean roomTransition = false;
+
     /**
      * The amount of ticks it takes for the black to fade in and out
      */
@@ -133,7 +136,7 @@ public class NavigationScreen extends AbstractScreen
 
         statusBar = new StatusBar(game);
 
-        //convMng = new Conversation(null, null);
+        //speechboxManager = new ConversationManagement(null, null);
 
         tiledMapRenderer.addSprite(game.player);
 
@@ -145,7 +148,7 @@ public class NavigationScreen extends AbstractScreen
         };
 
 
-        convMng = new Conversation(game.player);
+        speechboxManager = new SpeechboxManager();
         buttons.add(new SpeechBoxButton("Button 1",1, eventHandler));
         buttons.add(new SpeechBoxButton("Button 2",2, eventHandler));
         buttons.add(new SpeechBoxButton("Button 3",3, eventHandler));
@@ -160,11 +163,11 @@ public class NavigationScreen extends AbstractScreen
     public void show()
     {
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(convMng.multiplexer);
+        multiplexer.addProcessor(speechboxManager.multiplexer);
         multiplexer.addProcessor(playerController);
 
         multiplexer.addProcessor(statusBar.stage);
-        convMng.startConversation(game.NPCs.get(0));
+        //speechboxManager.startConversation(game.NPCs.get(0));
         Gdx.input.setInputProcessor(multiplexer);
 
 
@@ -177,7 +180,7 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
-            convMng.update();
+            speechboxManager.update();
         }
         //Some things should be updated all the time.
         updateTransition();
@@ -270,7 +273,7 @@ public class NavigationScreen extends AbstractScreen
         spriteBatch.end();
 
         statusBar.render();
-        convMng.render();
+        speechboxManager.render();
 
     }
 
@@ -280,6 +283,7 @@ public class NavigationScreen extends AbstractScreen
         viewport.update(width, height);
         //speechBox.resize(width,height);
         statusBar.resize(width, height);
+        speechboxManager.resize(width, height);
     }
 
     @Override

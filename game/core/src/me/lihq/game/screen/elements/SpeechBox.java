@@ -104,7 +104,7 @@ public class SpeechBox {
      */
     private void setupStage() {
         //Init stage
-        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth() , Gdx.graphics.getHeight()));
 
         initSkins();
 
