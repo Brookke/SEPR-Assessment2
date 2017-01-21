@@ -222,6 +222,24 @@ public class GameMain extends Game
 
             System.out.println(loopNpc.getName() + " has been placed in room " + selectedRoom + " at " + position);
         }
+
+        /*
+        Generate who the Killer and Victim are
+         */
+        NPC killer = NPCs.get(new Random().nextInt(NPCs.size() - 1));
+
+        while(!killer.setKiller())
+        {
+            killer = NPCs.get(new Random().nextInt(NPCs.size() - 1));
+        }
+
+        NPC victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));;
+
+        while (!victim.setVictim())
+        {
+            victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));
+    }
+
     }
 
     public Vector2Int getRandomLocation(Room room)

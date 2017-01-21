@@ -31,6 +31,7 @@ public class NPC extends AbstractPerson
      */
     private boolean canBeKiller = false;
     private boolean isKiller = false;
+    private boolean isVictim = false;
 
     /**
      * Associated clues
@@ -137,12 +138,19 @@ public class NPC extends AbstractPerson
     /**
      * Getter for isKiller.
      *
-     * @return Returna value of isKiller for this object.
+     * @return Return a value of isKiller for this object.
      */
     public boolean isKiller()
     {
         return isKiller;
     }
+
+    /**
+     * Getter for isVictim
+     *
+     * @return Returns the value of isVictim for this object
+     */
+    public boolean isVictim() {return isVictim;}
 
     /**
      * Getter for motive.
@@ -165,5 +173,35 @@ public class NPC extends AbstractPerson
     {
         this.motive = motive;
         return this;
+    }
+
+    /**
+     * This method sets the NPC as the killer for this game.
+     *
+     * It first checks they arent the victim and if they can be the killer
+     *
+     * @return Returns whether it successfully set the NPC to the killer or not
+     */
+    public boolean setKiller()
+    {
+        if (isVictim() || !canBeKiller) return false;
+
+        isKiller = true;
+        return true;
+    }
+
+    /**
+     * This method sets the NPC to be the victim for the game
+     *
+     * It first checks if the NPC isn't also the killer
+     *
+     * @return Returns whether it successfully set the NPC to the victim or not
+     */
+    public boolean setVictim()
+    {
+        if (isKiller()) return false;
+
+        isVictim = true;
+        return true;
     }
 }
