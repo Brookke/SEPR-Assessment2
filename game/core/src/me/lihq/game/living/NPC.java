@@ -187,6 +187,7 @@ public class NPC extends AbstractPerson
         if (isVictim() || !canBeKiller) return false;
 
         isKiller = true;
+        System.out.println(getName() + " is the killer");
         return true;
     }
 
@@ -202,6 +203,7 @@ public class NPC extends AbstractPerson
         if (isKiller()) return false;
 
         isVictim = true;
+        System.out.println(getName() + " is the victim");
         return true;
     }
 }

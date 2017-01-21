@@ -371,6 +371,32 @@ public class Room
     }
 
     /**
+     * This method returns a random location in the room that is walkable
+     */
+    public Vector2Int getRandomLocation()
+    {
+        int roomWidth = ((TiledMapTileLayer) getTiledMap().getLayers().get(0)).getWidth();
+        int roomHeight = ((TiledMapTileLayer) getTiledMap().getLayers().get(0)).getHeight();
+
+        List<Vector2Int> possibleLocations = new ArrayList<Vector2Int>();
+
+        for (int w = 0; w < roomWidth; w ++)
+        {
+            for (int h = 0; h < roomHeight; h ++)
+            {
+                if (isWalkableTile(w, h))
+                {
+                    possibleLocations.add(new Vector2Int(w, h));
+                }
+            }
+        }
+
+        Collections.shuffle(possibleLocations);
+
+        return possibleLocations.get(0);
+    }
+
+    /**
      * This object stores data the links the rooms together
      */
     public static class Transition

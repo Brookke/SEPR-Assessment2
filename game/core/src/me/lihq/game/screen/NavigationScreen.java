@@ -21,13 +21,7 @@ import me.lihq.game.Settings;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.controller.PlayerController;
 
-import me.lihq.game.screen.elements.OrthogonalTiledMapRendererWithSprite;
-import me.lihq.game.screen.elements.RoomArrow;
-import me.lihq.game.screen.elements.RoomTag;
-
-import me.lihq.game.screen.elements.SpeechBox;
-import me.lihq.game.screen.elements.SpeechBoxButton;
-import me.lihq.game.screen.elements.StatusBar;
+import me.lihq.game.screen.elements.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -281,15 +275,7 @@ public class NavigationScreen extends AbstractScreen
 
         if (Settings.DEBUG)
         {
-
-            Sprite border = OrthogonalTiledMapRendererWithSprite.getColoredTileSprite(Color.BLACK);
-            border.setPosition(Gdx.graphics.getWidth() - 400, Gdx.graphics.getHeight() - 190);
-            border.setSize(390, 180);
-            border.draw(spriteBatch);
-
-            Assets.getFontWithSize(30).draw(spriteBatch, "====== DEBUG MODE ====== \n" +
-                                                                    "Press H to toggle showHideable\n" +
-                                                                    "Press J to Toggle showWalkable ", Gdx.graphics.getWidth() - 360, Gdx.graphics.getHeight() - 50);
+            DebugScreen.renderDebugInfo(spriteBatch);
         }
 
         spriteBatch.end();

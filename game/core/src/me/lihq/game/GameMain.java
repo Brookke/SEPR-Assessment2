@@ -217,7 +217,7 @@ public class GameMain extends Game
             roomsLeft.remove(toTake);
 
             loopNpc.setRoom(gameMap.getRoom(selectedRoom));
-            Vector2Int position = getRandomLocation(gameMap.getRoom(selectedRoom));
+            Vector2Int position = loopNpc.getRoom().getRandomLocation();
             loopNpc.setTileCoordinates(position.x, position.y);
 
             System.out.println(loopNpc.getName() + " has been placed in room " + selectedRoom + " at " + position);
@@ -240,29 +240,6 @@ public class GameMain extends Game
             victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));
     }
 
-    }
-
-    public Vector2Int getRandomLocation(Room room)
-    {
-        int roomWidth = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getWidth();
-        int roomHeight = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getHeight();
-
-        List<Vector2Int> possibleLocations = new ArrayList<Vector2Int>();
-
-        for (int w = 0; w < roomWidth; w ++)
-        {
-            for (int h = 0; h < roomHeight; h ++)
-            {
-                if (room.isWalkableTile(w, h))
-                {
-                    possibleLocations.add(new Vector2Int(w, h));
-                }
-            }
-        }
-
-        Collections.shuffle(possibleLocations);
-
-        return possibleLocations.get(0);
     }
 
     public List<? extends Sprite> getNPCS(Room room)

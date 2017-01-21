@@ -101,70 +101,9 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
 
         if (Settings.DEBUG)
         {
-            /*
-            Draw a filter over showing whether or not a tile is "walkable"
-             */
-            Sprite greenSprite = getColoredTileSprite(Color.GREEN);
-
-            Sprite redSprite = getColoredTileSprite(Color.RED);
-
-            Sprite yellowSprite = getColoredTileSprite(Color.GOLD);
-
-            int roomWidth = ((TiledMapTileLayer) map.getLayers().get(0)).getWidth();
-            int roomHeight = ((TiledMapTileLayer) map.getLayers().get(0)).getHeight();
-
-            for (int w = 0; w < roomWidth; w ++)
-            {
-                for (int h = 0; h < roomHeight; h ++)
-                {
-                    if (Settings.DEBUG_OPTIONS.get("showWalkable"))
-                    {
-                        if (GameMain.me.player.getRoom().isWalkableTile(w, h))
-                        {
-                            greenSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
-                            greenSprite.draw(this.getBatch());
-                        }
-                        else
-                        {
-                            redSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
-                            redSprite.draw(this.getBatch());
-                        }
-                    }
-
-                    if (Settings.DEBUG_OPTIONS.get("showHideable"))
-                    {
-                        for (MapLayer layer : map.getLayers())
-                        {
-                            TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
-                            TiledMapTileLayer.Cell cellInTile = thisLayer.getCell(w, h);
-
-                            if (cellInTile == null) continue;
-
-                            if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
-                        
-                            if (Boolean.valueOf(cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")))
-                            {
-                                yellowSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
-                                yellowSprite.draw(this.getBatch());
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+           DebugScreen.renderDebugTiles(map, this.getBatch());
         }
 
         endRender();
-    }
-
-    public static Sprite getColoredTileSprite(Color color)
-    {
-        Pixmap map = new Pixmap(Settings.TILE_SIZE, Settings.TILE_SIZE, Pixmap.Format.RGBA8888);
-        map.setColor(color);
-        map.fill();
-        Sprite sprite = new Sprite(new Texture(map));
-        sprite.setAlpha(0.4f);
-
-        return sprite;
     }
 }
