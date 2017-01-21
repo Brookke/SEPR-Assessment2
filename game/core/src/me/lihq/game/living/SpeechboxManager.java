@@ -53,8 +53,12 @@ public class SpeechboxManager
 
     public void addSpeechBox(SpeechBox speechBox) {
         this.stack.add(speechBox);
+    }
 
-
+    public void rmCurrentSpeechBox() {
+        if (!this.stack.isEmpty()) {
+            this.stack.get(0).timeoutDuration = 0;
+        }
     }
 
 

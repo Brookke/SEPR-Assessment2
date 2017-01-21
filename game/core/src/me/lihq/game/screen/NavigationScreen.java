@@ -68,7 +68,9 @@ public class NavigationScreen extends AbstractScreen
 
     //TODO: add more information about this class
 
-    private SpeechboxManager speechboxManager;
+    private SpeechboxManager speechboxMngr;
+
+    private ConversationManagement convMngt;
 
     private StatusBar statusBar;
 
@@ -136,23 +138,14 @@ public class NavigationScreen extends AbstractScreen
 
         statusBar = new StatusBar(game);
 
-        //speechboxManager = new ConversationManagement(null, null);
+        speechboxMngr = new SpeechboxManager();
+
+        convMngt = new ConversationManagement(game.player, speechboxMngr);
 
         tiledMapRenderer.addSprite(game.player);
 
         arrow = new RoomArrow(game.player);
 
-        ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
-        SpeechBoxButton.EventHandler eventHandler = (int result) -> {
-            System.out.println(result);
-        };
-
-
-        speechboxManager = new SpeechboxManager();
-        buttons.add(new SpeechBoxButton("Button 1",1, eventHandler));
-        buttons.add(new SpeechBoxButton("Button 2",2, eventHandler));
-        buttons.add(new SpeechBoxButton("Button 3",3, eventHandler));
-        SpeechBox speechBox = new SpeechBox("Hello, my name is Example NPC Name!", buttons,100);
 
     }
 
@@ -163,13 +156,14 @@ public class NavigationScreen extends AbstractScreen
     public void show()
     {
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(speechboxManager.multiplexer);
+        multiplexer.addProcessor(speechboxMngr.multiplexer);
         multiplexer.addProcessor(playerController);
-
         multiplexer.addProcessor(statusBar.stage);
-        //speechboxManager.startConversation(game.NPCs.get(0));
+
         Gdx.input.setInputProcessor(multiplexer);
 
+        //TODO: remove as it is currently a test
+        convMngt.startConversation(game.NPCs.get(0));
 
     }
 
@@ -180,7 +174,7 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
-            speechboxManager.update();
+            speechboxMngr.update();
         }
         //Some things should be updated all the time.
         updateTransition();
@@ -273,7 +267,7 @@ public class NavigationScreen extends AbstractScreen
         spriteBatch.end();
 
         statusBar.render();
-        speechboxManager.render();
+        speechboxMngr.render();
 
     }
 
@@ -283,7 +277,7 @@ public class NavigationScreen extends AbstractScreen
         viewport.update(width, height);
         //speechBox.resize(width,height);
         statusBar.resize(width, height);
-        speechboxManager.resize(width, height);
+        speechboxMngr.resize(width, height);
     }
 
     @Override

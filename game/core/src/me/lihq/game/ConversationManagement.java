@@ -1,15 +1,12 @@
 package me.lihq.game;
 
-import com.badlogic.gdx.InputMultiplexer;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.Player;
 import me.lihq.game.living.SpeechboxManager;
-import me.lihq.game.models.Clue;
 import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.SpeechBoxButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Ben on 23/12/2016.
@@ -23,14 +20,13 @@ public class ConversationManagement
 
     private Player player;
 
-    private SpeechboxManager speechboxManager;
+    private SpeechboxManager speechboxMngr;
 
     /**
      * Stores the current NPC that is being questioned
      */
     private NPC tempNPC;
 
-    private List<SpeechBox> stack = new ArrayList<>();
 
     /**
      * This stores the position of the clue in the players list for use in the questioning
@@ -50,7 +46,7 @@ public class ConversationManagement
     {
 
         this.player = player;
-        this.speechboxManager = speechboxManager;
+        this.speechboxMngr = speechboxManager;
 
     }
 
@@ -67,8 +63,8 @@ public class ConversationManagement
         this.tempNPC.importDialogue("colin.JSON");
 
         //Introduction
-        speechboxManager.addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));
-        speechboxManager.addSpeechBox(new SpeechBox(this.tempNPC.getName(), this.tempNPC.getSpeech("Introduction"), 5));
+        speechboxMngr.addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));
+        speechboxMngr.addSpeechBox(new SpeechBox(this.tempNPC.getName(), this.tempNPC.getSpeech("Introduction"), 5));
 
 
         queryQuestionType();
@@ -85,7 +81,7 @@ public class ConversationManagement
 
         buttons.add(new SpeechBoxButton("Question?",0, eventHandler));
         buttons.add(new SpeechBoxButton("Accuse?",1, eventHandler));
-        speechboxManager.addSpeechBox(new SpeechBox("What do you want to do?", buttons,-1));
+        speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons,-1));
 
     }
 
@@ -100,7 +96,7 @@ public class ConversationManagement
         buttons.add(new SpeechBoxButton("Nice",0, eventHandler));
         buttons.add(new SpeechBoxButton("Neutral",1, eventHandler));
         buttons.add(new SpeechBoxButton("Harsh",2, eventHandler));
-        speechboxManager.addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons,-1));
+        speechboxMngr.addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons,-1));
 
     }
 
@@ -118,7 +114,7 @@ public class ConversationManagement
 //            buttons.add(new SpeechBoxButton(clue.getName(), );
 //        }
 
-       speechboxManager.addSpeechBox(new SpeechBox("What clue doe you want to ask about?", buttons,-1));
+       speechboxMngr.addSpeechBox(new SpeechBox("What clue doe you want to ask about?", buttons,-1));
     }
 
     private void questionNPC() {
@@ -126,9 +122,10 @@ public class ConversationManagement
     }
 
     private void handleResponse(QuestionStage stage, int option) {
+        speechboxMngr.rmCurrentSpeechBox();
+
         switch (stage) {
             case TYPE:
-                this.stack.get(0).timeoutDuration = 0;
                 if (option == 0) {
                     queryQuestionStyle();
                 } else if (option == 1) {
@@ -137,22 +134,15 @@ public class ConversationManagement
                 break;
 
             case STYLE:
-                this.stack.get(0).timeoutDuration = 0;
                 this.tempQuestionStyle = option;
                 queryWhichClue();
                 break;
 
             case CLUE:
-                this.stack.get(0).timeoutDuration = 0;
                 this.tempCluePos = option;
                 //questionNPC();
                 break;
-
-
-
-
         }
-
 
     }
 
