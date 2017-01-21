@@ -94,14 +94,13 @@ public class Conversation {
         //TODO: move this to the abstractPerson construct
         this.player.importDialogue("colin.JSON");
         this.tempNPC.importDialogue("colin.JSON");
+
         //Introduction
-        addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5)); //instead of placeholder use player.getdrivel() or whatever is the correct function
+        addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));
         addSpeechBox(new SpeechBox(this.tempNPC.getName(), this.tempNPC.getSpeech("Introduction"), 5));
 
 
         queryQuestionType();
-        //addSpeechBox(new SpeechBox("What do you want to ask about?", ));
-
 
     }
 
