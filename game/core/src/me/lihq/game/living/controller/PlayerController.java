@@ -34,17 +34,18 @@ public class PlayerController extends InputAdapter
             return true;
         }
 
-
         if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
             this.north = true;
             return true;
         }
+
 
         if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
             this.south = true;
             return true;
         }
 
+        //TODO: The following 3 key reads could do with being placed in another class
         if (keycode == Input.Keys.J)
         {
             Settings.DEBUG_OPTIONS.put("showWalkable", !Settings.DEBUG_OPTIONS.get("showWalkable"));
