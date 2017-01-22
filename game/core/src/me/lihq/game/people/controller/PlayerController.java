@@ -1,11 +1,11 @@
-package me.lihq.game.living.controller;
+package me.lihq.game.people.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import me.lihq.game.Settings;
-import me.lihq.game.living.Player;
+import me.lihq.game.people.Player;
 
-import static me.lihq.game.living.AbstractPerson.*;
+import static me.lihq.game.people.AbstractPerson.*;
 
 /**
  * This class allows the player to be moved and controlled.

@@ -1,8 +1,6 @@
 package me.lihq.game.models;
 
-import me.lihq.game.GameMain;
-import me.lihq.game.living.AbstractPerson.Direction;
-import me.lihq.game.living.Player;
+import me.lihq.game.people.AbstractPerson.Direction;
 
 import java.util.Arrays;
 import java.util.List;

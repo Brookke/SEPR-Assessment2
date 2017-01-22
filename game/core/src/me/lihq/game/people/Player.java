@@ -1,4 +1,4 @@
-package me.lihq.game.living;
+package me.lihq.game.people;
 
 import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;

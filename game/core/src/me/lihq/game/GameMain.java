@@ -3,14 +3,11 @@ package me.lihq.game;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import me.lihq.game.living.NPC;
+import me.lihq.game.people.NPC;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
-import me.lihq.game.living.Player;
+import me.lihq.game.people.Player;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
 import me.lihq.game.screen.AbstractScreen;
@@ -18,8 +15,6 @@ import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.MainMenuScreen;
 
 import java.util.*;
-
-import static com.badlogic.gdx.maps.tiled.TiledMapTileLayer.*;
 
 
 /**
@@ -247,7 +242,7 @@ public class GameMain extends Game
 
     }
 
-    public List<? extends Sprite> getNPCS(Room room)
+    public List<NPC> getNPCS(Room room)
     {
         List<NPC> npcsInRoom = new ArrayList<>();
         for (NPC n : this.NPCs) {

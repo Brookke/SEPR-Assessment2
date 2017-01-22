@@ -16,10 +16,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import me.lihq.game.OrthogonalTiledMapRendererWithSprite;
+import me.lihq.game.OrthogonalTiledMapRendererWithPeople;
 import me.lihq.game.Settings;
-import me.lihq.game.living.NPC;
-import me.lihq.game.living.controller.PlayerController;
+import me.lihq.game.people.AbstractPerson;
+import me.lihq.game.people.NPC;
+import me.lihq.game.people.controller.PlayerController;
 
 import me.lihq.game.screen.elements.*;
 
@@ -50,12 +51,12 @@ public class NavigationScreen extends AbstractScreen
      */
     private boolean changeMap = false;
 
-    private List<? extends Sprite> currentNPCS;
+    private List<NPC> currentNPCS;
 
     /**
      *
      */
-    private OrthogonalTiledMapRendererWithSprite tiledMapRenderer;
+    private OrthogonalTiledMapRendererWithPeople tiledMapRenderer;
     private OrthographicCamera camera = new OrthographicCamera();
     private Viewport viewport;
     private SpriteBatch spriteBatch;
@@ -123,7 +124,7 @@ public class NavigationScreen extends AbstractScreen
 
         viewport = new FitViewport(w / Settings.ZOOM, h / Settings.ZOOM, camera);
 
-        tiledMapRenderer = new OrthogonalTiledMapRendererWithSprite(game.player.getRoom().getTiledMap());
+        tiledMapRenderer = new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap());
 
         playerController = new PlayerController(game.player);
 
@@ -131,7 +132,7 @@ public class NavigationScreen extends AbstractScreen
 
         statusBar = new StatusBar(game);
 
-        tiledMapRenderer.addSprite(game.player);
+        tiledMapRenderer.addPerson(game.player);
 
         arrow = new RoomArrow(game.player);
 
@@ -170,7 +171,7 @@ public class NavigationScreen extends AbstractScreen
             game.player.update();
             arrow.update();
 
-            for (NPC n : (List<NPC>) currentNPCS) {
+            for (AbstractPerson n : currentNPCS) {
                 n.update();
             }
 
@@ -235,16 +236,16 @@ public class NavigationScreen extends AbstractScreen
     public void render(float delta)
     {
         game.player.pushCoordinatesToSprite();
-        for (NPC n : (List<NPC>) currentNPCS) {
+        for (AbstractPerson n : currentNPCS) {
             n.pushCoordinatesToSprite();
 
         }
 
         if (changeMap) {
             tiledMapRenderer.setMap(game.player.getRoom().getTiledMap());
-            tiledMapRenderer.clearSprites();
-            tiledMapRenderer.addSprites((List<Sprite>) currentNPCS);
-            tiledMapRenderer.addSprite(game.player);
+            tiledMapRenderer.clearPeople();
+            tiledMapRenderer.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCS));
+            tiledMapRenderer.addPerson(game.player);
             changeMap = false;
         }
 
@@ -337,7 +338,7 @@ public class NavigationScreen extends AbstractScreen
         this.roomTag = tag;
     }
 
-    public List<? extends Sprite> getNPCs()
+    public List<NPC> getNPCs()
     {
         return currentNPCS;
     }

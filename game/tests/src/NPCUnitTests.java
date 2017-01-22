@@ -1,4 +1,4 @@
-import me.lihq.game.living.NPC;
+import me.lihq.game.people.NPC;
 import me.lihq.game.models.Room;
 import org.junit.Before;
 import org.junit.Test;

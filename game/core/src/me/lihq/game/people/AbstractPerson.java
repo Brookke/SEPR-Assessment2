@@ -1,4 +1,4 @@
-package me.lihq.game.living;
+package me.lihq.game.people;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

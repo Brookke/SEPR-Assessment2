@@ -11,14 +11,10 @@ import me.lihq.game.GameMain;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import me.lihq.game.Assets;
-import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
-import me.lihq.game.living.AbstractPerson.Direction;
-import me.lihq.game.living.NPC;
+import me.lihq.game.people.AbstractPerson.Direction;
+import me.lihq.game.people.NPC;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -215,7 +211,7 @@ public class Room
     }
 
     /**
-     * This method locks the specified coordinates so no other living object can move to it
+     * This method locks the specified coordinates so no other people object can move to it
      *
      * @param x - The x coordinate to lock
      * @param y - The y coordinate to lock
@@ -226,7 +222,7 @@ public class Room
     }
 
     /**
-     * This method unlocks the specified coordinates so other living object can move to it
+     * This method unlocks the specified coordinates so other people object can move to it
      *
      * @param x - The x coordinate to unlock
      * @param y - The y coordinate to unlock
@@ -311,7 +307,7 @@ public class Room
         }
 
         /*
-        Check to see if any living object has locked the target destination for them to move to
+        Check to see if any people object has locked the target destination for them to move to
          */
         if (this.lockedTiles[x][y] == true)
         {
