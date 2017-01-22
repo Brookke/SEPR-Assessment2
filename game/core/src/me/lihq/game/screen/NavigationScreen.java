@@ -17,13 +17,20 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import me.lihq.game.OrthogonalTiledMapRendererWithPeople;
 import me.lihq.game.Settings;
+import me.lihq.game.people.AbstractPerson;
+import me.lihq.game.people.NPC;
+import me.lihq.game.people.controller.PlayerController;
+
+import me.lihq.game.screen.elements.*;
 import me.lihq.game.SpeechboxManager;
-import me.lihq.game.living.controller.PlayerController;
-import me.lihq.game.screen.elements.OrthogonalTiledMapRendererWithSprite;
+import me.lihq.game.player.controller.PlayerController;
 import me.lihq.game.screen.elements.RoomArrow;
 import me.lihq.game.screen.elements.RoomTag;
 import me.lihq.game.screen.elements.StatusBar;
+
+import java.util.List;
 
 
 /**
@@ -51,10 +58,12 @@ public class NavigationScreen extends AbstractScreen
      */
     private boolean changeMap = false;
 
+    private List<NPC> currentNPCS;
+
     /**
      *
      */
-    private OrthogonalTiledMapRendererWithSprite tiledMapRenderer;
+    private OrthogonalTiledMapRendererWithPeople tiledMapRenderer;
     private OrthographicCamera camera = new OrthographicCamera();
     private Viewport viewport;
     private SpriteBatch spriteBatch;
@@ -125,12 +134,11 @@ public class NavigationScreen extends AbstractScreen
 
         viewport = new FitViewport(w / Settings.ZOOM, h / Settings.ZOOM, camera);
 
-        tiledMapRenderer = new OrthogonalTiledMapRendererWithSprite(game.player.getRoom().getTiledMap());
+        tiledMapRenderer = new OrthogonalTiledMapRendererWithPeople(game.player.getRoom().getTiledMap());
 
         playerController = new PlayerController(game.player);
 
         spriteBatch = new SpriteBatch();
-
 
         statusBar = new StatusBar(game);
 
@@ -138,7 +146,7 @@ public class NavigationScreen extends AbstractScreen
 
         convMngt = new ConversationManagement(game.player, speechboxMngr);
 
-        tiledMapRenderer.addSprite(game.player);
+        tiledMapRenderer.addPerson(game.player);
 
         arrow = new RoomArrow(game.player);
 
@@ -158,9 +166,6 @@ public class NavigationScreen extends AbstractScreen
 
         Gdx.input.setInputProcessor(multiplexer);
 
-        //TODO: remove as it is currently a test
-        convMngt.startConversation(game.NPCs.get(0));
-
     }
 
     @Override
@@ -170,14 +175,22 @@ public class NavigationScreen extends AbstractScreen
             playerController.update();
             game.player.update();
             arrow.update();
+
+            for (AbstractPerson n : currentNPCS) {
+                n.update();
+            }
+
             speechboxMngr.update();
         }
+
         //Some things should be updated all the time.
         updateTransition();
 
         if (roomTag != null) {
             roomTag.update();
         }
+
+
     }
 
     private void updateTransition()
@@ -191,7 +204,7 @@ public class NavigationScreen extends AbstractScreen
                 if (animTimer == ANIM_TIME) {
                     game.player.moveRoom();
                 }
-                
+
                 if (animTimer > ANIM_TIME) {
                     fadeToBlack = false;
                 }
@@ -228,13 +241,20 @@ public class NavigationScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
-
         game.player.pushCoordinatesToSprite();
+        for (AbstractPerson n : currentNPCS) {
+            n.pushCoordinatesToSprite();
+
+        }
 
         if (changeMap) {
             tiledMapRenderer.setMap(game.player.getRoom().getTiledMap());
+            tiledMapRenderer.clearPeople();
+            tiledMapRenderer.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCS));
+            tiledMapRenderer.addPerson(game.player);
             changeMap = false;
         }
+
         camera.position.x = game.player.getX();
         camera.position.y = game.player.getY();
         camera.update();
@@ -262,6 +282,11 @@ public class NavigationScreen extends AbstractScreen
             roomTag.render(spriteBatch);
         }
 
+        if (Settings.DEBUG)
+        {
+            DebugOverlay.renderDebugInfo(spriteBatch);
+        }
+
         spriteBatch.end();
 
         statusBar.render();
@@ -273,7 +298,6 @@ public class NavigationScreen extends AbstractScreen
     public void resize(int width, int height)
     {
         viewport.update(width, height);
-        //speechBox.resize(width,height);
         statusBar.resize(width, height);
     }
 
@@ -310,10 +334,16 @@ public class NavigationScreen extends AbstractScreen
     public void updateTiledMapRenderer()
     {
         this.changeMap = true;
+        this.currentNPCS = game.getNPCS(game.player.getRoom());
     }
 
     public void setRoomTag(RoomTag tag)
     {
         this.roomTag = tag;
+    }
+
+    public List<NPC> getNPCs()
+    {
+        return currentNPCS;
     }
 }

@@ -1,9 +1,11 @@
-package me.lihq.game.living;
-
+package me.lihq.game.people;
+import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;
+import me.lihq.game.models.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -13,10 +15,8 @@ public class NPC extends AbstractPerson
 {
 
     //These variables are specific to the NPC only
-    /**
-     * The roomID specifies which room the NPC will be in during the game.
-     */
-    private int roomID = -1;
+
+    private Random random;
 
     /**
      * The motive string details why the NPC committed the murder.
@@ -34,6 +34,7 @@ public class NPC extends AbstractPerson
      */
     private boolean canBeKiller = false;
     private boolean isKiller = false;
+    private boolean isVictim = false;
 
     /**
      * T that
@@ -50,59 +51,73 @@ public class NPC extends AbstractPerson
      *
      * @param tileX       - x coordinate of tile that the NPC will be initially rendered on.
      * @param tileY       - y coordinate of tile that the NPC will be initially rendered on.
-     * @param roomID      - ID of room they are in
+     * @param room        - ID of room they are in
      * @param spriteSheet - Spritesheet for this NPC
      * @param canBeKiller - Boolean whether they can or cannot be the killer
      */
-    public NPC(String name, String spriteSheet, int tileX, int tileY, int roomID, boolean canBeKiller, Personality personality)
+    public NPC(String name, String spriteSheet, int tileX, int tileY, Room room, boolean canBeKiller, Personality personality)
     {
-
-        super(name, spriteSheet, tileX, tileY);
-
+        super(name, "npc/" + spriteSheet, tileX, tileY);
+        this.setRoom(room);
         this.personality = personality;
-
-        this.setRoomID(roomID);
-
+        this.random = new Random();
         this.canBeKiller = canBeKiller;
+
         importDialogue(name+".JSON");
 
     }
 
 
+    @Override
+    public void update() {
+        super.update();
+        this.randomMove();
+    }
     /**
      * Allow the NPC to move around their room.
-     *
-     * @param dx - how far to move in the x direction
-     * @param dy - how far to move in the y direction
+     * @param dir the direction person should move in
      */
-    public void move(int dx, int dy)
+    public void move(Direction dir)
     {
+        if (this.state != PersonState.STANDING) {
+            return;
+        }
 
+        if (!getRoom().isWalkableTile(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy())) {
+            setDirection(dir);
+            return;
+        }
+
+        initialiseMove(dir);
+    }
+
+    private void randomMove()
+    {
+        if (getState() == PersonState.WALKING) return;
+
+        if (random.nextDouble() > 0.01) {
+            return;
+        }
+
+        Direction dir;
+
+        Double dirRand = random.nextDouble();
+        if (dirRand < 0.5) {
+            dir = this.direction;
+        } else if (dirRand < 0.62) {
+            dir = Direction.NORTH;
+        } else if (dirRand < 0.74) {
+            dir = Direction.SOUTH;
+        } else if (dirRand < 0.86) {
+            dir = Direction.EAST;
+        } else {
+            dir = Direction.WEST;
+        }
+
+        move(dir);
     }
 
 
-    /**
-     * Getter for RoomID
-     *
-     * @return returns the RoomID
-     */
-    public int getRoomID()
-    {
-        return roomID;
-    }
-
-    /**
-     * Setter for RoomID
-     *
-     * @param roomID - The RoomID you want to assign.
-     * @return Returns the NPC object as this is how the NPC's are built
-     * by returning and adding each part.
-     */
-    public NPC setRoomID(int roomID)
-    {
-        this.roomID = roomID;
-        return this;
-    }
 
     /**
      * Getter for canBeKiller
@@ -117,12 +132,19 @@ public class NPC extends AbstractPerson
     /**
      * Getter for isKiller.
      *
-     * @return Returna value of isKiller for this object.
+     * @return Return a value of isKiller for this object.
      */
     public boolean isKiller()
     {
         return isKiller;
     }
+
+    /**
+     * Getter for isVictim
+     *
+     * @return Returns the value of isVictim for this object
+     */
+    public boolean isVictim() {return isVictim;}
 
     /**
      * Getter for motive.
@@ -145,6 +167,38 @@ public class NPC extends AbstractPerson
     {
         this.motive = motive;
         return this;
+    }
+
+    /**
+     * This method sets the NPC as the killer for this game.
+     *
+     * It first checks they arent the victim and if they can be the killer
+     *
+     * @return Returns whether it successfully set the NPC to the killer or not
+     */
+    public boolean setKiller()
+    {
+        if (isVictim() || !canBeKiller) return false;
+
+        isKiller = true;
+        System.out.println(getName() + " is the killer");
+        return true;
+    }
+
+    /**
+     * This method sets the NPC to be the victim for the game
+     *
+     * It first checks if the NPC isn't also the killer
+     *
+     * @return Returns whether it successfully set the NPC to the victim or not
+     */
+    public boolean setVictim()
+    {
+        if (isKiller()) return false;
+
+        isVictim = true;
+        System.out.println(getName() + " is the victim");
+        return true;
     }
 
 

@@ -1,4 +1,4 @@
-package me.lihq.game.living;
+package me.lihq.game.people;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,14 +14,14 @@ import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
 
+import java.util.Comparator;
+
 /**
  * The abstract person is an abstract representation of a person. A person can be a non playable character or Player.
  * It extends the sprite class which provides methods for the person to be rendered in the game.
  */
 public abstract class AbstractPerson extends Sprite
 {
-
-
     /**
      * The height of the texture region for each person
      */
@@ -43,7 +43,6 @@ public abstract class AbstractPerson extends Sprite
      */
     private String name;
 
-
     /**
      * This is the players location in the current room.
      * Note this is different to sprite position, the sprite position is the location that the person is currently drawn.
@@ -61,7 +60,7 @@ public abstract class AbstractPerson extends Sprite
      */
     protected Vector2Int destinationTile = new Vector2Int(0, 0);
     protected float animTimer;
-    protected float animTime = Settings.TPS / 3.5f;
+    protected float animTime = Settings.TPS / 3f;
     protected Texture spriteSheet;
     protected TextureRegion currentRegion;
 
@@ -156,6 +155,8 @@ public abstract class AbstractPerson extends Sprite
      */
     public void initialiseMove(Direction dir)
     {
+        getRoom().lockCoordinate(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy());
+
         this.direction = dir;
 
         this.startTile.x = this.tileCoordinates.x;
@@ -177,6 +178,8 @@ public abstract class AbstractPerson extends Sprite
         animTimer = 0f;
 
         this.state = PersonState.STANDING;
+
+        getRoom().unlockCoordinate(tileCoordinates.x, tileCoordinates.y);
 
         updateTextureRegion();
     }
@@ -254,7 +257,7 @@ public abstract class AbstractPerson extends Sprite
         }
 
         if (animTimer > threeQuarters) {
-            setRegion(new TextureRegion(spriteSheet, 64, row * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT));
+            setRegion(new TextureRegion(spriteSheet, 96, row * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT));
         } else if (animTimer > half) {
             setRegion(new TextureRegion(spriteSheet, 0, row * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT));
         } else if (animTimer > quarter) {
@@ -417,4 +420,11 @@ public abstract class AbstractPerson extends Sprite
         NEUTRAL,
         HARSH
     }
+    public static class PersonPositionComparator implements Comparator<AbstractPerson> {
+        @Override
+        public int compare(AbstractPerson o1, AbstractPerson o2) {
+            return o2.getTileCoordinates().y - o1.getTileCoordinates().y;
+        }
+    }
+
 }
