@@ -1,10 +1,5 @@
 package me.lihq.game.screen.elements;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,8 +9,6 @@ import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.AbstractPerson.PersonPositionComparator;
-import me.lihq.game.living.NPC;
-import me.lihq.game.models.Vector2Int;
 
 
 import java.util.*;
@@ -109,7 +102,7 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
 
         if (Settings.DEBUG)
         {
-           DebugScreen.renderDebugTiles(map, this.getBatch());
+           DebugOverlay.renderDebugTiles(map, this.getBatch());
         }
 
         endRender();

@@ -14,9 +14,10 @@ import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 
 /**
- * Created by joeshuff on 21/01/2017.
+ * This class allows you to easily debug issues with the map
  */
-public class DebugScreen {
+public class DebugOverlay
+{
 
     public static void renderDebugInfo(Batch batch)
     {

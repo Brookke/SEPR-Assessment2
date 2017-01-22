@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import me.lihq.game.Assets;
 import me.lihq.game.GameMain;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
@@ -277,7 +276,7 @@ public class NavigationScreen extends AbstractScreen
 
         if (Settings.DEBUG)
         {
-            DebugScreen.renderDebugInfo(spriteBatch);
+            DebugOverlay.renderDebugInfo(spriteBatch);
         }
 
         spriteBatch.end();
