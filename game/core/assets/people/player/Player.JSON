@@ -1,7 +1,7 @@
 {
-  "name":"Player",
+  "name": "Player",
   "responses": {
-    "Introduction":"Hello",
+    "Introduction": "Hello",
     "BigShoe": "Sorry my feet are a little smaller than that.",
     "SmallShoe": "That does look similar to my foot size.",
     "Glasses": "I do wear glasses yes.",

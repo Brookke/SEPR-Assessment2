@@ -182,11 +182,7 @@ public abstract class AbstractPerson extends Sprite
      *
      * @param fileName
      */
-    public void importDialogue(String fileName)
-    {
-        jsonData = new JsonReader().parse(Gdx.files.internal(fileName));
-
-    }
+    public abstract void importDialogue(String fileName);
 
     /**
      * Gets a random item from the correct dictionary key.
@@ -417,7 +413,7 @@ public abstract class AbstractPerson extends Sprite
     {
         NICE,
         NEUTRAL,
-        HARSH
+        AGGRESSIVE
     }
 
     public static class PersonPositionComparator implements Comparator<AbstractPerson>

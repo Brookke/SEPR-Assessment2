@@ -1,5 +1,7 @@
 package me.lihq.game.people;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonReader;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
 
@@ -53,7 +55,7 @@ public class NPC extends AbstractPerson
      */
     public NPC(String name, String spriteSheet, int tileX, int tileY, Room room, boolean canBeKiller, Personality personality)
     {
-        super(name, "npc/" + spriteSheet, tileX, tileY);
+        super(name, "people/NPCs/" + spriteSheet, tileX, tileY);
         this.setRoom(room);
         this.personality = personality;
         this.random = new Random();
@@ -69,6 +71,17 @@ public class NPC extends AbstractPerson
     {
         super.update();
         this.randomMove();
+    }
+
+    /**
+     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
+     *
+     * @param fileName
+     */
+    @Override
+    public void importDialogue(String fileName)
+    {
+        jsonData = new JsonReader().parse(Gdx.files.internal("people/NPCs/" + fileName));
     }
 
     /**

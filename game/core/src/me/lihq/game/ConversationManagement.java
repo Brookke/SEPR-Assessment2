@@ -96,9 +96,9 @@ public class ConversationManagement
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
         SpeechBoxButton.EventHandler eventHandler = (result) -> handleResponse(QuestionStage.STYLE, result);
 
-        buttons.add(new SpeechBoxButton("Nice", 0, eventHandler));
-        buttons.add(new SpeechBoxButton("Neutral", 1, eventHandler));
-        buttons.add(new SpeechBoxButton("Harsh", 2, eventHandler));
+        buttons.add(new SpeechBoxButton("Nicely", 0, eventHandler));
+        buttons.add(new SpeechBoxButton("Neutrally", 1, eventHandler));
+        buttons.add(new SpeechBoxButton("Aggressively", 2, eventHandler));
         speechboxMngr.addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons, -1));
 
     }
@@ -161,7 +161,7 @@ public class ConversationManagement
      *
      * @param style 0 = Nice
      *              1 = Neutral
-     *              2 = Harsh
+     *              2 = AGGRESSIVE
      *              default is Neutral
      * @return
      */
@@ -175,7 +175,7 @@ public class ConversationManagement
                 return AbstractPerson.Personality.NEUTRAL;
 
             case 2:
-                return AbstractPerson.Personality.HARSH;
+                return AbstractPerson.Personality.AGGRESSIVE;
 
         }
         //defaults to Neutral

@@ -1,5 +1,7 @@
 package me.lihq.game.people;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonReader;
 import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
@@ -38,8 +40,19 @@ public class Player extends AbstractPerson
      */
     public Player(String name, String imgSrc, int tileX, int tileY)
     {
-        super(name, imgSrc, tileX, tileY);
+        super(name, "people/player/" + imgSrc, tileX, tileY);
         importDialogue("Player.JSON");
+    }
+
+    /**
+     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
+     *
+     * @param fileName
+     */
+    @Override
+    public void importDialogue(String fileName)
+    {
+        jsonData = new JsonReader().parse(Gdx.files.internal("people/player/" + fileName));
     }
 
     /**
@@ -113,7 +126,7 @@ public class Player extends AbstractPerson
     }
 
     /**
-     * Getter for personality, it uses the personalityLevel of the player and thus returns either HARSH, NEUTRAL or NICE
+     * Getter for personality, it uses the personalityLevel of the player and thus returns either AGGRESSIVE, NEUTRAL or NICE
      *
      * @return - Returns the personality of this player.
      */
@@ -121,7 +134,7 @@ public class Player extends AbstractPerson
     public Personality getPersonality()
     {
         if (personalityLevel < 33) {
-            return Personality.HARSH;
+            return Personality.AGGRESSIVE;
 
         } else if (personalityLevel < 66) {
             return Personality.NEUTRAL;
