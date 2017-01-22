@@ -117,7 +117,7 @@ public class ConversationManagement
             i++;
         }
 
-       speechboxMngr.addSpeechBox(new SpeechBox("What clue doe you want to ask about?", buttons,-1));
+       speechboxMngr.addSpeechBox(new SpeechBox("What clue do you want to ask about?", buttons,-1));
     }
 
     private void questionNPC() {
