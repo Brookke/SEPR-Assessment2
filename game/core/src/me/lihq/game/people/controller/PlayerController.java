@@ -53,7 +53,7 @@ public class PlayerController extends InputAdapter
             return true;
         }
 
-        //TODO: The following 3 key reads could do with being placed in another class
+        //TODO: The following 3 key reads could do with being placed in another controller
         if (keycode == Input.Keys.J)
         {
             Settings.DEBUG_OPTIONS.put("showWalkable", !Settings.DEBUG_OPTIONS.get("showWalkable"));
