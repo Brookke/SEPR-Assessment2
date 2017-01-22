@@ -309,9 +309,12 @@ public class Room
         /*
         Check to see if any people object has locked the target destination for them to move to
          */
-        if (this.lockedTiles[x][y] == true) {
-            return false;
-        }
+        try
+        {
+            if (this.lockedTiles[x][y] == true) {
+                return false;
+            }
+        } catch (Exception e){}
 
         return true;
     }

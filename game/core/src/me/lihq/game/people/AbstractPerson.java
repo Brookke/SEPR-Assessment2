@@ -65,10 +65,16 @@ public abstract class AbstractPerson extends Sprite
      * The Name of the Person
      */
     private String name;
+
     /**
      * The current room of the AbstractPerson.
      */
     private Room currentRoom;
+
+    /**
+     * This is whether the NPC can move or not. It is mainly used to not let them move during converstation
+     */
+    public boolean canMove = true;
 
     /**
      * This constructs the player calling super on the sprite class
@@ -160,6 +166,16 @@ public abstract class AbstractPerson extends Sprite
         this.animTimer = 0f;
 
         this.state = PersonState.WALKING;
+    }
+
+    /**
+     * This method sets the NPCs moveability to the value of the parameter
+     *
+     * @param canMove - whether or not to set allow the NPC to move
+     */
+    public void setCanMove(boolean canMove)
+    {
+        this.canMove = canMove;
     }
 
     /**
@@ -385,6 +401,16 @@ public abstract class AbstractPerson extends Sprite
         public int getDy()
         {
             return this.dy;
+        }
+
+        public Direction getOpposite()
+        {
+            if (this == Direction.NORTH) return Direction.SOUTH;
+            if (this == Direction.EAST) return Direction.WEST;
+            if (this == Direction.SOUTH) return Direction.NORTH;
+            if (this == Direction.WEST) return Direction.EAST;
+
+            return null;
         }
     }
 

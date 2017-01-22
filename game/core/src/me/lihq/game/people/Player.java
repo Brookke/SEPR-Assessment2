@@ -1,5 +1,6 @@
 package me.lihq.game.people;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import me.lihq.game.GameMain;
@@ -87,6 +88,10 @@ public class Player extends AbstractPerson
             return;
         }
 
+        if (!canMove) {
+            return;
+        }
+
         if (this.isOnTriggerTile() && dir.toString().equals(getRoom().getMatRotation(this.tileCoordinates.x, this.tileCoordinates.y))) {
             GameMain.me.getNavigationScreen().initialiseRoomChange();
             return;
@@ -101,7 +106,35 @@ public class Player extends AbstractPerson
     }
 
 
-    public void checkForClue()
+    public void interact()
+    {
+        NPC npc = getFacingNPC();
+        if (npc != null)
+        {
+            GameMain.me.getNavigationScreen().convMngt.startConversation(npc);
+        }
+        else
+        {
+            checkForClue();
+        }
+    }
+
+    private NPC getFacingNPC()
+    {
+        for (NPC npc : GameMain.me.getNPCS(getRoom()))
+        {
+            if ((npc.getTileCoordinates().x == getTileCoordinates().x + getDirection().getDx()) && (npc.getTileCoordinates().y == getTileCoordinates().y + getDirection().getDy()))
+            {
+                if (npc.getState() != PersonState.STANDING) return null;
+
+                return npc;
+            }
+        }
+
+        return null;
+    }
+
+    private void checkForClue()
     {
         int x = getTileCoordinates().x + getDirection().getDx();
         int y = getTileCoordinates().y + getDirection().getDy();

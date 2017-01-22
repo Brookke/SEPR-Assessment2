@@ -96,6 +96,8 @@ public class NPC extends AbstractPerson
             return;
         }
 
+        if (!canMove) return;
+
         if (!getRoom().isWalkableTile(this.tileCoordinates.x + dir.getDx(), this.tileCoordinates.y + dir.getDy())) {
             setDirection(dir);
             return;

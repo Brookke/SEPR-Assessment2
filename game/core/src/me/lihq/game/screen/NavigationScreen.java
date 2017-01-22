@@ -67,7 +67,7 @@ public class NavigationScreen extends AbstractScreen
 
     public SpeechboxManager speechboxMngr;
 
-    private ConversationManagement convMngt;
+    public ConversationManagement convMngt;
 
     private StatusBar statusBar;
 
@@ -224,6 +224,8 @@ public class NavigationScreen extends AbstractScreen
         pause = false;
         roomTag = new RoomTag(game.player.getRoom().getName());
     }
+
+
 
     /**
      * Called when the screen should render itself.

@@ -25,8 +25,8 @@ public class PlayerController extends InputAdapter
     @Override
     public boolean keyDown(int keycode)
     {
-        if (keycode == Input.Keys.ENTER) {
-            player.checkForClue();
+        if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE) {
+            player.interact();
             return true;
         }
 
@@ -99,6 +99,7 @@ public class PlayerController extends InputAdapter
 
     public void update()
     {
+
         if (!south && !north && !east && !west) {
             timer = 0;
         }

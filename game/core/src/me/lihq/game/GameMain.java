@@ -108,7 +108,6 @@ public class GameMain extends Game
 
     }
 
-
     /**
      * Overrides the getScreen method to return our AbstractScreen type.
      * This means that we can access the additional methods like update.
@@ -227,7 +226,7 @@ public class GameMain extends Game
         }
 
         NPC victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));
-        ;
+
 
         while (!victim.setVictim()) {
             victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));
