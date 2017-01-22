@@ -1,3 +1,4 @@
+import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.NPC;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class NPCUnitTests extends GameTester
     @Before
     public void makeNPC()
     {
-        bob = new NPC("bob", "player.png", 1,1,1, false);
+        bob = new NPC("bob", "player.png", 1,1,1, false, AbstractPerson.Personality.HARSH);
     }
 
     @Test
@@ -22,7 +23,10 @@ public class NPCUnitTests extends GameTester
         assertEquals("getting the name of the NPC failing", "bob", bob.getName());
     }
 
-
+    @Test
+    public void testPersonality() {
+        assertEquals(AbstractPerson.Personality.HARSH, bob.getPersonality());
+    }
 
 
 }

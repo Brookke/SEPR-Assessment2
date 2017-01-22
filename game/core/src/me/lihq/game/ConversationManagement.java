@@ -1,7 +1,9 @@
 package me.lihq.game;
 
+import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.Player;
+import me.lihq.game.models.Clue;
 import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.SpeechBoxButton;
 
@@ -38,7 +40,7 @@ public class ConversationManagement
      * 1 = Neutral
      * 2 = Harsh
      */
-    private int tempQuestionStyle;
+    private AbstractPerson.Personality tempQuestionStyle;
 
 
     public ConversationManagement(Player player, SpeechboxManager speechboxManager)
@@ -54,7 +56,7 @@ public class ConversationManagement
     {
         //reset temp stores
         this.tempCluePos = -1;
-        this.tempQuestionStyle = -1;
+        this.tempQuestionStyle = null;
         this.tempNPC = npc;
 
         //TODO: move this to the abstractPerson construct
@@ -108,16 +110,19 @@ public class ConversationManagement
             handleResponse(QuestionStage.CLUE, result);
         };
 
-        //TODO: finish when clues have been merged
-//        for (Clue c: this.player.clues) {
-//            buttons.add(new SpeechBoxButton(clue.getName(), );
-//        }
+
+        int i = 0;
+        for (Clue c: this.player.collectedClues) {
+            buttons.add(new SpeechBoxButton(c.getName(), i, eventHandler));
+            i++;
+        }
 
        speechboxMngr.addSpeechBox(new SpeechBox("What clue doe you want to ask about?", buttons,-1));
     }
 
     private void questionNPC() {
-        //TODO: finish when clues have been merged
+        speechboxMngr.addSpeechBox(new SpeechBox(player.getName(), player.getSpeech(player.collectedClues.get(tempCluePos), tempQuestionStyle), 3));
+        speechboxMngr.addSpeechBox(new SpeechBox(tempNPC.getName(), tempNPC.getSpeech(player.collectedClues.get(tempCluePos), tempQuestionStyle), 3));
     }
 
     private void handleResponse(QuestionStage stage, int option) {
@@ -133,18 +138,42 @@ public class ConversationManagement
                 break;
 
             case STYLE:
-                this.tempQuestionStyle = option;
+                this.tempQuestionStyle = convertToQuestionStyle(option);
                 queryWhichClue();
                 break;
 
             case CLUE:
                 this.tempCluePos = option;
-                //questionNPC();
+                questionNPC();
                 break;
         }
 
     }
 
+
+    /**
+     * Takes an int and returns a personality style
+     * @param style 0 = Nice
+     *              1 = Neutral
+     *              2 = Harsh
+     *              default is Neutral
+     * @return
+     */
+    private AbstractPerson.Personality convertToQuestionStyle(int style) {
+        switch (style) {
+            case 0:
+                return AbstractPerson.Personality.NICE;
+
+            case 1:
+                return AbstractPerson.Personality.NEUTRAL;
+
+            case 2:
+                return AbstractPerson.Personality.HARSH;
+
+        }
+        //defaults to Neutral
+        return AbstractPerson.Personality.NEUTRAL;
+    }
     public enum QuestionStage
     {
 

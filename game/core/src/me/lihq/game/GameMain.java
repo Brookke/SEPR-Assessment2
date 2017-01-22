@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.NPC;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
@@ -18,8 +17,6 @@ import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.MainMenuScreen;
 
 import java.util.*;
-
-import static com.badlogic.gdx.maps.tiled.TiledMapTileLayer.*;
 
 
 /**
@@ -175,7 +172,7 @@ public class GameMain extends Game
 
         {
             //TODO: Add NPC assets
-            NPC npc = new NPC("NPC", "player.png", 4, 4, 1, true);
+            NPC npc = new NPC("NPC", "player.png", 4, 4, 1, true, AbstractPerson.Personality.NICE);
 
             NPCs.add(npc);
         }

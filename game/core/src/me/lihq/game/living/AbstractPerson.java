@@ -1,24 +1,18 @@
 package me.lihq.game.living;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.Assets;
-import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
-
-import java.util.ArrayList;
 
 /**
  * The abstract person is an abstract representation of a person. A person can be a non playable character or Player.
@@ -48,6 +42,7 @@ public abstract class AbstractPerson extends Sprite
      * The Name of the Person
      */
     private String name;
+
 
     /**
      * This is the players location in the current room.
@@ -231,6 +226,15 @@ public abstract class AbstractPerson extends Sprite
         return this.getSpeech(clue.getName());
     }
 
+
+    /**
+     * This handles speech for a clue that has a question style
+     * @param clue the clue to be questioned about
+     * @param style the style of questioning
+     * @return the speech
+     */
+    public abstract String getSpeech(Clue clue, Personality style);
+
     /**
      * Updates the texture region based upon how far though the animation time it is.
      */
@@ -279,6 +283,12 @@ public abstract class AbstractPerson extends Sprite
         coordinates.x = x;
         coordinates.y = y;
     }
+
+    /**
+     * This returns the persons personality
+     * @return
+     */
+    public abstract Personality getPersonality();
 
     public String getName()
     {
@@ -404,5 +414,15 @@ public abstract class AbstractPerson extends Sprite
          * Person is standing still.
          */
         STANDING;
+    }
+
+    /**
+     * This is the possible personalities of the persond
+     */
+    public enum Personality
+    {
+        NICE,
+        NEUTRAL,
+        HARSH
     }
 }

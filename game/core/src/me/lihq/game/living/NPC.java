@@ -36,9 +36,14 @@ public class NPC extends AbstractPerson
     private boolean isKiller = false;
 
     /**
+     * T that
+     */
+    private Personality personality;
+
+    /**
      * Associated clues
      */
-    private List<Clue> associatedClues = new ArrayList<>();
+    public List<Clue> associatedClues = new ArrayList<>();
 
     /**
      * Define an NPC with location coordinates , room, spritesheet and whether or not they can be the killer
@@ -49,10 +54,12 @@ public class NPC extends AbstractPerson
      * @param spriteSheet - Spritesheet for this NPC
      * @param canBeKiller - Boolean whether they can or cannot be the killer
      */
-    public NPC(String name, String spriteSheet, int tileX, int tileY, int roomID, boolean canBeKiller)
+    public NPC(String name, String spriteSheet, int tileX, int tileY, int roomID, boolean canBeKiller, Personality personality)
     {
 
         super(name, spriteSheet, tileX, tileY);
+
+        this.personality = personality;
 
         this.setRoomID(roomID);
 
@@ -73,21 +80,6 @@ public class NPC extends AbstractPerson
 
     }
 
-    public void addClues(List<Clue> clues)
-    {
-        this.associatedClues.addAll(clues);
-    }
-
-    public List<Clue> getClues()
-    {
-        return this.associatedClues;
-    }
-
-    public boolean hasClue(Clue clue)
-    {
-        return this.associatedClues.contains(clue);
-
-    }
 
     /**
      * Getter for RoomID
@@ -153,5 +145,30 @@ public class NPC extends AbstractPerson
     {
         this.motive = motive;
         return this;
+    }
+
+
+
+    /**
+     * This handles speech for a clue that has a question style
+     *
+     * @param clue  the clue to be questioned about
+     * @param style the style of questioning
+     * @return the speech
+     */
+    @Override
+    public String getSpeech(Clue clue, Personality style)
+    {
+        if (style == this.personality) {
+            return getSpeech(clue);
+        } else {
+            return getSpeech("");
+        }
+    }
+
+    @Override
+    public Personality getPersonality()
+    {
+        return this.personality;
     }
 }

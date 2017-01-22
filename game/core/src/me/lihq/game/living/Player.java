@@ -1,9 +1,5 @@
 package me.lihq.game.living;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import jdk.nashorn.internal.parser.JSONParser;
 import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;
 
@@ -75,7 +71,6 @@ public class Player extends AbstractPerson
      */
     public void move(Direction dir)
     {
-        System.out.println(this.getTileCoordinates().x + ": " + this.getTileCoordinates().y);
         if (this.state != PersonState.STANDING) {
             return;
         }
@@ -120,11 +115,29 @@ public class Player extends AbstractPerson
     }
 
     /**
-     * Getter for personality.
+     * Getter for personality, it uses the personalityLevel of the player and thus returns either HARSH, NEUTRAL or NICE
      * @return - Returns the personality of this player.
      */
-    public int getPersonality()
+    @Override
+    public Personality getPersonality()
     {
+        if (personalityLevel < 33 ) {
+            return Personality.HARSH;
+
+        } else if (personalityLevel < 66) {
+            return Personality.NEUTRAL;
+
+        } else if (personalityLevel <= 100) {
+            return Personality.NICE;
+        }
+        return Personality.NEUTRAL;
+    }
+
+    /**
+     * This gets the players personality level; this similar to Personality but a integer representation
+     * @return value between 0-100
+     */
+    public int getPersonalityLevel() {
         return this.personalityLevel;
     }
 
@@ -154,6 +167,17 @@ public class Player extends AbstractPerson
         }
     }
 
+
+
+    @Override
+    public String getSpeech(Clue clue, Personality style) {
+        String key = clue.getName();
+        if (!jsonData.get("Responses").has(key)) {
+            return jsonData.get("noneResponses").getString(0);
+        } else {
+            return jsonData.get("Responses").get(key).getString(style.toString());
+        }
+    }
     
 
 }
