@@ -90,7 +90,7 @@ public class ConversationManagement
         if (buttons.size() > 0 ) {
             speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons, -1));
         } else {
-            speechboxMngr.addSpeechBox(new SpeechBox("You need to find some clues before you question a suspect", 5);
+            speechboxMngr.addSpeechBox(new SpeechBox("You need to find some clues before you question a suspect", 5));
             finishConverstation();
         }
 
