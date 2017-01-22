@@ -8,8 +8,8 @@ import me.lihq.game.people.AbstractPerson;
 import me.lihq.game.people.AbstractPerson.PersonPositionComparator;
 import me.lihq.game.screen.elements.DebugOverlay;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 /**
  * OrthogonalTiledMapRendererWithPeople
@@ -51,6 +51,9 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
     }
 
 
+
+
+
     public void clearPeople()
     {
         people.clear();
@@ -74,22 +77,27 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             MapLayer layer = map.getLayers().get(currentLayer);
 
-            if (layer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom()) {
+            if (layer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom())
+            {
                 //Don't draw the layer as its not the murder room
-            } else {
+            }
+            else
+            {
                 renderTileLayer((TiledMapTileLayer) layer);
             }
 
             if (currentLayer == amountOfLayers - 2 || amountOfLayers == 1) {
 
-                for (AbstractPerson s : people) {
+                for (AbstractPerson s : people)
+                {
                     s.draw(this.getBatch());
                 }
             }
         }
 
-        if (Settings.DEBUG) {
-            DebugOverlay.renderDebugTiles(map, this.getBatch());
+        if (Settings.DEBUG)
+        {
+           DebugOverlay.renderDebugTiles(GameMain.me.player.getRoom(), this.getBatch());
         }
 
         endRender();
