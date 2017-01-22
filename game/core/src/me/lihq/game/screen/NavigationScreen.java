@@ -333,9 +333,19 @@ public class NavigationScreen extends AbstractScreen
         this.currentNPCS = game.getNPCS(game.player.getRoom());
     }
 
+    public boolean getChangeMap()
+    {
+        return(changeMap);
+    }
+
     public void setRoomTag(RoomTag tag)
     {
         this.roomTag = tag;
+    }
+
+    public RoomTag getRoomTag()
+    {
+        return(this.roomTag);
     }
 
     public List<NPC> getNPCs()

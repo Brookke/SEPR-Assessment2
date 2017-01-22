@@ -21,7 +21,7 @@ import me.lihq.game.GameMain;
  * Reusable Main initMenu UI, can be used for the pause screen aswell.
  */
 
-public class Menu
+public class  Menu
 {
 
     //Initialising necessary objects and variables
@@ -45,9 +45,6 @@ public class Menu
 
         //Initialising things required for text
 
-
-
-
         //Loading the menu or pause screen
         initMenu(game);
     }
@@ -65,11 +62,6 @@ public class Menu
 
         //Creating the label containing text and determining  its size and location on screen
         Label text;
-
-
-
-
-
 
         TextButton newGameButton = new TextButton("", buttonSkin);
 
