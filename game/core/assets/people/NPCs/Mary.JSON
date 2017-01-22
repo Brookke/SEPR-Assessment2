@@ -1,16 +1,16 @@
 {
   "name":"Mary",
-  "clues": ["BigShoe","SmallShoe", "Glasses","Bag","Lipstick","RightHanded","DarkHair"],
+  "clues": ["Big Footprint","Small Footprint", "Glasses","Bag","Lipstick","Right Handed","Dark Hair"],
   "personality":"AGGRESSIVE",
   "introduction": "Hello",
   "responses": {
-    "BigShoe": "Those would fit yes, maybe you should give me them.",
-    "SmallShoe": "Don't want those, way too small for me.",
+    "Big Footprint": "Those would fit yes, maybe you should give me them.",
+    "Small Footprint": "Don't want those, way too small for me.",
     "Glasses": "Not sure why it matters but yes.",
     "Bag": "I do have a bag with me yes.",
     "Lipstick": "Yes ,I have just got some new Lipstick actually."
-    "RightHanded": "I am right handed."
-    "DarkHair": "No my hair is not particularly dark."
+    "Right Handed": "I am right handed."
+    "Dark Hair": "No my hair is not particularly dark."
     "noneResponses": [
       "Sorry I am far too busy for you",
       "I really don't feel the need to help you.",
