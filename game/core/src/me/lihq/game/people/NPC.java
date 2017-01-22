@@ -192,6 +192,16 @@ public class NPC extends AbstractPerson
     }
 
     /**
+     * This method sets the NPCs moveability to the value of the parameter
+     *
+     * @param canMove - whether or not to set allow the NPC to move
+     */
+    public void setCanMove(boolean canMove)
+    {
+        this.canMove = canMove;
+    }
+
+    /**
      * This method sets the NPC as the killer for this game.
      * <p>
      * It first checks they arent the victim and if they can be the killer

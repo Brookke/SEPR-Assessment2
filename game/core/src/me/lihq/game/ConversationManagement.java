@@ -60,6 +60,7 @@ public class ConversationManagement
         this.tempNPC = npc;
 
         npc.setDirection(player.getDirection().getOpposite());
+        npc.setCanMove(false);
 
         //Introduction
         speechboxMngr.addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));
