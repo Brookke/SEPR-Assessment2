@@ -3,9 +3,7 @@ package me.lihq.game.models;
 //TODO: Tidy up getters and setters add them if needed, some places we are using them others not.
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,9 +13,10 @@ import me.lihq.game.Assets;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.living.AbstractPerson.Direction;
-import me.lihq.game.screen.elements.RoomTag;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class defines a room which is a game representation of a real world room in the Ron Cooke Hub.
@@ -60,6 +59,7 @@ public class Room
      * Room transitions stored as custom Transition object. Defines where the transition is from and where it goes to
      */
     private List<Transition> roomTransitions = new ArrayList<Transition>();
+    private float animationStateTime = 0f;
 
     /**
      * Constructor that builds a Room object from the given parameters
@@ -111,20 +111,6 @@ public class Room
     }
 
     /**
-     * This moves a clue from its current position to a new defined position
-     *
-     * @param clue - The clue to change the position of
-     * @param x    - The X coordinate to move it to
-     * @param y    - The Y coordinate to move it to
-     */
-    public void moveClue(Clue clue, int x, int y)
-    {
-        if (cluesInRoom.contains(clue)) {
-            clue.setTileCoordinates(x, y);
-        }
-    }
-
-    /**
      * Adds a clue to the room.
      *
      * @param newClue - The clue to add to the room
@@ -138,7 +124,6 @@ public class Room
         }
     }
 
-
     /**
      * This method takes a location parameter and checks it for a clue, if a clue is found it is removed from the map and retunr
      *
@@ -150,10 +135,8 @@ public class Room
         //Apply direction change
         Clue out = null;
         //Check for a clue at that coordinate
-        for (Clue c : cluesInRoom)
-        {
-            if (c.getPosition().x == x && c.getPosition().y == y)
-            {
+        for (Clue c : cluesInRoom) {
+            if (c.getPosition().x == x && c.getPosition().y == y) {
                 //This is just temporary indicator that you have found the clue
                 //We will use the speech box in the future
                 out = c;
@@ -166,20 +149,18 @@ public class Room
         return out;
     }
 
-    private float animationStateTime = 0f;
-
     public void drawClues(float delta, Batch batch)
     {
         animationStateTime += delta;
 
-        for (Clue c : cluesInRoom)
-        {
+        for (Clue c : cluesInRoom) {
             TextureRegion currentFrame = Assets.CLUE_GLINT.getKeyFrame(animationStateTime, true);
             batch.draw(currentFrame, c.getTileX() * Settings.TILE_SIZE, c.getTileY() * Settings.TILE_SIZE);
         }
     }
 
-    public boolean isHidingPlace(int x, int y) {
+    public boolean isHidingPlace(int x, int y)
+    {
         int amountOfLayers = map.getLayers().getCount() - 1;
 
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
@@ -218,8 +199,7 @@ public class Room
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             TiledMapTileLayer tiledLayer = (TiledMapTileLayer) map.getLayers().get(currentLayer);
 
-            if (tiledLayer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom())
-            {
+            if (tiledLayer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom()) {
                 //Don't check the layer as the blood splat isn't there
                 continue;
             }
@@ -327,21 +307,20 @@ public class Room
 
     /**
      * This will check the map for any potential hiding locations, and returns them as a list of coordinates
+     *
      * @return list of coordinates
      */
-    public List<Vector2Int> getHidingSpots() {
+    public List<Vector2Int> getHidingSpots()
+    {
 
         List<Vector2Int> hidingSpots = new ArrayList<>();
 
         int roomWidth = ((TiledMapTileLayer) this.getTiledMap().getLayers().get(0)).getWidth();
         int roomHeight = ((TiledMapTileLayer) this.getTiledMap().getLayers().get(0)).getHeight();
 
-        for (int x = 0; x < roomWidth; x ++)
-        {
-            for (int y = 0; y < roomHeight; y ++)
-            {
-                for (MapLayer layer : this.getTiledMap().getLayers())
-                {
+        for (int x = 0; x < roomWidth; x++) {
+            for (int y = 0; y < roomHeight; y++) {
+                for (MapLayer layer : this.getTiledMap().getLayers()) {
                     TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
                     TiledMapTileLayer.Cell cellInTile = thisLayer.getCell(x, y);
 
@@ -349,8 +328,7 @@ public class Room
 
                     if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
 
-                    if (cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true"))
-                    {
+                    if (cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")) {
                         hidingSpots.add(new Vector2Int(x, y));
                         break;
                     }
@@ -358,6 +336,29 @@ public class Room
             }
         }
         return hidingSpots;
+
+    }
+
+
+    /**
+     * Thus gets a random possible location to hide a clue in
+     *
+     * @return Coordinates of the tile where the clue is to be hidden, null if there are none available
+     */
+    public Vector2Int getRandHidingSpot()
+    {
+
+        if (!this.getHidingSpots().isEmpty()) {
+            List<Vector2Int> potentialHidingSpots = getHidingSpots();
+            Collections.shuffle(potentialHidingSpots);
+
+            return potentialHidingSpots.get(0);
+
+        } else {
+
+            return null;
+
+        }
 
     }
 

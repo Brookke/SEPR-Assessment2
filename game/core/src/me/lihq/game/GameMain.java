@@ -210,17 +210,14 @@ public class GameMain extends Game
         {
             if (tempClues.isEmpty()) return;
 
-            List<Vector2Int> possibleLocations = room.getHidingSpots();
 
-            if (possibleLocations.isEmpty())
-            {
-                continue;
+            Vector2Int randHidingSpot = room.getRandHidingSpot();
+
+            if (randHidingSpot != null) {
+                room.addClue(tempClues.get(0).setTileCoordinates(randHidingSpot));
+                tempClues.remove(0);
             }
 
-            Collections.shuffle(possibleLocations);
-
-            room.addClue(tempClues.get(0).setTileCoordinates(possibleLocations.get(0)));
-            tempClues.remove(0);
         }
 
     }
