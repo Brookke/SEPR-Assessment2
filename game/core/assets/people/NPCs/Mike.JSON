@@ -18,11 +18,11 @@
     "Bag": "I do have a bag with me yes",
     "Lipstick": "Erm no I do not wear lipstick...",
     "Right Handed": "Yes, I am right handed.",
-    "Dark Hair": "I would say my hair is dark yes.",
-    "noneResponses": [
-      "Sorry I have some marking to get on with.",
-      "I'm not sure why I should help you exactly.",
-      "I am not telling you."
-    ]
-  }
+    "Dark Hair": "I would say my hair is dark yes."
+  },
+  "noneResponses": [
+    "Sorry I have some marking to get on with.",
+    "I'm not sure why I should help you exactly.",
+    "I am not telling you."
+  ]
 }
