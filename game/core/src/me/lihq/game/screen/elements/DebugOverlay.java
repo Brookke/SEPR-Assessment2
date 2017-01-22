@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -29,6 +30,8 @@ public class DebugOverlay
 
     private static Sprite yellowSprite = getColoredTileSprite(Color.GOLD);
 
+    private static BitmapFont font = Assets.getFontWithSize(30);
+
     public static void renderDebugInfo(Batch batch)
     {
         Sprite border = getColoredTileSprite(Color.BLACK);
@@ -36,7 +39,7 @@ public class DebugOverlay
         border.setSize(390, 180);
         border.draw(batch);
 
-        Assets.getFontWithSize(30).draw(batch, "====== DEBUG MODE ====== \n" +
+        font.draw(batch, "====== DEBUG MODE ====== \n" +
                 "Press H to toggle showHideable\n" +
                 "Press J to Toggle showWalkable ", Gdx.graphics.getWidth() - 360, Gdx.graphics.getHeight() - 50);
     }

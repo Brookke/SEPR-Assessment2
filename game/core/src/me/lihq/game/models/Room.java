@@ -259,6 +259,7 @@ public class Room
 
             if (tiledLayer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom()) {
                 //Don't check the layer as the blood splat isn't there
+                emptyCellCount ++;
                 continue;
             }
 
