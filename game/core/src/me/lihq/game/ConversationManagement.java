@@ -81,9 +81,19 @@ public class ConversationManagement
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
         SpeechBoxButton.EventHandler eventHandler = (result) -> handleResponse(QuestionStage.TYPE, result);
 
-        buttons.add(new SpeechBoxButton("Question?", 0, eventHandler));
-        buttons.add(new SpeechBoxButton("Accuse?", 1, eventHandler));
-        speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons, -1));
+        if (!player.collectedClues.isEmpty()) {
+            buttons.add(new SpeechBoxButton("Question?", 0, eventHandler));
+        }
+        if (player.collectedClues.size() > 3) {
+            buttons.add(new SpeechBoxButton("Accuse?", 1, eventHandler));
+        }
+        if (buttons.size() > 0 ) {
+            speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons, -1));
+        } else {
+            speechboxMngr.addSpeechBox(new SpeechBox("You need to find some clues before you question a suspect", 5);
+            finishConverstation();
+        }
+
 
     }
 
@@ -130,6 +140,15 @@ public class ConversationManagement
         finishConverstation();
     }
 
+    private void accuseNPC() {
+        if (this.tempNPC.isKiller()) {
+            speechboxMngr.addSpeechBox(new SpeechBox("You found the killer well done", -1));
+            finishConverstation();
+        } else {
+            speechboxMngr.addSpeechBox(new SpeechBox("They are clearly not the killer, just look at them.", 5));
+            finishConverstation();
+        }
+    }
     private void finishConverstation() {
         this.tempNPC.canMove = true;
         this.player.canMove = true;
@@ -143,7 +162,7 @@ public class ConversationManagement
                 if (option == 0) {
                     queryQuestionStyle();
                 } else if (option == 1) {
-                    //accuseNPC();
+                    accuseNPC();
                 }
                 break;
 
