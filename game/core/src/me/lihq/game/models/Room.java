@@ -70,6 +70,11 @@ public class Room
     private float animationStateTime = 0f;
 
     /**
+     * This list stores the coordinates of all hideable slots in this room
+     */
+    public List<Vector2Int> hidingSpots = null;
+
+    /**
      * Constructor that builds a Room object from the given parameters
      *
      * @param id      - The integer ID of the room
@@ -93,6 +98,8 @@ public class Room
                 this.lockedTiles[w][h] = false;
             }
         }
+
+        hidingSpots = getHidingSpots();
     }
 
     @Override
@@ -250,6 +257,7 @@ public class Room
 
             if (tiledLayer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom()) {
                 //Don't check the layer as the blood splat isn't there
+                emptyCellCount ++;
                 continue;
             }
 
@@ -390,6 +398,7 @@ public class Room
      */
     public List<Vector2Int> getHidingSpots()
     {
+        if (hidingSpots != null) return hidingSpots;
 
         List<Vector2Int> hidingSpots = new ArrayList<>();
 
@@ -413,8 +422,10 @@ public class Room
                 }
             }
         }
-        return hidingSpots;
 
+        this.hidingSpots = hidingSpots;
+
+        return this.hidingSpots;
     }
 
 
