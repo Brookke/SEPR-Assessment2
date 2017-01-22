@@ -53,15 +53,14 @@ public class NPC extends AbstractPerson
      * @param spriteSheet - Spritesheet for this NPC
      * @param canBeKiller - Boolean whether they can or cannot be the killer
      */
-    public NPC(String name, String spriteSheet, int tileX, int tileY, Room room, boolean canBeKiller, Personality personality)
+    public NPC(String name, String spriteSheet, int tileX, int tileY, Room room, boolean canBeKiller, String jsonFile)
     {
         super(name, "people/NPCs/" + spriteSheet, tileX, tileY);
         this.setRoom(room);
-        this.personality = personality;
         this.random = new Random();
         this.canBeKiller = canBeKiller;
 
-        importDialogue(name + ".JSON");
+        importDialogue(jsonFile);
 
     }
 
@@ -82,7 +81,9 @@ public class NPC extends AbstractPerson
     public void importDialogue(String fileName)
     {
         jsonData = new JsonReader().parse(Gdx.files.internal("people/NPCs/" + fileName));
+        this.personality = Personality.valueOf(jsonData.getString("personality"));
     }
+
 
     /**
      * Allow the NPC to move around their room.

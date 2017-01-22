@@ -200,7 +200,7 @@ public abstract class AbstractPerson extends Sprite
                 return jsonData.get("Responses").getString(key);
             }
         } catch (Exception e) {
-            return "Error";
+            return "error speech not working";
         }
     }
 
