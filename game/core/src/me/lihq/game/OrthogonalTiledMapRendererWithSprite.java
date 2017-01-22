@@ -1,4 +1,4 @@
-package me.lihq.game.screen.elements;
+package me.lihq.game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
@@ -9,6 +9,7 @@ import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.living.AbstractPerson;
 import me.lihq.game.living.AbstractPerson.PersonPositionComparator;
+import me.lihq.game.screen.elements.DebugOverlay;
 
 
 import java.util.*;

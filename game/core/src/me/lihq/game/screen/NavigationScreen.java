@@ -16,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import me.lihq.game.OrthogonalTiledMapRendererWithSprite;
 import me.lihq.game.Settings;
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.controller.PlayerController;
