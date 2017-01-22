@@ -1,24 +1,24 @@
 {
   "name": "Mike",
   "clues": [
-    "BigShoe",
-    "SmallShoe",
+    "Big Footprint",
+    "Small Footprint",
     "Glasses",
     "Bag",
     "Lipstick",
-    "RightHanded",
-    "DarkHair"
+    "Right Handed",
+    "Dark Hair"
   ],
   "personality": "NICE",
   "introduction": "Hi, have you seen my robot? It seems to have gone astray...",
   "responses": {
-    "BigShoe": "Those would fit me I think.",
-    "SmallShoe": "Sorry, bit too small for me.",
+    "Big Footprint": "Those would fit me I think.",
+    "Small Footprint": "Sorry, bit too small for me.",
     "Glasses": "Yes I do need glasses these days.",
     "Bag": "I do have a bag with me yes",
     "Lipstick": "Erm no I do not wear lipstick...",
-    "RightHanded": "Yes, I am right handed.",
-    "DarkHair": "I would say my hair is dark yes.",
+    "Right Handed": "Yes, I am right handed.",
+    "Dark Hair": "I would say my hair is dark yes.",
     "noneResponses": [
       "Sorry I have some marking to get on with.",
       "I'm not sure why I should help you exactly.",

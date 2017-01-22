@@ -7,7 +7,7 @@
       "NEUTRAL": "Is this your footprint?",
       "NICE":"Hey I like your shoes, are they the same as this footprint?"
     },
-    "SmallShoe": {
+    "Small Footprint": {
       "AGGRESSIVE": "THIS IS YOUR FOOTPRINT ISN'T IT?... TELL ME NOW",
       "NEUTRAL": "Is this your footprint?",
       "NICE":"Hey I like your shoes, are they the same as this footprint?"
@@ -27,12 +27,12 @@
       "NEUTRAL": "Do you wear lipstick?",
       "NICE":"Your lips look great, do you wear lipstick?"
     },
-    "RightHanded": {
+    "Right Handed": {
       "AGGRESSIVE": "",
       "NEUTRAL": "",
       "NICE": ""
     },
-    "DarkHair": {
+    "Dark Hair": {
       "AGGRESSIVE": "",
       "NEUTRAL": "",
       "NICE":""
