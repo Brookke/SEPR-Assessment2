@@ -10,8 +10,8 @@
     "Dark Hair"
   ],
   "personality": "NICE",
-  "introduction": "Hi, have you seen my robot? It seems to have gone astray...",
   "responses": {
+    "introduction": "Hi, have you seen my robot? It seems to have gone astray...",
     "Big Footprint": "Those would fit me I think.",
     "Small Footprint": "Sorry, bit too small for me.",
     "Glasses": "Yes I do need glasses these days.",

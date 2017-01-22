@@ -9,20 +9,21 @@
     "Right Handed",
     "Dark Hair"
   ],
-  "introduction": "Hello young detective!",
+
   "personality": "AGGRESSIVE",
   "responses": {
+    "introduction": "Hello young detective!",
     "Big Footprint": "Nope, not my size",
     "Small Footprint": "These would be sufficient for me I guess.",
     "Glasses": "Can you not see I'm wearing them.",
     "Bag": "What do you think I would need a bag for.",
     "Lipstick": "Yes I have lipstick, my lips aren't naturally this colour.",
     "Right Handed": "I am right handed.",
-    "Dark Hair": "Does my hair not look dark to you?",
-    "noneResponses": [
-      "Too busy, go away.",
-      "Don't have time for you.",
-      "I am not telling you."
-    ]
-  }
+    "Dark Hair": "Does my hair not look dark to you?"
+  },
+  "noneResponses": [
+    "Too busy, go away.",
+    "Don't have time for you.",
+    "I am not telling you."
+  ]
 }

@@ -1,15 +1,15 @@
 {
   "name": "Colin",
   "personality": "NICE",
-  "introduction": "Hello young detective!",
   "responses": {
+    "introduction": "Hello young detective!",
     "Big Footprint": "Sorry my feet are a little smaller than that.",
     "Small Footprint": "That does look similar to my foot size.",
     "Glasses": "I do wear glasses yes.",
     "Bag": "I do have a bag with me.",
-    "Lipstick": "Haha no I don't wear lipstick."
-    "Right Handed": "I am right handed."
-    "Dark Hair": "No my hair is not particularly dark."
+    "Lipstick": "Haha no I don't wear lipstick.",
+    "Right Handed": "I am right handed.",
+    "Dark Hair": "No my hair is not particularly dark.",
     "noneResponses": [
       "Sorry I am a little busy for questions right now.",
       "And why do you think I would help you.",
