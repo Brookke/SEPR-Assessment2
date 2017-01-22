@@ -45,11 +45,6 @@ public class NPC extends AbstractPerson
     private Personality personality;
 
     /**
-     * This is whether the NPC can move or not. It is mainly used to not let them move during converstation
-     */
-    private boolean canMove = true;
-
-    /**
      * Define an NPC with location coordinates , room, spritesheet and whether or not they can be the killer
      *
      * @param tileX       - x coordinate of tile that the NPC will be initially rendered on.
@@ -189,16 +184,6 @@ public class NPC extends AbstractPerson
     {
         this.motive = motive;
         return this;
-    }
-
-    /**
-     * This method sets the NPCs moveability to the value of the parameter
-     *
-     * @param canMove - whether or not to set allow the NPC to move
-     */
-    public void setCanMove(boolean canMove)
-    {
-        this.canMove = canMove;
     }
 
     /**
