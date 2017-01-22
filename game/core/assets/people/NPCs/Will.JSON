@@ -1,7 +1,8 @@
 {
   "name":"Will",
   "clues": ["BigShoe","SmallShoe", "Glasses","Bag","Lipstick","RightHanded","DarkHair"],
-  "personality":"Neutral",
+  "personality":"NEUTRAL",
+  "introduction": "Hello",
   "responses": {
     "BigShoe": "Oh yes I could fit into those.",
     "SmallShoe": "Too small for me.",

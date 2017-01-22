@@ -15,19 +15,20 @@ import java.util.ArrayList;
 public class ConversationManagement
 {
 
-
-    //Persons
-
-
+    /**
+     * The player that will be starting the conversation
+     */
     private Player player;
 
+    /**
+     * The manager for speechboxes, controls the flow of speechboxes
+     */
     private SpeechboxManager speechboxMngr;
 
     /**
      * Stores the current NPC that is being questioned
      */
     private NPC tempNPC;
-
 
     /**
      * This stores the position of the clue in the players list for use in the questioning
@@ -36,13 +37,14 @@ public class ConversationManagement
 
     /**
      * This stores the style of questioning for how the player wants to ask the question
-     * 0 = Nice
-     * 1 = Neutral
-     * 2 = Harsh
      */
     private AbstractPerson.Personality tempQuestionStyle;
 
-
+    /**
+     * This constructs a converstation manager
+     * @param player the player that will initiate the conversation
+     * @param speechboxManager the speechbox manager that is in charge of displaying the converstation
+     */
     public ConversationManagement(Player player, SpeechboxManager speechboxManager)
     {
 
@@ -51,17 +53,11 @@ public class ConversationManagement
 
     }
 
-
     public void startConversation(NPC npc)
     {
-        //reset temp stores
         this.tempCluePos = -1;
         this.tempQuestionStyle = null;
         this.tempNPC = npc;
-
-        //TODO: move this to the abstractPerson construct
-        this.player.importDialogue("colin.JSON");
-        this.tempNPC.importDialogue("colin.JSON");
 
         //Introduction
         speechboxMngr.addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));

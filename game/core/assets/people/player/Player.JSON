@@ -2,13 +2,41 @@
   "name": "Player",
   "responses": {
     "Introduction": "Hello",
-    "BigShoe": "Sorry my feet are a little smaller than that.",
-    "SmallShoe": "That does look similar to my foot size.",
-    "Glasses": "I do wear glasses yes.",
-    "Bag": "I do have a bag with me.",
-    "Lipstick": "Haha no I don't wear lipstick.",
-    "RightHanded": "I am right handed.",
-    "DarkHair": "No my hair is not particularly dark."
+    "BigShoe": {
+      "AGGRESSIVE": "THIS IS YOUR FOOTPRINT ISN'T IT?... TELL ME NOW",
+      "NEUTRAL": "Is this your footprint?",
+      "NICE":"Hey I like your shoes, are they the same as this footprint?"
+    },
+    "SmallShoe": {
+      "AGGRESSIVE": "THIS IS YOUR FOOTPRINT ISN'T IT?... TELL ME NOW",
+      "NEUTRAL": "Is this your footprint?",
+      "NICE":"Hey I like your shoes, are they the same as this footprint?"
+    },
+    "Glasses": {
+      "AGGRESSIVE": "",
+      "NEUTRAL": "Do you wear glasses?",
+      "NICE":""
+    },
+    "Bag": {
+      "AGGRESSIVE": "",
+      "NEUTRAL": "Do you own a bag?",
+      "NICE":""
+    },
+    "Lipstick": {
+      "AGGRESSIVE": "IS THAT LIPSTICK YOU ARE WEARING?",
+      "NEUTRAL": "Do you wear lipstick?",
+      "NICE":"Your lips look great, do you wear lipstick?"
+    },
+    "RightHanded": {
+      "AGGRESSIVE": "",
+      "NEUTRAL": "",
+      "NICE": ""
+    },
+    "DarkHair": {
+      "AGGRESSIVE": "",
+      "NEUTRAL": "",
+      "NICE":""
+    },
   },
   "noneResponses": [
     "Sorry I am a little busy for questions right now.",

@@ -2,6 +2,7 @@
   "name":"Mary",
   "clues": ["BigShoe","SmallShoe", "Glasses","Bag","Lipstick","RightHanded","DarkHair"],
   "personality":"AGGRESSIVE",
+  "introduction": "Hello",
   "responses": {
     "BigShoe": "Those would fit yes, maybe you should give me them.",
     "SmallShoe": "Don't want those, way too small for me.",
