@@ -97,7 +97,7 @@ public class Player extends AbstractPerson
 
         Clue clueFound = getRoom().getClue(x, y);
         if (clueFound != null) {
-            GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You got a clue"));
+            GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You found " + clueFound.getName()));
             this.collectedClues.add(clueFound);
         } else {
             GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("No clue here"));
