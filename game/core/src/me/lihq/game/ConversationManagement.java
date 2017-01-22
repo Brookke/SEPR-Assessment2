@@ -1,8 +1,5 @@
 package me.lihq.game;
 
-import me.lihq.game.living.AbstractPerson;
-import me.lihq.game.living.NPC;
-import me.lihq.game.living.Player;
 import me.lihq.game.models.Clue;
 import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.SpeechBoxButton;
@@ -75,14 +72,15 @@ public class ConversationManagement
     /**
      * This constructs the speech box that finds out what question the player wishes to ask the NPC
      */
-    private void queryQuestionType() {
+    private void queryQuestionType()
+    {
 
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
         SpeechBoxButton.EventHandler eventHandler = (result) -> handleResponse(QuestionStage.TYPE, result);
 
-        buttons.add(new SpeechBoxButton("Question?",0, eventHandler));
-        buttons.add(new SpeechBoxButton("Accuse?",1, eventHandler));
-        speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons,-1));
+        buttons.add(new SpeechBoxButton("Question?", 0, eventHandler));
+        buttons.add(new SpeechBoxButton("Accuse?", 1, eventHandler));
+        speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons, -1));
 
     }
 
@@ -90,21 +88,23 @@ public class ConversationManagement
     /**
      * This constructs the speechbox that asks the player how they wish to ask the question
      */
-    private void queryQuestionStyle() {
+    private void queryQuestionStyle()
+    {
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
         SpeechBoxButton.EventHandler eventHandler = (result) -> handleResponse(QuestionStage.STYLE, result);
 
-        buttons.add(new SpeechBoxButton("Nice",0, eventHandler));
-        buttons.add(new SpeechBoxButton("Neutral",1, eventHandler));
-        buttons.add(new SpeechBoxButton("Harsh",2, eventHandler));
-        speechboxMngr.addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons,-1));
+        buttons.add(new SpeechBoxButton("Nice", 0, eventHandler));
+        buttons.add(new SpeechBoxButton("Neutral", 1, eventHandler));
+        buttons.add(new SpeechBoxButton("Harsh", 2, eventHandler));
+        speechboxMngr.addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons, -1));
 
     }
 
     /**
      * This constructs the speechbox that asks the player what clue they wish to ask about
      */
-    private void queryWhichClue() {
+    private void queryWhichClue()
+    {
         ArrayList<SpeechBoxButton> buttons = new ArrayList<>();
         SpeechBoxButton.EventHandler eventHandler = (result) -> {
             handleResponse(QuestionStage.CLUE, result);
@@ -112,20 +112,22 @@ public class ConversationManagement
 
 
         int i = 0;
-        for (Clue c: this.player.collectedClues) {
+        for (Clue c : this.player.collectedClues) {
             buttons.add(new SpeechBoxButton(c.getName(), i, eventHandler));
             i++;
         }
 
-       speechboxMngr.addSpeechBox(new SpeechBox("What clue do you want to ask about?", buttons,-1));
+        speechboxMngr.addSpeechBox(new SpeechBox("What clue do you want to ask about?", buttons, -1));
     }
 
-    private void questionNPC() {
+    private void questionNPC()
+    {
         speechboxMngr.addSpeechBox(new SpeechBox(player.getName(), player.getSpeech(player.collectedClues.get(tempCluePos), tempQuestionStyle), 3));
         speechboxMngr.addSpeechBox(new SpeechBox(tempNPC.getName(), tempNPC.getSpeech(player.collectedClues.get(tempCluePos), tempQuestionStyle), 3));
     }
 
-    private void handleResponse(QuestionStage stage, int option) {
+    private void handleResponse(QuestionStage stage, int option)
+    {
         speechboxMngr.rmCurrentSpeechBox();
 
         switch (stage) {
@@ -153,13 +155,15 @@ public class ConversationManagement
 
     /**
      * Takes an int and returns a personality style
+     *
      * @param style 0 = Nice
      *              1 = Neutral
      *              2 = Harsh
      *              default is Neutral
      * @return
      */
-    private AbstractPerson.Personality convertToQuestionStyle(int style) {
+    private AbstractPerson.Personality convertToQuestionStyle(int style)
+    {
         switch (style) {
             case 0:
                 return AbstractPerson.Personality.NICE;
@@ -174,6 +178,7 @@ public class ConversationManagement
         //defaults to Neutral
         return AbstractPerson.Personality.NEUTRAL;
     }
+
     public enum QuestionStage
     {
 

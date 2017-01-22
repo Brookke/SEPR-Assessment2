@@ -2,7 +2,6 @@ package me.lihq.game.people;
 
 import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;
-
 import me.lihq.game.models.Room;
 import me.lihq.game.screen.elements.RoomTag;
 
@@ -16,13 +15,11 @@ import java.util.List;
 public class Player extends AbstractPerson
 {
 
+    public List<Clue> collectedClues = new ArrayList<>();
     /**
      * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
      */
     private int personalityLevel = 50;
-
-    public List<Clue> collectedClues = new ArrayList<>();
-
     /**
      * The score the player has earned so far.
      */
@@ -35,7 +32,8 @@ public class Player extends AbstractPerson
 
     /**
      * This is the constructor for player, it creates a new playable person
-     * @param name - The name for the new player.
+     *
+     * @param name   - The name for the new player.
      * @param imgSrc - The image used to represent it.
      */
     public Player(String name, String imgSrc, int tileX, int tileY)
@@ -108,20 +106,21 @@ public class Player extends AbstractPerson
     }
 
 
-
-    public boolean isOnTriggerTile() {
+    public boolean isOnTriggerTile()
+    {
         return this.getRoom().isTriggerTile(this.tileCoordinates.x, this.tileCoordinates.y);
 
     }
 
     /**
      * Getter for personality, it uses the personalityLevel of the player and thus returns either HARSH, NEUTRAL or NICE
+     *
      * @return - Returns the personality of this player.
      */
     @Override
     public Personality getPersonality()
     {
-        if (personalityLevel < 33 ) {
+        if (personalityLevel < 33) {
             return Personality.HARSH;
 
         } else if (personalityLevel < 66) {
@@ -135,12 +134,13 @@ public class Player extends AbstractPerson
 
     /**
      * This gets the players personality level; this similar to Personality but a integer representation
+     *
      * @return value between 0-100
      */
-    public int getPersonalityLevel() {
+    public int getPersonalityLevel()
+    {
         return this.personalityLevel;
     }
-
 
 
     /**
@@ -168,9 +168,9 @@ public class Player extends AbstractPerson
     }
 
 
-
     @Override
-    public String getSpeech(Clue clue, Personality style) {
+    public String getSpeech(Clue clue, Personality style)
+    {
         String key = clue.getName();
         if (!jsonData.get("Responses").has(key)) {
             return jsonData.get("noneResponses").getString(0);
@@ -178,6 +178,6 @@ public class Player extends AbstractPerson
             return jsonData.get("Responses").get(key).getString(style.toString());
         }
     }
-    
+
 
 }

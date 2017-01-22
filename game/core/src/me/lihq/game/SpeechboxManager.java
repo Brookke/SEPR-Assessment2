@@ -14,7 +14,8 @@ public class SpeechboxManager
     public InputMultiplexer multiplexer;
     private List<SpeechBox> stack = new ArrayList<>();
 
-    public SpeechboxManager() {
+    public SpeechboxManager()
+    {
         multiplexer = new InputMultiplexer();
     }
 
@@ -39,30 +40,31 @@ public class SpeechboxManager
         updateInputProcessor();
     }
 
-    public void resize(int width, int height) {
+    public void resize(int width, int height)
+    {
         if (!this.stack.isEmpty()) {
             this.stack.get(0).resize(width, height);
         }
     }
 
-    private void updateInputProcessor() {
+    private void updateInputProcessor()
+    {
         if (this.multiplexer.getProcessors().size == 0 && !this.stack.isEmpty()) {
             this.multiplexer.addProcessor(this.stack.get(0).stage);
         }
     }
 
-    public void addSpeechBox(SpeechBox speechBox) {
+    public void addSpeechBox(SpeechBox speechBox)
+    {
         this.stack.add(speechBox);
     }
 
-    public void rmCurrentSpeechBox() {
+    public void rmCurrentSpeechBox()
+    {
         if (!this.stack.isEmpty()) {
             this.stack.get(0).timeoutDuration = 0;
         }
     }
-
-
-
 
 
 }

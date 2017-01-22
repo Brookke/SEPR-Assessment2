@@ -1,19 +1,20 @@
 package me.lihq.game;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import me.lihq.game.people.AbstractPerson;
-import me.lihq.game.people.NPC;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
-import me.lihq.game.people.Player;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
+import me.lihq.game.people.AbstractPerson;
+import me.lihq.game.people.NPC;
+import me.lihq.game.people.Player;
 import me.lihq.game.screen.AbstractScreen;
-import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.MainMenuScreen;
+import me.lihq.game.screen.NavigationScreen;
 
 import java.util.*;
 
@@ -42,22 +43,18 @@ public class GameMain extends Game
     public Player player;
     public int ticks = 0;
     public int lastSecond = -1;
-    
-
-    /**
-     * The main menu screen that shows up when the game is first started
-     */
-    private MainMenuScreen menuScreen;
-    
     /**
      * A screen to be used to display standard gameplay within the game , including the status bar.
      */
     public NavigationScreen navigationScreen;
-
     /**
      * An FPSLogger, FPSLogger allows us to check the game FPS is good enough
      */
     FPSLogger FPS;
+    /**
+     * The main menu screen that shows up when the game is first started
+     */
+    private MainMenuScreen menuScreen;
 
     /**
      * This is called at start up. It initialises the game.
@@ -173,7 +170,7 @@ public class GameMain extends Game
         NPC npc = new NPC("Colin", "colin.png", 15, 17, gameMap.getRoom(0), true, AbstractPerson.Personality.HARSH);
         NPCs.add(npc);
 
-        NPC npc2 = new NPC("Diana", "diana.png",4,4, gameMap.getRoom(1), true, AbstractPerson.Personality.HARSH);
+        NPC npc2 = new NPC("Diana", "diana.png", 4, 4, gameMap.getRoom(1), true, AbstractPerson.Personality.HARSH);
         NPCs.add(npc2);
 
         NPC npc3 = new NPC("Lily", "lily.png", 0, 0, gameMap.getRoom(0), true, AbstractPerson.Personality.HARSH);
@@ -192,20 +189,16 @@ public class GameMain extends Game
 
         List<Integer> roomsLeft = new ArrayList<>();
 
-        for (int i = 0; i < amountOfRooms; i ++)
-        {
+        for (int i = 0; i < amountOfRooms; i++) {
             roomsLeft.add(i);
         }
 
-        for (NPC loopNpc : NPCs)
-        {
+        for (NPC loopNpc : NPCs) {
             /*
             Refill the rooms left list if there are more NPCs than Rooms. This will put AT LEAST one NPC per room if so.
              */
-            if (roomsLeft.isEmpty())
-            {
-                for (int i = 0; i < amountOfRooms; i ++)
-                {
+            if (roomsLeft.isEmpty()) {
+                for (int i = 0; i < amountOfRooms; i++) {
                     roomsLeft.add(i);
                 }
             }
@@ -229,17 +222,16 @@ public class GameMain extends Game
          */
         NPC killer = NPCs.get(new Random().nextInt(NPCs.size() - 1));
 
-        while(!killer.setKiller())
-        {
+        while (!killer.setKiller()) {
             killer = NPCs.get(new Random().nextInt(NPCs.size() - 1));
         }
 
-        NPC victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));;
+        NPC victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));
+        ;
 
-        while (!victim.setVictim())
-        {
+        while (!victim.setVictim()) {
             victim = NPCs.get(new Random().nextInt(NPCs.size() - 1));
-    }
+        }
 
     }
 
@@ -273,8 +265,7 @@ public class GameMain extends Game
 
         Collections.shuffle(tempClues);
 
-        for (Room room : gameMap.getRooms())
-        {
+        for (Room room : gameMap.getRooms()) {
             if (tempClues.isEmpty()) return;
 
 
