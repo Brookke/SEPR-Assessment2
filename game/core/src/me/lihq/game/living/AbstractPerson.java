@@ -188,17 +188,9 @@ public abstract class AbstractPerson extends Sprite
      */
     public void importDialogue(String fileName)
     {
-        try {
-            jsonData = new JsonReader().parse(Gdx.files.internal(fileName));
-        }
-        catch (Exception e)
-        {
-            System.out.println("Could not find JSON file for"+fileName);
-        }
+        jsonData = new JsonReader().parse(Gdx.files.internal(fileName));
 
-
-
-    } //this is the general idea - once the JSON thing is here will need to play with this a bit.
+    }
 
     /**
      * Gets a random item from the correct dictionary key.
