@@ -14,9 +14,16 @@ import java.util.Random;
 public class Map
 {
 
-    List<Room> rooms;
+
+    /**
+     * Store of the rooms in the map
+     */
+    private List<Room> rooms;
 
 
+    /**
+     * Constructs the map
+     */
     public Map()
     {
         initialiseRooms();
@@ -125,11 +132,21 @@ public class Map
         return null;
     }
 
+
+    /**
+     * Returns the amout of rooms created by the map
+     * @return number of rooms
+     */
     public int getAmountOfRooms()
     {
         return rooms.size();
     }
 
+
+    /**
+     * Gets the rooms in the map
+     * @return List of rooms that the map initialised
+     */
     public List<Room> getRooms() {
         return rooms;
     }
