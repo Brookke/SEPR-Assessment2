@@ -4,7 +4,6 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import me.lihq.game.people.AbstractPerson;
 import me.lihq.game.people.NPC;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
@@ -243,9 +242,9 @@ public class GameMain extends Game
 
     }
 
-    public List<AbstractPerson> getNPCS(Room room)
+    public List<NPC> getNPCS(Room room)
     {
-        List<AbstractPerson> npcsInRoom = new ArrayList<>();
+        List<NPC> npcsInRoom = new ArrayList<>();
         for (NPC n : this.NPCs) {
             if (n.getRoom() == room) {
                 npcsInRoom.add(n);

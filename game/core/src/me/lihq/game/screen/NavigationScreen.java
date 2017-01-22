@@ -51,7 +51,7 @@ public class NavigationScreen extends AbstractScreen
      */
     private boolean changeMap = false;
 
-    private List<AbstractPerson> currentNPCS;
+    private List<NPC> currentNPCS;
 
     /**
      *
@@ -244,7 +244,7 @@ public class NavigationScreen extends AbstractScreen
         if (changeMap) {
             tiledMapRenderer.setMap(game.player.getRoom().getTiledMap());
             tiledMapRenderer.clearPeople();
-            tiledMapRenderer.addPerson(currentNPCS);
+            tiledMapRenderer.addPerson((List<AbstractPerson>) ((List<? extends AbstractPerson>) currentNPCS));
             tiledMapRenderer.addPerson(game.player);
             changeMap = false;
         }
@@ -338,7 +338,7 @@ public class NavigationScreen extends AbstractScreen
         this.roomTag = tag;
     }
 
-    public List<AbstractPerson> getNPCs()
+    public List<NPC> getNPCs()
     {
         return currentNPCS;
     }
