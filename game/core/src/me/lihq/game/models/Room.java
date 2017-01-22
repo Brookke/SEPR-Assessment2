@@ -7,6 +7,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -322,6 +323,42 @@ public class Room
     {
         roomTransitions.add(t);
         return this;
+    }
+
+    /**
+     * This will check the map for any potential hiding locations, and returns them as a list of coordinates
+     * @return list of coordinates
+     */
+    public List<Vector2Int> getHidingSpots() {
+
+        List<Vector2Int> hidingSpots = new ArrayList<>();
+
+        int roomWidth = ((TiledMapTileLayer) this.getTiledMap().getLayers().get(0)).getWidth();
+        int roomHeight = ((TiledMapTileLayer) this.getTiledMap().getLayers().get(0)).getHeight();
+
+        for (int x = 0; x < roomWidth; x ++)
+        {
+            for (int y = 0; y < roomHeight; y ++)
+            {
+                for (MapLayer layer : this.getTiledMap().getLayers())
+                {
+                    TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
+                    TiledMapTileLayer.Cell cellInTile = thisLayer.getCell(x, y);
+
+                    if (cellInTile == null) continue;
+
+                    if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
+
+                    if (cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true"))
+                    {
+                        hidingSpots.add(new Vector2Int(x, y));
+                        break;
+                    }
+                }
+            }
+        }
+        return hidingSpots;
+
     }
 
     /**

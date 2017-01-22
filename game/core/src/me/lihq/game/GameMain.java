@@ -210,32 +210,7 @@ public class GameMain extends Game
         {
             if (tempClues.isEmpty()) return;
 
-            List<Vector2Int> possibleLocations = new ArrayList<Vector2Int>();
-
-            int roomWidth = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getWidth();
-            int roomHeight = ((TiledMapTileLayer) room.getTiledMap().getLayers().get(0)).getHeight();
-
-            for (int x = 0; x < roomWidth; x ++)
-            {
-                for (int y = 0; y < roomHeight; y ++)
-                {
-                    for (MapLayer layer : room.getTiledMap().getLayers())
-                    {
-                        TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
-                        Cell cellInTile = thisLayer.getCell(x, y);
-
-                        if (cellInTile == null) continue;
-
-                        if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
-
-                        if (Boolean.valueOf(cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")))
-                        {
-                            possibleLocations.add(new Vector2Int(x, y));
-                            break;
-                        }
-                    }
-                }
-            }
+            List<Vector2Int> possibleLocations = room.getHidingSpots();
 
             if (possibleLocations.isEmpty())
             {
