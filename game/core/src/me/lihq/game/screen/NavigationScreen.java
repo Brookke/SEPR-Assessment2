@@ -65,7 +65,7 @@ public class NavigationScreen extends AbstractScreen
 
     //TODO: add more information about this class
 
-    private SpeechboxManager speechboxMngr;
+    public SpeechboxManager speechboxMngr;
 
     private ConversationManagement convMngt;
 

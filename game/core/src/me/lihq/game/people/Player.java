@@ -7,6 +7,7 @@ import me.lihq.game.GameMain;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
 import me.lihq.game.screen.elements.RoomTag;
+import me.lihq.game.screen.elements.SpeechBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +101,7 @@ public class Player extends AbstractPerson
         initialiseMove(dir);
     }
 
+
     public void interact()
     {
         NPC npc = getFacingNPC();
@@ -140,10 +142,10 @@ public class Player extends AbstractPerson
 
         Clue clueFound = getRoom().getClue(x, y);
         if (clueFound != null) {
-            GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("You found " + clueFound.getName()));
+            GameMain.me.getNavigationScreen().speechboxMngr.addSpeechBox(new SpeechBox("You found " + clueFound.getName() + ". " + clueFound.getDescription(),6));
             this.collectedClues.add(clueFound);
         } else {
-            GameMain.me.getNavigationScreen().setRoomTag(new RoomTag("No clue here"));
+            GameMain.me.getNavigationScreen().speechboxMngr.addSpeechBox(new SpeechBox("Sorry no clue here",1));
         }
     }
 
