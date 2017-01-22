@@ -75,11 +75,6 @@ public class NPC extends AbstractPerson
             return;
         }
 
-        if (GameMain.me.player.tileCoordinates.x == this.tileCoordinates.x + dir.getDx() && GameMain.me.player.tileCoordinates.y == this.tileCoordinates.y + dir.getDy())
-        {
-            return;
-        }
-
         initialiseMove(dir);
     }
 
