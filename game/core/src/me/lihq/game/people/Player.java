@@ -107,7 +107,7 @@ public class Player extends AbstractPerson
         NPC npc = getFacingNPC();
         if (npc != null)
         {
-            GameMain.me.getNavigationScreen().initialiseConversation(npc);
+            GameMain.me.getNavigationScreen().convMngt.startConversation(npc);
         }
         else
         {
@@ -115,7 +115,7 @@ public class Player extends AbstractPerson
         }
     }
 
-    public NPC getFacingNPC()
+    private NPC getFacingNPC()
     {
         for (NPC npc : GameMain.me.getNPCS(getRoom()))
         {
@@ -130,7 +130,7 @@ public class Player extends AbstractPerson
         return null;
     }
 
-    public void checkForClue()
+    private void checkForClue()
     {
         int x = getTileCoordinates().x + getDirection().getDx();
         int y = getTileCoordinates().y + getDirection().getDy();
