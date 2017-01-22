@@ -2,11 +2,12 @@ package me.lihq.game;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
-
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import me.lihq.game.living.NPC;
+import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
 import me.lihq.game.living.Player;
 import me.lihq.game.models.Room;
@@ -16,6 +17,8 @@ import me.lihq.game.screen.NavigationScreen;
 import me.lihq.game.screen.MainMenuScreen;
 
 import java.util.*;
+
+import static com.badlogic.gdx.maps.tiled.TiledMapTileLayer.*;
 
 
 /**
@@ -73,6 +76,7 @@ public class GameMain extends Game
 
         initialiseAllPeople();
 
+        initialiseClues();
 
         //set up the screen and display the first room
 
@@ -252,5 +256,39 @@ public class GameMain extends Game
         }
 
         return npcsInRoom;
+    }
+
+    private void initialiseClues()
+    {
+        //This is a temporary list of clues
+        List<Clue> tempClues = new ArrayList<Clue>();
+
+        tempClues.add(new Clue("Clue 1", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 2", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 3", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 4", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 5", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 6", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 7", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 8", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 9", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Clue 10", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+
+        Collections.shuffle(tempClues);
+
+        for (Room room : gameMap.getRooms())
+        {
+            if (tempClues.isEmpty()) return;
+
+
+            Vector2Int randHidingSpot = room.getRandHidingSpot();
+
+            if (randHidingSpot != null) {
+                room.addClue(tempClues.get(0).setTileCoordinates(randHidingSpot));
+                tempClues.remove(0);
+            }
+
+        }
+
     }
 }

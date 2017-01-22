@@ -17,6 +17,7 @@ import me.lihq.game.living.AbstractPerson.PersonPositionComparator;
 import me.lihq.game.living.NPC;
 import me.lihq.game.models.Vector2Int;
 
+
 import java.util.*;
 
 /**
@@ -88,7 +89,14 @@ public class OrthogonalTiledMapRendererWithSprite extends OrthogonalTiledMapRend
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             MapLayer layer = map.getLayers().get(currentLayer);
 
-            renderTileLayer((TiledMapTileLayer) layer);
+            if (layer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom())
+            {
+                //Don't draw the layer as its not the murder room
+            }
+            else
+            {
+                renderTileLayer((TiledMapTileLayer) layer);
+            }
 
             if (currentLayer == amountOfLayers - 2 || amountOfLayers == 1) {
 
