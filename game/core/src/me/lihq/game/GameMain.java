@@ -177,12 +177,6 @@ public class GameMain extends Game
             NPCs.add(npc);
         }
 
-        //{
-        //    NPC npc = new NPC("Bob", "player.png",4,4, 2, true);
-
-
-//            NPCs.add(npc);
-//        }
 
     }
 
