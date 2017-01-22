@@ -65,6 +65,7 @@ public abstract class AbstractPerson extends Sprite
      * The Name of the Person
      */
     private String name;
+
     /**
      * The current room of the AbstractPerson.
      */

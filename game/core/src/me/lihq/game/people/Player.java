@@ -88,6 +88,10 @@ public class Player extends AbstractPerson
             return;
         }
 
+        if (!canMove) {
+            return;
+        }
+
         if (this.isOnTriggerTile() && dir.toString().equals(getRoom().getMatRotation(this.tileCoordinates.x, this.tileCoordinates.y))) {
             GameMain.me.getNavigationScreen().initialiseRoomChange();
             return;
