@@ -7,16 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import me.lihq.game.Assets;
 import me.lihq.game.GameMain;
 import me.lihq.game.Settings;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
-
-import java.util.List;
 
 /**
  * This class allows you to easily debug issues with the map
@@ -66,7 +62,7 @@ public class DebugOverlay
             }
         }
 
-        for (Vector2Int c : room.hideableTiles)
+        for (Vector2Int c : room.hidingSpots)
         {
             yellowSprite.setPosition(c.x * Settings.TILE_SIZE, c.y * Settings.TILE_SIZE);
             yellowSprite.draw(batch);

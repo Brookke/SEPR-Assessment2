@@ -72,7 +72,7 @@ public class Room
     /**
      * This list stores the coordinates of all hideable slots in this room
      */
-    public List<Vector2Int> hideableTiles = null;
+    public List<Vector2Int> hidingSpots = null;
 
     /**
      * Constructor that builds a Room object from the given parameters
@@ -101,7 +101,7 @@ public class Room
             }
         }
 
-        hideableTiles = getHidingSpots();
+        hidingSpots = getHidingSpots();
     }
 
     @Override
@@ -407,7 +407,7 @@ public class Room
      */
     public List<Vector2Int> getHidingSpots()
     {
-        if (hideableTiles != null) return hideableTiles;
+        if (hidingSpots != null) return hidingSpots;
 
         List<Vector2Int> hidingSpots = new ArrayList<>();
 
@@ -432,9 +432,9 @@ public class Room
             }
         }
 
-        hideableTiles = hidingSpots;
+        this.hidingSpots = hidingSpots;
 
-        return hideableTiles;
+        return this.hidingSpots;
     }
 
 
