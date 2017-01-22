@@ -119,6 +119,8 @@ public class Player extends AbstractPerson
         {
             if ((npc.getTileCoordinates().x == getTileCoordinates().x + getDirection().getDx()) && (npc.getTileCoordinates().y == getTileCoordinates().y + getDirection().getDy()))
             {
+                if (npc.getState() != PersonState.STANDING) return null;
+
                 return npc;
             }
         }

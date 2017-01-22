@@ -386,6 +386,16 @@ public abstract class AbstractPerson extends Sprite
         {
             return this.dy;
         }
+
+        public Direction getOpposite()
+        {
+            if (this == Direction.NORTH) return Direction.SOUTH;
+            if (this == Direction.EAST) return Direction.WEST;
+            if (this == Direction.SOUTH) return Direction.NORTH;
+            if (this == Direction.WEST) return Direction.EAST;
+
+            return null;
+        }
     }
 
     /**
