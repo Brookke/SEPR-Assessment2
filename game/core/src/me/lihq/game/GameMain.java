@@ -167,22 +167,22 @@ public class GameMain extends Game
         player.setRoom(gameMap.getRoom(0));
 
         //TODO: Sort NPC personalities
-        NPC npc = new NPC("Colin", "colin.png", 15, 17, gameMap.getRoom(0), true, AbstractPerson.Personality.AGGRESSIVE);
+        NPC npc = new NPC("Colin", "colin.png", 15, 17, gameMap.getRoom(0), true, "Colin.JSON");
         NPCs.add(npc);
 
-        NPC npc2 = new NPC("Diana", "diana.png", 4, 4, gameMap.getRoom(1), true, AbstractPerson.Personality.AGGRESSIVE);
+        NPC npc2 = new NPC("Diana", "diana.png", 4, 4, gameMap.getRoom(1), true, "Diana.JSON");
         NPCs.add(npc2);
 
-        NPC npc3 = new NPC("Lily", "lily.png", 0, 0, gameMap.getRoom(0), true, AbstractPerson.Personality.AGGRESSIVE);
+        NPC npc3 = new NPC("Lily", "lily.png", 0, 0, gameMap.getRoom(0), true, "Lily.JSON");
         NPCs.add(npc3);
 
-        NPC npc4 = new NPC("Mary", "mary.png", 0, 0, gameMap.getRoom(0), true, AbstractPerson.Personality.AGGRESSIVE);
+        NPC npc4 = new NPC("Mary", "mary.png", 0, 0, gameMap.getRoom(0), true, "Mary.JSON");
         NPCs.add(npc4);
 
-        NPC npc5 = new NPC("Mike", "mike.png", 0, 0, gameMap.getRoom(0), true, AbstractPerson.Personality.AGGRESSIVE);
+        NPC npc5 = new NPC("Mike", "mike.png", 0, 0, gameMap.getRoom(0), true, "Mike.JSON");
         NPCs.add(npc5);
 
-        NPC npc6 = new NPC("Will", "will.png", 0, 0, gameMap.getRoom(0), true, AbstractPerson.Personality.AGGRESSIVE);
+        NPC npc6 = new NPC("Will", "will.png", 0, 0, gameMap.getRoom(0), true, "Will.JSON");
         NPCs.add(npc6);
 
         int amountOfRooms = gameMap.getAmountOfRooms();
