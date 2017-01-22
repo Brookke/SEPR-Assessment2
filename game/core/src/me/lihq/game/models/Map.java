@@ -130,4 +130,8 @@ public class Map
         return rooms.size();
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
 }
