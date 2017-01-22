@@ -1,5 +1,6 @@
 package me.lihq.game.people;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import me.lihq.game.GameMain;
@@ -97,6 +98,32 @@ public class Player extends AbstractPerson
         }
 
         initialiseMove(dir);
+    }
+
+    public void interact()
+    {
+        NPC npc = getFacingNPC();
+        if (npc != null)
+        {
+            GameMain.me.getNavigationScreen().getConversationManager().startConversation(npc);
+        }
+        else
+        {
+            checkForClue();
+        }
+    }
+
+    public NPC getFacingNPC()
+    {
+        for (NPC npc : GameMain.me.getNPCS(getRoom()))
+        {
+            if ((npc.getTileCoordinates().x == getTileCoordinates().x + getDirection().getDx()) && (npc.getTileCoordinates().y == getTileCoordinates().y + getDirection().getDy()))
+            {
+                return npc;
+            }
+        }
+
+        return null;
     }
 
     public void checkForClue()

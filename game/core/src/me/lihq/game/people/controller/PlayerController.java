@@ -27,7 +27,7 @@ public class PlayerController extends InputAdapter
     @Override
     public boolean keyDown(int keycode)
     {
-        if (keycode == Input.Keys.ENTER) {
+        if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE) {
             interact = true;
             return true;
         }
@@ -106,7 +106,7 @@ public class PlayerController extends InputAdapter
     public void update()
     {
         if (interact) {
-            player.checkForClue();
+            player.interact();
             interact = false;
         }
 

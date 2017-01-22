@@ -225,6 +225,11 @@ public class NavigationScreen extends AbstractScreen
         roomTag = new RoomTag(game.player.getRoom().getName());
     }
 
+    public ConversationManagement getConversationManager()
+    {
+        return convMngt;
+    }
+
     /**
      * Called when the screen should render itself.
      *
