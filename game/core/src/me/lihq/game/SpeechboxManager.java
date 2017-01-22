@@ -1,4 +1,4 @@
-package me.lihq.game.living;
+package me.lihq.game;
 
 import com.badlogic.gdx.InputMultiplexer;
 import me.lihq.game.screen.elements.SpeechBox;

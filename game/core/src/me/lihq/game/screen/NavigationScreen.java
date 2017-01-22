@@ -18,16 +18,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import me.lihq.game.Settings;
-import me.lihq.game.living.SpeechboxManager;
+import me.lihq.game.SpeechboxManager;
 import me.lihq.game.living.controller.PlayerController;
 import me.lihq.game.screen.elements.OrthogonalTiledMapRendererWithSprite;
 import me.lihq.game.screen.elements.RoomArrow;
 import me.lihq.game.screen.elements.RoomTag;
-import me.lihq.game.screen.elements.SpeechBox;
-import me.lihq.game.screen.elements.SpeechBoxButton;
 import me.lihq.game.screen.elements.StatusBar;
-
-import java.util.ArrayList;
 
 
 /**

@@ -2,7 +2,6 @@ package me.lihq.game;
 
 import me.lihq.game.living.NPC;
 import me.lihq.game.living.Player;
-import me.lihq.game.living.SpeechboxManager;
 import me.lihq.game.screen.elements.SpeechBox;
 import me.lihq.game.screen.elements.SpeechBoxButton;
 
