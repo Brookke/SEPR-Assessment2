@@ -225,6 +225,22 @@ public class NavigationScreen extends AbstractScreen
         roomTag = new RoomTag(game.player.getRoom().getName());
     }
 
+    private NPC toStartConvoWith = null;
+
+    public void initialiseConversation(NPC npc)
+    {
+        toStartConvoWith = npc;
+    }
+
+    public void checkConversation()
+    {
+        if (toStartConvoWith != null)
+        {
+            getConversationManager().startConversation(toStartConvoWith);
+            toStartConvoWith = null;
+        }
+    }
+
     public ConversationManagement getConversationManager()
     {
         return convMngt;
@@ -286,6 +302,7 @@ public class NavigationScreen extends AbstractScreen
         spriteBatch.end();
 
         statusBar.render();
+        checkConversation();
         speechboxMngr.render();
 
     }

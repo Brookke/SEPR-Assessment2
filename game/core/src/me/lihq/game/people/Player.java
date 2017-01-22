@@ -105,7 +105,7 @@ public class Player extends AbstractPerson
         NPC npc = getFacingNPC();
         if (npc != null)
         {
-            GameMain.me.getNavigationScreen().getConversationManager().startConversation(npc);
+            GameMain.me.getNavigationScreen().initialiseConversation(npc);
         }
         else
         {
