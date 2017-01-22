@@ -7,8 +7,8 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -59,6 +59,11 @@
           text-align: center;
         }
       }
+
+      #accordion > .card {
+        border-radius: 0;
+        margin: -1px 0;
+      }
     </style>
   </head>
 
@@ -85,20 +90,57 @@
       <div class="row">
         <div class="col-xs-12 push-md-8 col-md-4">
           <h2>Assessments</h2>
-            Assessment 1 <a href="Downloads/Assessment1/1.zip">(zip)</a>
-            <ul>
-              <li><a alt="Read the docs link for Requirements" href="http://docs.lihq.me/en/latest/requirements.html">Requirements</a> <a href="Downloads/Assessment1/Req1.pdf">(pdf)</a></li>
-              <li><a href="http://docs.lihq.me/en/latest/architecture.html">Architecture</a> <a href="Downloads/Assessment1/Arch1.pdf">(pdf)</a></li>
-              <li><a href="http://docs.lihq.me/en/latest/methods.html">Methods and Planning</a> <a href="Downloads/Assessment1/Plan1.pdf">(pdf)</a></li>
-              <li><a href="http://docs.lihq.me/en/latest/RiskAssessmentandMitigation.html">Risks</a> <a href="Downloads/Assessment1/Risk1.pdf">(pdf)</a></li>
-              <li><a href="http://docs.lihq.me/en/latest/appendixA.html">Appendix A</a> <a href="Downloads/Assessment1/AppendixA.pdf">(pdf)</a></li>
-              <li><a href="http://docs.lihq.me/en/latest/appendixB.html">Appendix B</a> <a href="Downloads/Assessment1/AppendixB.pdf">(pdf)</a></li>
-              <li><a href="http://docs.lihq.me/en/latest/appendixC.html">Appendix C</a> <a href="Downloads/Assessment1/AppendixC.pdf">(pdf)</a></li>
-            </ul>
+
+          <div id="accordion" role="tablist" aria-multiselectable="true">
+
+            <div class="card">
+              <div class="card-header" role="tab" id="assessment1">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Assessment 1 <a href="Downloads/Assessment1/1.zip">(zip)</a>
+                </a>
+              </div>
+
+              <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="assessment1">
+                <div class="card-block">
+                  <ul>
+                    <li><a alt="Read the docs link for Requirements" href="http://docs.lihq.me/en/1.0.0/requirements.html">Requirements</a> <a href="Downloads/Assessment1/Req1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/1.0.0/architecture.html">Architecture</a> <a href="Downloads/Assessment1/Arch1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/1.0.0/methods.html">Methods and Planning</a> <a href="Downloads/Assessment1/Plan1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/1.0.0/RiskAssessmentandMitigation.html">Risks</a> <a href="Downloads/Assessment1/Risk1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/1.0.0/appendixA.html">Appendix A</a> <a href="Downloads/Assessment1/AppendixA.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/1.0.0/appendixB.html">Appendix B</a> <a href="Downloads/Assessment1/AppendixB.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/1.0.0/appendixC.html">Appendix C</a> <a href="Downloads/Assessment1/AppendixC.pdf">(pdf)</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header" role="tab" id="assessment2">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  Assessment 2 <a href="Downloads/Assessment2/2.zip">(zip)</a>
+                </a>
+              </div>
+              <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="assessment2">
+                <div class="card-block">
+                  <ul>
+                    <li><a alt="Read the docs link for Requirements" href="http://docs.lihq.me/en/2.0.0/Assessment2/requirements.html">Requirements</a> <a href="Downloads/Assessment1/Req1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/2.0.0/Assessment2/architecture.html">Architecture</a> <a href="Downloads/Assessment1/Arch1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/2.0.0/Assessment2/methods.html">Methods and Planning</a> <a href="Downloads/Assessment1/Plan1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/2.0.0/Assessment2/riskAssessmentandMitigation.html">Risks</a> <a href="Downloads/Assessment1/Risk1.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/2.0.0/Assessment2/appendixA.html">Appendix A</a> <a href="Downloads/Assessment1/AppendixA.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/2.0.0/Assessment2/appendixB.html">Appendix B</a> <a href="Downloads/Assessment1/AppendixB.pdf">(pdf)</a></li>
+                    <li><a href="http://docs.lihq.me/en/2.0.0/Assessment2/appendixC.html">Appendix C</a> <a href="Downloads/Assessment1/AppendixC.pdf">(pdf)</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
         <div class="col-xs-12 pull-md-4 col-md-8">
           <h1>The Team</h1>
-          <p>This Page will be developed further as time goes on, but for now you can access the first assessment pieces either as pdf's or read the docs links</p>
+          <p>This Page will be developed further as time goes on, but for now you can access the first and second assessment pieces either as pdf's or in a web-based format</p>
           <ul>
             <li>Brooke Hatton <a href="https://github.com/brookke" class="user-mention">@brookke</a>
             </li>
