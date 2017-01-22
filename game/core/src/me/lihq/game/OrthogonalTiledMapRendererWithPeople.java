@@ -44,7 +44,6 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
 
     public void addPerson(List<AbstractPerson> sprites)
     {
-
         for (AbstractPerson a : sprites) {
             people.add(a);
         }
