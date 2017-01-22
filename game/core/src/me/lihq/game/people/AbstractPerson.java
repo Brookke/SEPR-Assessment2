@@ -168,15 +168,6 @@ public abstract class AbstractPerson extends Sprite
         this.state = PersonState.WALKING;
     }
 
-    /**
-     * This method sets the NPCs moveability to the value of the parameter
-     *
-     * @param canMove - whether or not to set allow the NPC to move
-     */
-    public void setCanMove(boolean canMove)
-    {
-        this.canMove = canMove;
-    }
 
     /**
      * Finalises the move by resetting the animation timer and setting the state back to standing.
