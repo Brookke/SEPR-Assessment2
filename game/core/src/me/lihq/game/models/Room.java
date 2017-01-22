@@ -125,7 +125,7 @@ public class Room
     }
 
     /**
-     * This method takes a location parameter and checks it for a clue, if a clue is found it is removed from the map and retunr
+     * This method takes a location parameter and checks it for a clue, if a clue is found it is removed from the map and return
      *
      * @param x - The x coordinate the player is at
      * @param y - The y coordinate the player is at
