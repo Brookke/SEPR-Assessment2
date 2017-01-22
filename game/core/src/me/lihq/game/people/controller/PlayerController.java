@@ -5,7 +5,8 @@ import com.badlogic.gdx.InputAdapter;
 import me.lihq.game.Settings;
 import me.lihq.game.people.Player;
 
-import static me.lihq.game.people.AbstractPerson.*;
+import static me.lihq.game.people.AbstractPerson.Direction;
+import static me.lihq.game.people.AbstractPerson.PersonState;
 
 /**
  * This class allows the player to be moved and controlled.
@@ -26,8 +27,7 @@ public class PlayerController extends InputAdapter
     @Override
     public boolean keyDown(int keycode)
     {
-        if (keycode == Input.Keys.ENTER)
-        {
+        if (keycode == Input.Keys.ENTER) {
             interact = true;
             return true;
         }
@@ -54,20 +54,17 @@ public class PlayerController extends InputAdapter
         }
 
         //TODO: The following 3 key reads could do with being placed in another controller
-        if (keycode == Input.Keys.J)
-        {
+        if (keycode == Input.Keys.J) {
             Settings.DEBUG_OPTIONS.put("showWalkable", !Settings.DEBUG_OPTIONS.get("showWalkable"));
             return true;
         }
 
-        if (keycode == Input.Keys.H)
-        {
+        if (keycode == Input.Keys.H) {
             Settings.DEBUG_OPTIONS.put("showHideable", !Settings.DEBUG_OPTIONS.get("showHideable"));
             return true;
         }
 
-        if (keycode == Input.Keys.F3)
-        {
+        if (keycode == Input.Keys.F3) {
             Settings.DEBUG = !Settings.DEBUG;
             return true;
         }
@@ -78,8 +75,7 @@ public class PlayerController extends InputAdapter
     @Override
     public boolean keyUp(int keycode)
     {
-        if (keycode == Input.Keys.ENTER)
-        {
+        if (keycode == Input.Keys.ENTER) {
             interact = false;
             return true;
         }
@@ -109,8 +105,7 @@ public class PlayerController extends InputAdapter
 
     public void update()
     {
-        if (interact)
-        {
+        if (interact) {
             player.checkForClue();
             interact = false;
         }

@@ -1,5 +1,7 @@
 package me.lihq.game.people;
-import me.lihq.game.GameMain;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonReader;
 import me.lihq.game.models.Clue;
 import me.lihq.game.models.Room;
 
@@ -16,18 +18,20 @@ public class NPC extends AbstractPerson
 
     //These variables are specific to the NPC only
 
-    private Random random;
-
     /**
-     * The motive string details why the NPC committed the murder.
+     * Associated clues
      */
-    private String motive = "";
+    public List<Clue> associatedClues = new ArrayList<>();
+    private Random random;
 
     //The NPCs 'blood' graphics will also be on the regular NPCs sprite sheet
 
 
     //These are characteristics about the NPC that could be used as clues by the player in a "Guess who" style.
-
+    /**
+     * The motive string details why the NPC committed the murder.
+     */
+    private String motive = "";
     /**
      * These two booleans decide whether an NPC has the potential to be a killer and if, in this particular game, they
      * are the killer.
@@ -35,16 +39,10 @@ public class NPC extends AbstractPerson
     private boolean canBeKiller = false;
     private boolean isKiller = false;
     private boolean isVictim = false;
-
     /**
      * T that
      */
     private Personality personality;
-
-    /**
-     * Associated clues
-     */
-    public List<Clue> associatedClues = new ArrayList<>();
 
     /**
      * Define an NPC with location coordinates , room, spritesheet and whether or not they can be the killer
@@ -57,24 +55,38 @@ public class NPC extends AbstractPerson
      */
     public NPC(String name, String spriteSheet, int tileX, int tileY, Room room, boolean canBeKiller, Personality personality)
     {
-        super(name, "npc/" + spriteSheet, tileX, tileY);
+        super(name, "people/NPCs/" + spriteSheet, tileX, tileY);
         this.setRoom(room);
         this.personality = personality;
         this.random = new Random();
         this.canBeKiller = canBeKiller;
 
-        importDialogue(name+".JSON");
+        importDialogue(name + ".JSON");
 
     }
 
 
     @Override
-    public void update() {
+    public void update()
+    {
         super.update();
         this.randomMove();
     }
+
+    /**
+     * Reads in the JSON file of tha character and stores dialogue in the dialogue HashMap
+     *
+     * @param fileName
+     */
+    @Override
+    public void importDialogue(String fileName)
+    {
+        jsonData = new JsonReader().parse(Gdx.files.internal("people/NPCs/" + fileName));
+    }
+
     /**
      * Allow the NPC to move around their room.
+     *
      * @param dir the direction person should move in
      */
     public void move(Direction dir)
@@ -118,7 +130,6 @@ public class NPC extends AbstractPerson
     }
 
 
-
     /**
      * Getter for canBeKiller
      *
@@ -144,7 +155,10 @@ public class NPC extends AbstractPerson
      *
      * @return Returns the value of isVictim for this object
      */
-    public boolean isVictim() {return isVictim;}
+    public boolean isVictim()
+    {
+        return isVictim;
+    }
 
     /**
      * Getter for motive.
@@ -171,7 +185,7 @@ public class NPC extends AbstractPerson
 
     /**
      * This method sets the NPC as the killer for this game.
-     *
+     * <p>
      * It first checks they arent the victim and if they can be the killer
      *
      * @return Returns whether it successfully set the NPC to the killer or not
@@ -187,7 +201,7 @@ public class NPC extends AbstractPerson
 
     /**
      * This method sets the NPC to be the victim for the game
-     *
+     * <p>
      * It first checks if the NPC isn't also the killer
      *
      * @return Returns whether it successfully set the NPC to the victim or not
@@ -200,7 +214,6 @@ public class NPC extends AbstractPerson
         System.out.println(getName() + " is the victim");
         return true;
     }
-
 
 
     /**

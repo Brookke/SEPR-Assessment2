@@ -45,28 +45,20 @@ public class DebugOverlay
         int roomWidth = ((TiledMapTileLayer) map.getLayers().get(0)).getWidth();
         int roomHeight = ((TiledMapTileLayer) map.getLayers().get(0)).getHeight();
 
-        for (int w = 0; w < roomWidth; w ++)
-        {
-            for (int h = 0; h < roomHeight; h ++)
-            {
-                if (Settings.DEBUG_OPTIONS.get("showWalkable"))
-                {
-                    if (GameMain.me.player.getRoom().isWalkableTile(w, h))
-                    {
+        for (int w = 0; w < roomWidth; w++) {
+            for (int h = 0; h < roomHeight; h++) {
+                if (Settings.DEBUG_OPTIONS.get("showWalkable")) {
+                    if (GameMain.me.player.getRoom().isWalkableTile(w, h)) {
                         greenSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
                         greenSprite.draw(batch);
-                    }
-                    else
-                    {
+                    } else {
                         redSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
                         redSprite.draw(batch);
                     }
                 }
 
-                if (Settings.DEBUG_OPTIONS.get("showHideable"))
-                {
-                    for (MapLayer layer : map.getLayers())
-                    {
+                if (Settings.DEBUG_OPTIONS.get("showHideable")) {
+                    for (MapLayer layer : map.getLayers()) {
                         TiledMapTileLayer thisLayer = (TiledMapTileLayer) layer;
                         TiledMapTileLayer.Cell cellInTile = thisLayer.getCell(w, h);
 
@@ -74,8 +66,7 @@ public class DebugOverlay
 
                         if (!cellInTile.getTile().getProperties().containsKey("hidingSpot")) continue;
 
-                        if (Boolean.valueOf(cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true")))
-                        {
+                        if (Boolean.valueOf(cellInTile.getTile().getProperties().get("hidingSpot").toString().equals("true"))) {
                             yellowSprite.setPosition(w * Settings.TILE_SIZE, h * Settings.TILE_SIZE);
                             yellowSprite.draw(batch);
                             break;

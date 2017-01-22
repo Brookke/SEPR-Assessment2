@@ -1,31 +1,23 @@
 package me.lihq.game.screen;
 
 
-import com.badlogic.gdx.graphics.Color;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
-import me.lihq.game.ConversationManagement;
-import me.lihq.game.GameMain;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import me.lihq.game.OrthogonalTiledMapRendererWithPeople;
-import me.lihq.game.Settings;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import me.lihq.game.*;
 import me.lihq.game.people.AbstractPerson;
 import me.lihq.game.people.NPC;
 import me.lihq.game.people.controller.PlayerController;
-
-import me.lihq.game.screen.elements.*;
-import me.lihq.game.SpeechboxManager;
-import me.lihq.game.player.controller.PlayerController;
+import me.lihq.game.screen.elements.DebugOverlay;
 import me.lihq.game.screen.elements.RoomArrow;
 import me.lihq.game.screen.elements.RoomTag;
 import me.lihq.game.screen.elements.StatusBar;
@@ -282,8 +274,7 @@ public class NavigationScreen extends AbstractScreen
             roomTag.render(spriteBatch);
         }
 
-        if (Settings.DEBUG)
-        {
+        if (Settings.DEBUG) {
             DebugOverlay.renderDebugInfo(spriteBatch);
         }
 

@@ -1,0 +1,28 @@
+{
+  "name": "Lily",
+  "clues": [
+    "BigShoe",
+    "SmallShoe",
+    "Glasses",
+    "Bag",
+    "Lipstick",
+    "RightHanded",
+    "DarkHair"
+  ],
+  "personality": "NICE",
+  "introduction": "Hello",
+  "responses": {
+    "BigShoe": "Bit too big for me friend, try somebody else maybe.",
+    "SmallShoe": "Now these are perfect size for me!",
+    "Glasses": "Unfortunately yes I do need glasses.",
+    "Bag": "Yes I need a little bag for pens, paper etc.",
+    "Lipstick": "yes I do have some nice lipstick actually.",
+    "RightHanded": "Yes I do normally use my right hand.",
+    "DarkHair": "yes my hair is a dark colour , it is a bit messy today though haha.",
+    "noneResponses": [
+      "Really sorry but I just don't have the time right now.",
+      "I'm sure it would be fine if I helped but just don't want to be involved right now.",
+      "I am not telling you, sorry."
+    ]
+  }
+}

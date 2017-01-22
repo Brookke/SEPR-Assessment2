@@ -17,7 +17,7 @@ public class PlayerUnitTests extends GameTester
     @Before
     public void before()
     {
-        p = new Player("Test Name", "player.png", 0, 0);
+        p = new Player("Test Name", "people/player/player.png", 0, 0);
         p.setRoom(new Room(0, "testMap.tmx", "Test Map"));
     }
 
@@ -44,7 +44,7 @@ public class PlayerUnitTests extends GameTester
         p.addToPersonality(-100);
         //Gone below 0, should move it back up to 0
         assertEquals("Fail - Personality not Lower Capped", 0, p.getPersonalityLevel());
-        assertEquals(Personality.HARSH, p.getPersonality());
+        assertEquals(Personality.AGGRESSIVE, p.getPersonality());
     }
 
 

@@ -18,7 +18,7 @@ public class NPCUnitTests extends GameTester
     public void makeNPC()
     {
         room = new Room(0, "testRoom0.tmx", "Test Room 0");
-        bob = new NPC("bob", "colin.png", 1,1, room, false, AbstractPerson.Personality.HARSH);
+        bob = new NPC("bob", "colin.png", 1,1, room, false, AbstractPerson.Personality.AGGRESSIVE);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class NPCUnitTests extends GameTester
 
     @Test
     public void testPersonality() {
-        assertEquals(AbstractPerson.Personality.HARSH, bob.getPersonality());
+        assertEquals(AbstractPerson.Personality.AGGRESSIVE, bob.getPersonality());
     }
 
 

@@ -1,0 +1,19 @@
+{
+  "name":"Will",
+  "clues": ["BigShoe","SmallShoe", "Glasses","Bag","Lipstick","RightHanded","DarkHair"],
+  "personality":"Neutral",
+  "responses": {
+    "BigShoe": "Oh yes I could fit into those.",
+    "SmallShoe": "Too small for me.",
+    "Glasses": "No I do not have glasses.",
+    "Bag": "I don't have a bag with me.",
+    "Lipstick": "I actually do have some Lipstick."
+    "RightHanded": "I am right handed."
+    "DarkHair": "I do have dark hair yes."
+    "noneResponses": [
+      "Sorry I have some graphics to render.",
+      "And why would i help you.",
+      "I am not telling you."
+    ]
+  }
+}
