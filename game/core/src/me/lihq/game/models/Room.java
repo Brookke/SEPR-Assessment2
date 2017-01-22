@@ -172,8 +172,6 @@ public class Room
         //Check for a clue at that coordinate
         for (Clue c : cluesInRoom) {
             if (c.getPosition().x == x && c.getPosition().y == y) {
-                //This is just temporary indicator that you have found the clue
-                //We will use the speech box in the future
                 out = c;
             }
         }
