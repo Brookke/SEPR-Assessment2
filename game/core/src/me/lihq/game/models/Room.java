@@ -70,6 +70,11 @@ public class Room
     private float animationStateTime = 0f;
 
     /**
+     * This list stores the coordinates of all hideable slots in this room
+     */
+    List<Vector2Int> hideableTiles = new ArrayList<Vector2Int>();
+
+    /**
      * Constructor that builds a Room object from the given parameters
      *
      * @param id      - The integer ID of the room
@@ -95,6 +100,8 @@ public class Room
                 this.lockedTiles[w][h] = false;
             }
         }
+
+        hideableTiles = getHidingSpots();
     }
 
     @Override

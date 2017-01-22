@@ -19,6 +19,12 @@ import me.lihq.game.Settings;
 public class DebugOverlay
 {
 
+    private static Sprite greenSprite = getColoredTileSprite(Color.GREEN);
+
+    private static Sprite redSprite = getColoredTileSprite(Color.RED);
+
+    private static Sprite yellowSprite = getColoredTileSprite(Color.GOLD);
+
     public static void renderDebugInfo(Batch batch)
     {
         Sprite border = getColoredTileSprite(Color.BLACK);
@@ -34,13 +40,8 @@ public class DebugOverlay
     public static void renderDebugTiles(TiledMap map, Batch batch)
     {
          /*
-            Draw a filter over showing whether or not a tile is "walkable"
-             */
-        Sprite greenSprite = getColoredTileSprite(Color.GREEN);
-
-        Sprite redSprite = getColoredTileSprite(Color.RED);
-
-        Sprite yellowSprite = getColoredTileSprite(Color.GOLD);
+         Draw a filter over showing whether or not a tile is "walkable"
+         */
 
         int roomWidth = ((TiledMapTileLayer) map.getLayers().get(0)).getWidth();
         int roomHeight = ((TiledMapTileLayer) map.getLayers().get(0)).getHeight();
