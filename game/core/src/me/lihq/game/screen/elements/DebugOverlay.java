@@ -63,9 +63,7 @@ public class DebugOverlay
             }
         }
 
-        List<Vector2Int> hideableTiles = room.getHidingSpots();
-
-        for (Vector2Int c : hideableTiles)
+        for (Vector2Int c : room.hideableTiles)
         {
             yellowSprite.setPosition(c.x * Settings.TILE_SIZE, c.y * Settings.TILE_SIZE);
             yellowSprite.draw(batch);
