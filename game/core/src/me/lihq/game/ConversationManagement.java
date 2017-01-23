@@ -175,7 +175,7 @@ public class ConversationManagement
      */
     private void handleResponse(QuestionStage stage, int option)
     {
-        speechboxMngr.rmCurrentSpeechBox();
+        speechboxMngr.removeCurrentSpeechBox();
 
         switch (stage) {
             case TYPE:
