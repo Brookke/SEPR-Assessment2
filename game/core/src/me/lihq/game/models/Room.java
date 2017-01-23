@@ -1,8 +1,5 @@
 package me.lihq.game.models;
 
-//TODO: Tidy up getters and setters add them if needed, some places we are using them others not.
-
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,7 +24,6 @@ public class Room
 {
     /**
      * This stores the name of the room.
-     * <p>
      * It is displayed on the tag when they enter the room
      */
     private String name;
@@ -53,7 +49,7 @@ public class Room
     private boolean murderRoom = false;
 
     /**
-     * This stores the TMX map loaded from the String mapFile
+     * This stores the TMX map loaded from the String mapFile {@link #mapFile}
      */
     private TiledMap map;
 
@@ -71,6 +67,8 @@ public class Room
 
     /**
      * This list stores the coordinates of all hideable slots in this room
+     *
+     * Hideable slots are tiles that the clues can be hidden in
      */
     public List<Vector2Int> hidingSpots = null;
 
@@ -102,6 +100,12 @@ public class Room
         hidingSpots = getHidingSpots();
     }
 
+    /**
+     * This method checks equality between the Room and another object
+     *
+     * @param obj - The object to be checked against
+     * @return (boolean) Returns true if the obj is of type Room and has the exact same ID. {@link #ID}
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -115,6 +119,7 @@ public class Room
 
     /**
      * Returns True if it's the room the murder took place in
+     * @return (boolean) the value of {@link #murderRoom}
      */
     public boolean isMurderRoom()
     {
@@ -132,6 +137,7 @@ public class Room
 
     /**
      * Returns the integer ID of the room
+     * @return (int) the value of {@link #ID}
      */
     public int getID()
     {
@@ -140,6 +146,7 @@ public class Room
 
     /**
      * This returns the String name of the room
+     * @return (String) the value of {@link #name}
      */
     public String getName()
     {
@@ -165,6 +172,8 @@ public class Room
      *
      * @param x - The x coordinate the player is at
      * @param y - The y coordinate the player is at
+     *
+     * @return (Clue) returns null if there is no clue at coordinate x,y and returns the clue itself otherwise
      */
     public Clue getClue(int x, int y)
     {
@@ -183,6 +192,12 @@ public class Room
         return out;
     }
 
+    /**
+     * This method draws the clues that are in the clue with the asset CLUE_GLINT
+     *
+     * @param delta - The time passed since the last draw. Used for the animation
+     * @param batch - The batch to draw the sprites to
+     */
     public void drawClues(float delta, Batch batch)
     {
         animationStateTime += delta;
@@ -193,26 +208,17 @@ public class Room
         }
     }
 
+    /**
+     * This method checks whether the tile at x, y is a tile you can hide a clue
+     * in
+     *
+     * @param x - The x coordinate to check
+     * @param y - The y coordinate to check
+     * @return (boolean) whether the tile is a hideable tile.
+     */
     public boolean isHidingPlace(int x, int y)
     {
-        int amountOfLayers = map.getLayers().getCount() - 1;
-
-        for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
-            TiledMapTileLayer tl = (TiledMapTileLayer) map.getLayers().get(currentLayer);
-
-            if (tl.getCell(x, y) == null) {
-                continue;
-            }
-
-            if (!tl.getCell(x, y).getTile().getProperties().containsKey("hidingSpot")) {
-                continue;
-            }
-
-            if (tl.getCell(x, y).getTile().getProperties().get("hidingSpot").toString().equals("true")) {
-                return true;
-            }
-        }
-        return false;
+        return hidingSpots.contains(new Vector2Int(x, y));
     }
 
     /**
@@ -243,7 +249,7 @@ public class Room
      *
      * @param x - The x coordinate to check
      * @param y - The y coordinate to check
-     * @return - whether or not that tile can be walked on.
+     * @return - (boolean) whether or not that tile can be walked on.
      */
     public boolean isWalkableTile(int x, int y)
     {
@@ -325,7 +331,7 @@ public class Room
      *
      * @param x - The x coordinate to check
      * @param y - The y coordinate to check
-     * @return -  whether or not the tile is a trigger tile.
+     * @return - (boolean) whether or not the tile is a trigger tile.
      */
     public boolean isTriggerTile(int x, int y)
     {
@@ -356,7 +362,6 @@ public class Room
 
     /**
      * This method gets the rotation that the map is that they are standing on.
-     * <p>
      * If they aren't on a mat, it returns null
      *
      * @param x - The x coordinate to check
@@ -375,7 +380,7 @@ public class Room
     /**
      * This returns the tiledMap for this room
      *
-     * @return - TiledMap the map relating to this room.
+     * @return - (TiledMap) the map relating to this room.
      */
     public TiledMap getTiledMap()
     {
@@ -386,7 +391,7 @@ public class Room
      * This adds a transition to the map.
      *
      * @param t - The transition to be added
-     * @return - Room; itself
+     * @return - (Room) itself
      */
     public Room addTransition(Transition t)
     {
@@ -397,7 +402,7 @@ public class Room
     /**
      * This will check the map for any potential hiding locations, and returns them as a list of coordinates
      *
-     * @return list of coordinates
+     * @return (List<Vector2Int>) list of coordinates of the hideable tiles
      */
     public List<Vector2Int> getHidingSpots()
     {
@@ -433,9 +438,9 @@ public class Room
 
 
     /**
-     * Thus gets a random possible location to hide a clue in
+     * This gets a random possible location to hide a clue in
      *
-     * @return Coordinates of the tile where the clue is to be hidden, null if there are none available
+     * @return (Vector2Int) Coordinates of the tile where the clue is to be hidden, null if there are none available
      */
     public Vector2Int getRandHidingSpot()
     {
@@ -460,7 +465,7 @@ public class Room
      *
      * @param x - The current x coordinate in the room (in terms of tiles not pixels)
      * @param y - The current y coordinate in the room (in terms of tiles not pixels)
-     * @return - a Transition data type. Which stores the relevant information
+     * @return - (Transition) a Transition data type. Which stores the relevant information. null if there is no transition at x, y
      */
     public Transition getTransitionData(int x, int y)
     {
@@ -472,7 +477,7 @@ public class Room
      * it returns that Transition, else, it returns null
      *
      * @param v - The vector containing the FROM coordinates
-     * @return - nullable Transition - the transition if it exists, else, null
+     * @return - (Transition) nullable Transition - the transition if it exists, else, null
      */
     private Transition hasTransition(Vector2Int v)
     {
@@ -487,6 +492,8 @@ public class Room
 
     /**
      * This method returns a random location in the room that is walkable
+     *
+     * @return (Vector2Int) the random walkable tile generated.
      */
     public Vector2Int getRandomLocation()
     {
@@ -513,24 +520,40 @@ public class Room
      */
     public static class Transition
     {
-        public Vector2Int from = new Vector2Int(0, 0);
         /**
-         * The direction the player should face when they enter the roo,
+         * This is the coordinates that starts the transition
+         */
+        public Vector2Int from = new Vector2Int(0, 0);
+
+        /**
+         * The direction the player should face when they enter the room
          */
         public Direction newDirection = null;
+
         /**
          * The entry point to the room in terms of tiles
          */
         public Vector2Int newTileCoordinates = new Vector2Int(0, 0);
+
         /**
          * The new room to transition to
          */
         private Room newRoom;
 
-        public Transition()
-        {
-        }
+        /**
+         * Constructor
+         */
+        public Transition(){}
 
+        /**
+         * This method takes the parameters and sets the values of the relevant properties
+         *
+         * @param room - The room that the transition takes you to
+         * @param newTileCoordinateX - The x coordinate that the transition takes you to
+         * @param newTileCoordinateY - The y coordinates that the transition takes you to
+         * @param newDirection - The direction that you will face after the transition
+         * @return (Transition) this
+         */
         public Transition setTo(Room room, int newTileCoordinateX, int newTileCoordinateY, Direction newDirection)
         {
             this.newRoom = room;
@@ -539,12 +562,23 @@ public class Room
             return this;
         }
 
+        /**
+         * This method takes the parameters and sets the values of the relevant properties
+         *
+         * @param oldTiledCoordinateX - The x coordinate that the transition starts from
+         * @param oldTiledCoordinateY - The y coordinate that the transition starts from
+         * @return (Transition) this
+         */
         public Transition setFrom(int oldTiledCoordinateX, int oldTiledCoordinateY)
         {
             this.from = new Vector2Int(oldTiledCoordinateX, oldTiledCoordinateY);
             return this;
         }
 
+        /**
+         * getter for the value of newRoom {@link #newRoom}
+         * @return (Room) value of newRoom
+         */
         public Room getNewRoom()
         {
             return newRoom;
