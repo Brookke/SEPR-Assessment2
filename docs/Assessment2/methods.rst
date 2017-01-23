@@ -2,6 +2,7 @@ Methods and Planning
 =====================
 
 **Highlighted changes:**
+
 - Group leader has changed
 - Added more documentation about our software development process and methods
 - Improved section discussing the way we work and methodologies
