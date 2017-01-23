@@ -25,13 +25,14 @@ public class Clue extends Sprite
      * Note: this is different to com.badlogic.gdx.graphics.g2d.Sprite.position that is the position on the screen in terms of pixels,
      * whereas this is in terms of map tiles relative to the bottom left of the map.
      */
-    private Vector2Int tileCoordinates = new Vector2Int(0,0);
+    private Vector2Int tileCoordinates = new Vector2Int(0, 0);
 
     /**
      * Creates a clue
-     * @param name the name of the clue i.e. what it is
+     *
+     * @param name        the name of the clue i.e. what it is
      * @param description describes what the clue is
-     * @param texture the texture region of the clue
+     * @param texture     the texture region of the clue
      */
     public Clue(String name, String description, TextureRegion texture)
     {
@@ -78,6 +79,7 @@ public class Clue extends Sprite
 
     /**
      * Setter for clue tile coordinates.
+     *
      * @param x - The x coordinate for where the clue is, in terms of tiles.
      * @param y - The y coordinate for where the clue is, in terms of tiles.
      *
