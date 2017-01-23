@@ -19,21 +19,18 @@ public class Player extends AbstractPerson
      * This object stores the clues that the player has picked up
      */
     public List<Clue> collectedClues = new ArrayList<>();
-
-    /**
-     * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
-     */
-    private int personalityLevel = 50;
-
-    /**
-     * The score the player has earned so far.
-     */
-    private int score = 0;
-
     /**
      * This stores whether the player is in the middle of a conversation or not
      */
     public boolean inConversation = false;
+    /**
+     * The personality will be a percent score (0-100) 0 being angry, 50 being neutral, and 100 being happy/nice.
+     */
+    private int personalityLevel = 50;
+    /**
+     * The score the player has earned so far.
+     */
+    private int score = 0;
 
     /**
      * This is the constructor for player, it creates a new playable person
@@ -114,12 +111,9 @@ public class Player extends AbstractPerson
         if (inConversation) return;
 
         NPC npc = getFacingNPC();
-        if (npc != null)
-        {
+        if (npc != null) {
             GameMain.me.getNavigationScreen().convMngt.startConversation(npc);
-        }
-        else
-        {
+        } else {
             checkForClue();
         }
     }
@@ -131,10 +125,8 @@ public class Player extends AbstractPerson
      */
     private NPC getFacingNPC()
     {
-        for (NPC npc : GameMain.me.getNPCS(getRoom()))
-        {
-            if ((npc.getTileCoordinates().x == getTileCoordinates().x + getDirection().getDx()) && (npc.getTileCoordinates().y == getTileCoordinates().y + getDirection().getDy()))
-            {
+        for (NPC npc : GameMain.me.getNPCS(getRoom())) {
+            if ((npc.getTileCoordinates().x == getTileCoordinates().x + getDirection().getDx()) && (npc.getTileCoordinates().y == getTileCoordinates().y + getDirection().getDy())) {
                 if (npc.getState() != PersonState.STANDING) return null;
 
                 return npc;
@@ -159,10 +151,10 @@ public class Player extends AbstractPerson
 
         Clue clueFound = getRoom().getClue(x, y);
         if (clueFound != null) {
-            GameMain.me.getNavigationScreen().speechboxMngr.addSpeechBox(new SpeechBox("You found: " + clueFound.getDescription(),6));
+            GameMain.me.getNavigationScreen().speechboxMngr.addSpeechBox(new SpeechBox("You found: " + clueFound.getDescription(), 6));
             this.collectedClues.add(clueFound);
         } else {
-            GameMain.me.getNavigationScreen().speechboxMngr.addSpeechBox(new SpeechBox("Sorry no clue here",1));
+            GameMain.me.getNavigationScreen().speechboxMngr.addSpeechBox(new SpeechBox("Sorry no clue here", 1));
         }
     }
 

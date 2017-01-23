@@ -42,7 +42,6 @@ public class PlayerController extends InputAdapter
      * This method is called when a key press is read
      *
      * @param keycode - The code of the key pressed
-     *
      * @return (boolean) Whether this method acted upon the keypress or not. Used for InputMultiplexers
      */
     @Override

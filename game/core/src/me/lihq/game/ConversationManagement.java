@@ -41,7 +41,8 @@ public class ConversationManagement
 
     /**
      * This constructs a converstation manager
-     * @param player the player that will initiate the conversation
+     *
+     * @param player           the player that will initiate the conversation
      * @param speechboxManager the speechbox manager that is in charge of displaying the converstation
      */
     public ConversationManagement(Player player, SpeechboxManager speechboxManager)
@@ -90,7 +91,7 @@ public class ConversationManagement
         if (player.collectedClues.size() > 3) {
             buttons.add(new SpeechBoxButton("Accuse?", 1, eventHandler));
         }
-        if (buttons.size() > 0 ) {
+        if (buttons.size() > 0) {
             speechboxMngr.addSpeechBox(new SpeechBox("What do you want to do?", buttons, -1));
         } else {
             speechboxMngr.addSpeechBox(new SpeechBox("You need to find some clues before you question a suspect", 5));
@@ -145,7 +146,8 @@ public class ConversationManagement
     /**
      * This method initialises an accusing user interface
      */
-    private void accuseNPC() {
+    private void accuseNPC()
+    {
         if (this.tempNPC.isKiller()) {
             speechboxMngr.addSpeechBox(new SpeechBox("You found the killer well done", -1));
             finishConverstation();
@@ -158,7 +160,8 @@ public class ConversationManagement
     /**
      * This method is called when a conversation is over to change some variables back for normal gameplay to resume
      */
-    private void finishConverstation() {
+    private void finishConverstation()
+    {
         this.tempNPC.canMove = true;
         this.player.canMove = true;
         this.player.inConversation = false;
@@ -167,7 +170,7 @@ public class ConversationManagement
     /**
      * This method is called to handle a users input
      *
-     * @param stage - The stage of the questioning process that they are currently at
+     * @param stage  - The stage of the questioning process that they are currently at
      * @param option - The option chosen by the user
      */
     private void handleResponse(QuestionStage stage, int option)

@@ -59,7 +59,7 @@ public class Menu
     /**
      * Constructor for the menu
      *
-     * @param game - The game object the menu is being loaded for
+     * @param game      - The game object the menu is being loaded for
      * @param pauseMenu - Whether it is a pause menu or not
      */
     public Menu(final GameMain game, boolean pauseMenu)
@@ -81,6 +81,7 @@ public class Menu
 
     /**
      * This method is called if you want to initialise the main menu
+     *
      * @param game - The game to initialise the menu for
      */
     private void initMenu(final GameMain game)
@@ -208,7 +209,7 @@ public class Menu
     /**
      * This method is called when the window is resized.
      *
-     * @param width - The new width
+     * @param width  - The new width
      * @param height - The new height
      */
     public void resize(int width, int height)

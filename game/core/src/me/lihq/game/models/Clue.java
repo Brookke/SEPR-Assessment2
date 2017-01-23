@@ -60,6 +60,7 @@ public class Clue extends Sprite
 
     /**
      * Getter for Clue name.
+     *
      * @return - (String) Returns name of clue.
      */
     public String getName()
@@ -69,6 +70,7 @@ public class Clue extends Sprite
 
     /**
      * Getter for clue description
+     *
      * @return - (String) Returns the description of the clue.
      */
     public String getDescription()
@@ -79,7 +81,7 @@ public class Clue extends Sprite
     /**
      * This method calls the method of the same name but allows a Vector2Int as a parameter rather than
      * the specific coordinates.
-     *
+     * <p>
      * It sets the tile coordinates of the clue in the map.
      *
      * @param v - The Vector2Int that the clue's tile coordinates are to be set to
@@ -95,9 +97,8 @@ public class Clue extends Sprite
      *
      * @param x - The x coordinate for where the clue is, in terms of tiles.
      * @param y - The y coordinate for where the clue is, in terms of tiles.
-     *
-     * all coordinates relative to bottom left of the map
-     *
+     *          <p>
+     *          all coordinates relative to bottom left of the map
      * @return (Clue) this object
      */
     public Clue setTileCoordinates(int x, int y)
@@ -114,7 +115,7 @@ public class Clue extends Sprite
      * This method gets the Clue's current tile location on the map as a Vector2Int
      *
      * @return (Vector2Int) The tile coordinates of the clue
-     * */
+     */
     public Vector2Int getPosition()
     {
         return this.tileCoordinates;
@@ -125,7 +126,8 @@ public class Clue extends Sprite
      *
      * @return (int) The x tile coordinate of the clue
      */
-    public int getTileX() {
+    public int getTileX()
+    {
         return tileCoordinates.x;
     }
 
@@ -134,7 +136,8 @@ public class Clue extends Sprite
      *
      * @return (int) The y tile coordinate of the clue
      */
-    public int getTileY() {
+    public int getTileY()
+    {
         return tileCoordinates.y;
     }
 

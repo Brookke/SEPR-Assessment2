@@ -38,6 +38,7 @@ public abstract class AbstractScreen implements Screen
 
     /**
      * This method is called every render loop
+     *
      * @param delta - The time in seconds since the last draw
      */
     @Override
@@ -45,7 +46,8 @@ public abstract class AbstractScreen implements Screen
 
     /**
      * This method is called on window resize
-     * @param width - The new width
+     *
+     * @param width  - The new width
      * @param height - The new height
      */
     @Override

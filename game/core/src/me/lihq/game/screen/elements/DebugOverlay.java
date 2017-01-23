@@ -59,10 +59,11 @@ public class DebugOverlay
     /**
      * This method draws overlays on the tiles to display whether a tile is both walkable and hideable
      *
-     * @param room - The room we are drawing on
+     * @param room  - The room we are drawing on
      * @param batch - The batch to draw the tile overlays onto
      */
-    public static void renderDebugTiles(Room room, Batch batch) {
+    public static void renderDebugTiles(Room room, Batch batch)
+    {
          /*
          Draw a filter over showing whether or not a tile is "walkable"
          */
@@ -84,8 +85,7 @@ public class DebugOverlay
             }
         }
 
-        for (Vector2Int c : room.hidingSpots)
-        {
+        for (Vector2Int c : room.hidingSpots) {
             yellowSprite.setPosition(c.x * Settings.TILE_SIZE, c.y * Settings.TILE_SIZE);
             yellowSprite.draw(batch);
         }

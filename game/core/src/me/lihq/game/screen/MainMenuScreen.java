@@ -81,7 +81,7 @@ public class MainMenuScreen extends AbstractScreen
     /**
      * This is called when the window is resized
      *
-     * @param width - The new width
+     * @param width  - The new width
      * @param height - The new height
      */
     @Override

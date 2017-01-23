@@ -23,54 +23,46 @@ import java.util.List;
 public class Room
 {
     /**
+     * This list stores the coordinates of all hideable slots in this room
+     * <p>
+     * Hideable slots are tiles that the clues can be hidden in
+     */
+    public List<Vector2Int> hidingSpots = null;
+    /**
      * This stores the name of the room.
      * It is displayed on the tag when they enter the room
      */
     private String name;
-
     /**
      * The integer ID of the room
      */
     private int ID;
-
     /**
      * The string that points to the tmx map file for this room.
      */
     private String mapFile;
-
     /**
      * This is a list of the clues in the room.
      */
     private List<Clue> cluesInRoom = new ArrayList<>();
-
     /**
      * This stores whether or not the room is the room where the murder happened
      */
     private boolean murderRoom = false;
-
     /**
      * This stores the TMX map loaded from the String mapFile {@link #mapFile}
      */
     private TiledMap map;
-
     /**
      * This stores the coordinates of the map in a 2x2 array. If a player/NPC attempts to move to a location, it locks
      * the location before it moves, to avoid anything else moving to it.
      */
     private boolean[][] lockedTiles = null;
-
     /**
      * Room transitions stored as custom Transition object. Defines where the transition is from and where it goes to
      */
     private List<Transition> roomTransitions = new ArrayList<Transition>();
     private float animationStateTime = 0f;
-
-    /**
-     * This list stores the coordinates of all hideable slots in this room
-     *
-     * Hideable slots are tiles that the clues can be hidden in
-     */
-    public List<Vector2Int> hidingSpots = null;
 
     /**
      * Constructor that builds a Room object from the given parameters
@@ -119,6 +111,7 @@ public class Room
 
     /**
      * Returns True if it's the room the murder took place in
+     *
      * @return (boolean) the value of {@link #murderRoom}
      */
     public boolean isMurderRoom()
@@ -137,6 +130,7 @@ public class Room
 
     /**
      * Returns the integer ID of the room
+     *
      * @return (int) the value of {@link #ID}
      */
     public int getID()
@@ -146,6 +140,7 @@ public class Room
 
     /**
      * This returns the String name of the room
+     *
      * @return (String) the value of {@link #name}
      */
     public String getName()
@@ -172,7 +167,6 @@ public class Room
      *
      * @param x - The x coordinate the player is at
      * @param y - The y coordinate the player is at
-     *
      * @return (Clue) returns null if there is no clue at coordinate x,y and returns the clue itself otherwise
      */
     public Clue getClue(int x, int y)
@@ -263,7 +257,7 @@ public class Room
 
             if (tiledLayer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom()) {
                 //Don't check the layer as the blood splat isn't there
-                emptyCellCount ++;
+                emptyCellCount++;
                 continue;
             }
 
@@ -315,12 +309,12 @@ public class Room
         /*
         Check to see if any people object has locked the target destination for them to move to
          */
-        try
-        {
+        try {
             if (this.lockedTiles[x][y] == true) {
                 return false;
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return true;
     }
@@ -543,15 +537,17 @@ public class Room
         /**
          * Constructor
          */
-        public Transition(){}
+        public Transition()
+        {
+        }
 
         /**
          * This method takes the parameters and sets the values of the relevant properties
          *
-         * @param room - The room that the transition takes you to
+         * @param room               - The room that the transition takes you to
          * @param newTileCoordinateX - The x coordinate that the transition takes you to
          * @param newTileCoordinateY - The y coordinates that the transition takes you to
-         * @param newDirection - The direction that you will face after the transition
+         * @param newDirection       - The direction that you will face after the transition
          * @return (Transition) this
          */
         public Transition setTo(Room room, int newTileCoordinateX, int newTileCoordinateY, Direction newDirection)
@@ -577,6 +573,7 @@ public class Room
 
         /**
          * getter for the value of newRoom {@link #newRoom}
+         *
          * @return (Room) value of newRoom
          */
         public Room getNewRoom()

@@ -29,82 +29,69 @@ public abstract class AbstractPerson extends Sprite
      * The width of the texture region for each person
      */
     protected static int SPRITE_WIDTH = 32;
-
+    /**
+     * This is whether the NPC can move or not. It is mainly used to not let them move during converstation
+     */
+    public boolean canMove = true;
     /**
      * This is the location of the person in the room in terms of tiles eg (0,0) would be the bottom left of the room
      * Uses the Vector2Int as the tileCoordinates should never be floats as the person should only be between tiles during the move process.
      */
     protected Vector2Int tileCoordinates = new Vector2Int(0, 0);
-
     /**
      * This is the players location in the current room.
      * Note this is different to sprite position, the sprite position is the location that the person is currently drawn.
      * Avoid using Sprites setPosition as if it is changed mid render it will cause jolting.
      */
     protected Vector2 coordinates = new Vector2().set(0.0f, 0.0f);
-
     /**
      * A store of the starting point for a movement.
      */
     protected Vector2Int startTile = new Vector2Int(0, 0);
-
     /**
      * A store of the destination for a movement.
      */
     protected Vector2Int destinationTile = new Vector2Int(0, 0);
-
     /**
      * The following variables control the walking animation speed
      */
     protected float animTimer;
     protected float animTime = Settings.TPS / 3f;
-
     /**
      * This stores the sprite sheet of the Player/NPC
      */
     protected Texture spriteSheet;
-
     /**
      * This stores the current region of the above texture that is to be drawn
      * to the map
      */
     protected TextureRegion currentRegion;
-
     /**
      * This is the JSON data for the Player/NPC
      */
     protected JsonValue jsonData;
-
     /**
      * The direction determines the way the character is facing.
      */
     protected Direction direction = Direction.EAST;
-
     /**
      * This is the current walking state of the Person. {@link #getState()}
      */
     protected PersonState state;
-
     /**
      * The Name of the Person
      */
     private String name;
-
     /**
      * The current room of the AbstractPerson.
      */
     private Room currentRoom;
 
     /**
-     * This is whether the NPC can move or not. It is mainly used to not let them move during converstation
-     */
-    public boolean canMove = true;
-
-    /**
      * This constructs the player calling super on the sprite class
      *
-     * @param name - The name of the Person
-     * @param img - this a path to the sprite sheet image
+     * @param name  - The name of the Person
+     * @param img   - this a path to the sprite sheet image
      * @param tileX - This is the start x coordinate for the Person
      * @param tileY - This is the start y coordinate for the Person
      */
@@ -369,6 +356,7 @@ public abstract class AbstractPerson extends Sprite
 
     /**
      * This method sets the currentRoom to the room parameter
+     *
      * @param room - The room to change currentRoom to {@link #currentRoom}
      */
     public void setRoom(Room room)
@@ -493,7 +481,7 @@ public abstract class AbstractPerson extends Sprite
 
     /**
      * This class is to sort a list of AbstractPerson in highest Y coordinate to lowest Y coordinate
-     *
+     * <p>
      * It is used to render NPCs and the Player in the correct order to avoid it appearing as though someone
      * is standing on top of someone else
      */
@@ -501,6 +489,7 @@ public abstract class AbstractPerson extends Sprite
     {
         /**
          * This method compares the 2 objects.
+         *
          * @param o1 - The first object to compare
          * @param o2 - The second object to compare
          * @return (int) if <0 o1 is considered to be first in the list

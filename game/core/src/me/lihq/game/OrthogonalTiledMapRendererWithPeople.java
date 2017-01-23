@@ -8,12 +8,11 @@ import me.lihq.game.people.AbstractPerson;
 import me.lihq.game.people.AbstractPerson.PersonPositionComparator;
 import me.lihq.game.screen.elements.DebugOverlay;
 
-
 import java.util.*;
 
 /**
  * OrthogonalTiledMapRendererWithPeople
- *
+ * <p>
  * This class is an extension of the OrthogonalTiledMapRenderer that deals with
  * rendering sprites aswell. The last layer of the map is designed to be drawn OVER
  * the player sprite and NPCs. So this controls that by drawing each layer until it comes to the last
@@ -50,6 +49,7 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
 
     /**
      * This adds a list of AbstractPerson to the sprite list
+     *
      * @param sprites
      */
     public void addPerson(List<AbstractPerson> sprites)
@@ -85,27 +85,22 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
         for (int currentLayer = 0; currentLayer < amountOfLayers; currentLayer++) {
             MapLayer layer = map.getLayers().get(currentLayer);
 
-            if (layer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom())
-            {
+            if (layer.getName().equals("Blood") && !GameMain.me.player.getRoom().isMurderRoom()) {
                 //Don't draw the layer as its not the murder room
-            }
-            else
-            {
+            } else {
                 renderTileLayer((TiledMapTileLayer) layer);
             }
 
             if (currentLayer == amountOfLayers - 2 || amountOfLayers == 1) {
 
-                for (AbstractPerson s : people)
-                {
+                for (AbstractPerson s : people) {
                     s.draw(this.getBatch());
                 }
             }
         }
 
-        if (Settings.DEBUG)
-        {
-           DebugOverlay.renderDebugTiles(GameMain.me.player.getRoom(), this.getBatch());
+        if (Settings.DEBUG) {
+            DebugOverlay.renderDebugTiles(GameMain.me.player.getRoom(), this.getBatch());
         }
 
         endRender();

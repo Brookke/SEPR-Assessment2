@@ -188,7 +188,7 @@ public class NPC extends AbstractPerson
 
     /**
      * This method sets the NPC as the killer for this game.
-     *
+     * <p>
      * It first checks they aren't the victim and if they can be the killer
      *
      * @return (boolean) Returns whether it successfully set the NPC to the killer or not
@@ -204,7 +204,7 @@ public class NPC extends AbstractPerson
 
     /**
      * This method sets the NPC to be the victim for the game
-     *
+     * <p>
      * It first checks if the NPC isn't also the killer
      *
      * @return (boolean) Returns whether it successfully set the NPC to the victim or not
@@ -238,6 +238,7 @@ public class NPC extends AbstractPerson
 
     /**
      * This method returns the NPCs personality
+     *
      * @return (Personality) the NPCs personality {@link me.lihq.game.people.AbstractPerson.Personality}
      */
     @Override

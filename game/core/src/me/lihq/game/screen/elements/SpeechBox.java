@@ -18,11 +18,11 @@ import java.util.ArrayList;
 /**
  * SpeechBox class
  * Used for rendering box containing text and buttons on screen
- *
+ * <p>
  * Usage:
  * SpeechBox sb = new SpeechBox(..)
  * sb.render();
- *
+ * <p>
  * Note: add to InputMultiplexer if using with other UI elements.
  */
 public class SpeechBox
@@ -334,7 +334,7 @@ public class SpeechBox
     /**
      * This method is called on a window resize
      *
-     * @param width - the new width
+     * @param width  - the new width
      * @param height - the new height
      */
     public void resize(int width, int height)
