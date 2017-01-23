@@ -244,8 +244,6 @@ public class ConversationManagement
          * This stage indicates that the player has been asked what clue they want to ask about.
          */
         CLUE
-
-
     }
 
 }
