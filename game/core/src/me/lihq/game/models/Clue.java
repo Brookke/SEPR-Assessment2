@@ -67,11 +67,24 @@ public class Clue extends Sprite
         return this.name;
     }
 
+    /**
+     * Getter for clue description
+     * @return - (String) Returns the description of the clue.
+     */
     public String getDescription()
     {
         return this.description;
     }
 
+    /**
+     * This method calls the method of the same name but allows a Vector2Int as a parameter rather than
+     * the specific coordinates.
+     *
+     * It sets the tile coordinates of the clue in the map.
+     *
+     * @param v - The Vector2Int that the clue's tile coordinates are to be set to
+     * @return (Clue) returns this object once the location has been updated
+     */
     public Clue setTileCoordinates(Vector2Int v)
     {
         return setTileCoordinates(v.x, v.y);
