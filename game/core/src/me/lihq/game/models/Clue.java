@@ -97,6 +97,8 @@ public class Clue extends Sprite
      * @param y - The y coordinate for where the clue is, in terms of tiles.
      *
      * all coordinates relative to bottom left of the map
+     *
+     * @return (Clue) this object
      */
     public Clue setTileCoordinates(int x, int y)
     {
