@@ -1,7 +1,7 @@
 package me.lihq.game;
 
 import me.lihq.game.models.Clue;
-import me.lihq.game.people.AbstractPerson;
+import me.lihq.game.people.AbstractPerson.Personality;
 import me.lihq.game.people.NPC;
 import me.lihq.game.people.Player;
 import me.lihq.game.screen.elements.SpeechBox;
@@ -10,11 +10,10 @@ import me.lihq.game.screen.elements.SpeechBoxButton;
 import java.util.ArrayList;
 
 /**
- * Created by Ben on 23/12/2016.
+ * This class controls conversation flow between Player and NPCs
  */
 public class ConversationManagement
 {
-
     /**
      * The player that will be starting the conversation
      */
@@ -38,7 +37,7 @@ public class ConversationManagement
     /**
      * This stores the style of questioning for how the player wants to ask the question
      */
-    private AbstractPerson.Personality tempQuestionStyle;
+    private Personality tempQuestionStyle;
 
     /**
      * This constructs a converstation manager
@@ -53,6 +52,11 @@ public class ConversationManagement
 
     }
 
+    /**
+     * This method starts a conversation with the specified NPC
+     *
+     * @param npc - The NPC to have a conversation with
+     */
     public void startConversation(NPC npc)
     {
         this.tempCluePos = -1;
@@ -68,9 +72,7 @@ public class ConversationManagement
         speechboxMngr.addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));
         speechboxMngr.addSpeechBox(new SpeechBox(this.tempNPC.getName(), this.tempNPC.getSpeech("Introduction"), 5));
 
-
         queryQuestionType();
-
     }
 
     /**
@@ -94,10 +96,7 @@ public class ConversationManagement
             speechboxMngr.addSpeechBox(new SpeechBox("You need to find some clues before you question a suspect", 5));
             finishConverstation();
         }
-
-
     }
-
 
     /**
      * This constructs the speechbox that asks the player how they wish to ask the question
@@ -111,7 +110,6 @@ public class ConversationManagement
         buttons.add(new SpeechBoxButton("Neutrally", 1, eventHandler));
         buttons.add(new SpeechBoxButton("Aggressively", 2, eventHandler));
         speechboxMngr.addSpeechBox(new SpeechBox("How do you want to ask the question?", buttons, -1));
-
     }
 
     /**
@@ -134,6 +132,9 @@ public class ConversationManagement
         speechboxMngr.addSpeechBox(new SpeechBox("What clue do you want to ask about?", buttons, -1));
     }
 
+    /**
+     * This method initialises a questioning user interface
+     */
     private void questionNPC()
     {
         speechboxMngr.addSpeechBox(new SpeechBox(player.getName(), player.getSpeech(player.collectedClues.get(tempCluePos), tempQuestionStyle), 3));
@@ -141,6 +142,9 @@ public class ConversationManagement
         finishConverstation();
     }
 
+    /**
+     * This method initialises an accusing user interface
+     */
     private void accuseNPC() {
         if (this.tempNPC.isKiller()) {
             speechboxMngr.addSpeechBox(new SpeechBox("You found the killer well done", -1));
@@ -150,11 +154,22 @@ public class ConversationManagement
             finishConverstation();
         }
     }
+
+    /**
+     * This method is called when a conversation is over to change some variables back for normal gameplay to resume
+     */
     private void finishConverstation() {
         this.tempNPC.canMove = true;
         this.player.canMove = true;
         this.player.inConversation = false;
     }
+
+    /**
+     * This method is called to handle a users input
+     *
+     * @param stage - The stage of the questioning process that they are currently at
+     * @param option - The option chosen by the user
+     */
     private void handleResponse(QuestionStage stage, int option)
     {
         speechboxMngr.rmCurrentSpeechBox();
@@ -181,7 +196,6 @@ public class ConversationManagement
 
     }
 
-
     /**
      * Takes an int and returns a personality style
      *
@@ -191,23 +205,26 @@ public class ConversationManagement
      *              default is Neutral
      * @return
      */
-    private AbstractPerson.Personality convertToQuestionStyle(int style)
+    private Personality convertToQuestionStyle(int style)
     {
         switch (style) {
             case 0:
-                return AbstractPerson.Personality.NICE;
+                return Personality.NICE;
 
             case 1:
-                return AbstractPerson.Personality.NEUTRAL;
+                return Personality.NEUTRAL;
 
             case 2:
-                return AbstractPerson.Personality.AGGRESSIVE;
+                return Personality.AGGRESSIVE;
 
         }
         //defaults to Neutral
-        return AbstractPerson.Personality.NEUTRAL;
+        return Personality.NEUTRAL;
     }
 
+    /**
+     * This is the enumeration for the different stages of questioning the NPC
+     */
     public enum QuestionStage
     {
 
