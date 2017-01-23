@@ -2,6 +2,7 @@ Risk Assessment and Mitigation
 ==================================
 
 **Highlighted changes:**
+
 - Each risk now has a responsible risk owner
 - Improved description as to how we came up with the risks and improved formatting
 - More details are in the updates report
