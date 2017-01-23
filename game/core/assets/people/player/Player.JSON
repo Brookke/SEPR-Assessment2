@@ -2,7 +2,7 @@
   "name": "Player",
   "responses": {
     "Introduction": "Hello",
-    "BigShoe": {
+    "Big Footprint": {
       "AGGRESSIVE": "THIS IS YOUR FOOTPRINT ISN'T IT?... TELL ME NOW",
       "NEUTRAL": "Is this your footprint?",
       "NICE":"Hey I like your shoes, are they the same as this footprint?"
@@ -13,14 +13,14 @@
       "NICE":"Hey I like your shoes, are they the same as this footprint?"
     },
     "Glasses": {
-      "AGGRESSIVE": "",
+      "AGGRESSIVE": "THESE ARE YOUR GLASSES AREN'T THEY?...  TELL ME NOW, OR ELSE!",
       "NEUTRAL": "Do you wear glasses?",
-      "NICE":""
+      "NICE":"Hey, I think you'd look great in these glasses I've found, have you ever seen them before?"
     },
     "Bag": {
-      "AGGRESSIVE": "",
+      "AGGRESSIVE": "THIS IS YOUR BAG ISN'T IT!?... TELL ME NOW!",
       "NEUTRAL": "Do you own a bag?",
-      "NICE":""
+      "NICE":"You seem like someone with a keen eye for fashion, what do you think about this bag?"
     },
     "Lipstick": {
       "AGGRESSIVE": "IS THAT LIPSTICK YOU ARE WEARING?",
@@ -28,14 +28,14 @@
       "NICE":"Your lips look great, do you wear lipstick?"
     },
     "Right Handed": {
-      "AGGRESSIVE": "",
-      "NEUTRAL": "",
-      "NICE": ""
+      "AGGRESSIVE": "ARE YOU OR ARE YOU NOT RIGHT HANDED!?... TELL ME NOW AND YOU BETTER NOT LIE!",
+      "NEUTRAL": "Are you right handed?",
+      "NICE": "Your right arm is big and strong, I'm sure you must be right handed to get it to that stage?"
     },
     "Dark Hair": {
-      "AGGRESSIVE": "",
-      "NEUTRAL": "",
-      "NICE":""
+      "AGGRESSIVE": "DO YOU HAVE DARK HAIR!?... YOU BETTER NOT ANSWER SARCASTICALLY!",
+      "NEUTRAL": "Do you have dark hair?",
+      "NICE": "I can't tell if that hair is part of your costume, can you tell me what colour your actual hair is? "
     },
   },
   "noneResponses": [
