@@ -62,6 +62,7 @@ public class ConversationManagement
         npc.setDirection(player.getDirection().getOpposite());
         npc.canMove = false;
         player.canMove = false;
+        player.inConversation = true;
 
         //Introduction
         speechboxMngr.addSpeechBox(new SpeechBox(this.player.getName(), this.player.getSpeech("Introduction"), 5));
@@ -152,6 +153,7 @@ public class ConversationManagement
     private void finishConverstation() {
         this.tempNPC.canMove = true;
         this.player.canMove = true;
+        this.player.inConversation = false;
     }
     private void handleResponse(QuestionStage stage, int option)
     {
