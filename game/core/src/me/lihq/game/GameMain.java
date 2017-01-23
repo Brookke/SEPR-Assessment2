@@ -9,7 +9,6 @@ import me.lihq.game.models.Clue;
 import me.lihq.game.models.Map;
 import me.lihq.game.models.Room;
 import me.lihq.game.models.Vector2Int;
-import me.lihq.game.people.AbstractPerson;
 import me.lihq.game.people.NPC;
 import me.lihq.game.people.Player;
 import me.lihq.game.screen.AbstractScreen;
@@ -24,6 +23,15 @@ import java.util.*;
  */
 public class GameMain extends Game
 {
+    /**
+     * This is the link to the executable jar file created from this project
+     *
+     * http://www.lihq.me/Downloads/Assessment2/Game.jar
+     *
+     * or visit http://www.lihq.me
+     * and click "Download Game"
+     */
+
     //This is a static reference to itself. Comes in REALLY handy when in other classes that don't have a reference to the main game
     public static GameMain me = null;
     //Game wide variables
