@@ -13,7 +13,7 @@ import java.util.*;
 
 /**
  * OrthogonalTiledMapRendererWithPeople
- * <p>
+ *
  * This class is an extension of the OrthogonalTiledMapRenderer that deals with
  * rendering sprites aswell. The last layer of the map is designed to be drawn OVER
  * the player sprite and NPCs. So this controls that by drawing each layer until it comes to the last
@@ -21,9 +21,16 @@ import java.util.*;
  */
 public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRenderer
 {
-
+    /**
+     * This is the list of people that are to be rendered to the map
+     */
     public List<AbstractPerson> people;
 
+    /**
+     * Constructor for the map renderer
+     *
+     * @param map - The TiledMap that is to be rendered using this renderer
+     */
     public OrthogonalTiledMapRendererWithPeople(TiledMap map)
     {
         super(map);
@@ -41,19 +48,20 @@ public class OrthogonalTiledMapRendererWithPeople extends OrthogonalTiledMapRend
         people.add(sprite);
     }
 
-
+    /**
+     * This adds a list of AbstractPerson to the sprite list
+     * @param sprites
+     */
     public void addPerson(List<AbstractPerson> sprites)
     {
-
         for (AbstractPerson a : sprites) {
             people.add(a);
         }
     }
 
-
-
-
-
+    /**
+     * This method clears the list of people to be rendered
+     */
     public void clearPeople()
     {
         people.clear();
