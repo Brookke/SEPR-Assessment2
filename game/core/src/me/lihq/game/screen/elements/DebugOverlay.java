@@ -19,15 +19,31 @@ import me.lihq.game.models.Vector2Int;
  */
 public class DebugOverlay
 {
-
+    /**
+     * This is to store the green tile overlay sprite
+     */
     private static Sprite greenSprite = getColoredTileSprite(Color.GREEN);
 
+    /**
+     * This is to store the red tile overlay sprite
+     */
     private static Sprite redSprite = getColoredTileSprite(Color.RED);
 
+    /**
+     * This is to store the yellow tile overlay sprite
+     */
     private static Sprite yellowSprite = getColoredTileSprite(Color.GOLD);
 
+    /**
+     * This is to store the font that the debug screen is written in
+     */
     private static BitmapFont font = Assets.getFontWithSize(30);
 
+    /**
+     * This method draws the debug menu to the batch
+     *
+     * @param batch - The batch to draw the menu on
+     */
     public static void renderDebugInfo(Batch batch)
     {
         Sprite border = getColoredTileSprite(Color.BLACK);
@@ -40,6 +56,12 @@ public class DebugOverlay
                 "Press J to Toggle showWalkable ", Gdx.graphics.getWidth() - 360, Gdx.graphics.getHeight() - 50);
     }
 
+    /**
+     * This method draws overlays on the tiles to display whether a tile is both walkable and hideable
+     *
+     * @param room - The room we are drawing on
+     * @param batch - The batch to draw the tile overlays onto
+     */
     public static void renderDebugTiles(Room room, Batch batch) {
          /*
          Draw a filter over showing whether or not a tile is "walkable"
@@ -69,7 +91,12 @@ public class DebugOverlay
         }
     }
 
-
+    /**
+     * This method returns a tile overlay of the specified color
+     *
+     * @param color - The color to set the sprite
+     * @return (Sprite) the resulting sprite
+     */
     public static Sprite getColoredTileSprite(Color color)
     {
         Pixmap map = new Pixmap(Settings.TILE_SIZE, Settings.TILE_SIZE, Pixmap.Format.RGBA8888);
