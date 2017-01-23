@@ -1,3 +1,12 @@
+/*
+* This is the link to the executable jar file created from this project
+*
+* http://www.lihq.me/Downloads/Assessment2/Game.jar
+*
+* or visit http://www.lihq.me
+* and click "Download Game"
+ */
+
 package me.lihq.game;
 
 import com.badlogic.gdx.Game;
@@ -22,15 +31,6 @@ import java.util.*;
  */
 public class GameMain extends Game
 {
-    /**
-     * This is the link to the executable jar file created from this project
-     *
-     * http://www.lihq.me/Downloads/Assessment2/Game.jar
-     *
-     * or visit http://www.lihq.me
-     * and click "Download Game"
-     */
-
     /**
      * This is a static reference to itself. Comes in REALLY handy when in other classes that don't have a reference to the main game
      */
