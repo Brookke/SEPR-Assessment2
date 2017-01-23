@@ -254,10 +254,10 @@ public class GameMain extends Game
         tempClues.add(new Clue("Big Footprint", "A big footprint left at the crime scene by the killer.", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
         tempClues.add(new Clue("Small Footprint", "A small footprint left at the crime scene by the killer.", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
         tempClues.add(new Clue("Glasses", "A pair of glasses these were found by another detective at the crime scene.", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
-        tempClues.add(new Clue("Bag", "A bag; someone must have left in a hurry.", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
-        tempClues.add(new Clue("Lipstick", "Lipstick, a killers best friend", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Bag", "A bag. Someone must have left in a hurry.", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Lipstick", "Lipstick, a killers best friend.", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
         tempClues.add(new Clue("Right Handed", "This indicates the killer is right handed", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
-        tempClues.add(new Clue("Dark Hair", "A hair from the crime scene", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
+        tempClues.add(new Clue("Dark Hair", "A dark hair from the crime scene", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
         //tempClues.add(new Clue("Clue 8", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
         //tempClues.add(new Clue("Clue 9", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));
         //tempClues.add(new Clue("Clue 10", "test Desc", new TextureRegion(Assets.CLUE_SHEET, 0, 0, 32, 32)));

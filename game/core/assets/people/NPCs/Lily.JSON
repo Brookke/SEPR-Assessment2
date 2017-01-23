@@ -14,12 +14,12 @@
   "responses": {
     "introduction": "Hello",
     "Big Footprint": "Bit too big for me friend, try somebody else maybe.",
-    "Small Footprint": "Now these are perfect size for me!",
+    "Small Footprint": "Looks like it could be mine!",
     "Glasses": "Unfortunately yes I do need glasses.",
-    "Bag": "Yes I need a little bag for pens, paper etc.",
-    "Lipstick": "yes I do have some nice lipstick actually.",
+    "Bag": "Yes I do have a bag, but I think I left it in my car or something",
+    "Lipstick": "I love a good lipstick.",
     "Right Handed": "Yes I do normally use my right hand.",
-    "Dark Hair": "yes my hair is a dark colour , it is a bit messy today though haha."
+    "Dark Hair": "My hair is a dark colour , it is a bit messy today though haha."
   },
   "noneResponses": [
     "Really sorry but I just don't have the time right now.",

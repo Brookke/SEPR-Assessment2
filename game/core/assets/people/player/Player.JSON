@@ -13,12 +13,12 @@
       "NICE":"Hey I like your shoes, are they the same as this footprint?"
     },
     "Glasses": {
-      "AGGRESSIVE": "THESE ARE YOUR GLASSES AREN'T THEY?...  TELL ME NOW, OR ELSE!",
+      "AGGRESSIVE": "DO YOU NEEED TO WEAR GLASSES?...  TELL ME NOW, OR ELSE!",
       "NEUTRAL": "Do you wear glasses?",
       "NICE":"Hey, I think you'd look great in these glasses I've found, have you ever seen them before?"
     },
     "Bag": {
-      "AGGRESSIVE": "THIS IS YOUR BAG ISN'T IT!?... TELL ME NOW!",
+      "AGGRESSIVE": "DO YOU OWN A BAG!?... TELL ME NOW!",
       "NEUTRAL": "Do you own a bag?",
       "NICE":"You seem like someone with a keen eye for fashion, what do you think about this bag?"
     },
