@@ -15,7 +15,6 @@ import me.lihq.game.Settings;
  */
 public class RoomTag
 {
-
     /**
      * This is the room name it is to display
      */
@@ -23,7 +22,7 @@ public class RoomTag
 
     /**
      * This is the position of the window relative to the top left of the window
-     * <p>
+     *
      * The rendering calculation is done by the render method
      */
     private Vector2 position = new Vector2(25f, 0f);
