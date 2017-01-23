@@ -23,7 +23,7 @@ public class Clue extends Sprite
     /**
      * This is the location on the map in terms of tiles can be set using {@link #setTileCoordinates(int, int)}
      * Note: this is different to com.badlogic.gdx.graphics.g2d.Sprite.position that is the position on the screen in terms of pixels,
-     * whereas this is in terms of map tiles.
+     * whereas this is in terms of map tiles relative to the bottom left of the map.
      */
     private Vector2Int tileCoordinates = new Vector2Int(0,0);
 
@@ -41,8 +41,10 @@ public class Clue extends Sprite
     }
 
     /**
+     * This method checks equality of this Clue object and another object.
+     *
      * @param obj - The clue object.
-     * @return - Returns if it is equal as a boolean result.
+     * @return - Returns True if it is of the type Clue and the names are exactly the same
      */
     @Override
     public boolean equals(Object obj)
@@ -57,7 +59,7 @@ public class Clue extends Sprite
 
     /**
      * Getter for Clue name.
-     * @return - Returns name of clue.
+     * @return - (String) Returns name of clue.
      */
     public String getName()
     {
@@ -78,6 +80,8 @@ public class Clue extends Sprite
      * Setter for clue tile coordinates.
      * @param x - The x coordinate for where the clue is, in terms of tiles.
      * @param y - The y coordinate for where the clue is, in terms of tiles.
+     *
+     * all coordinates relative to bottom left of the map
      */
     public Clue setTileCoordinates(int x, int y)
     {
@@ -89,15 +93,30 @@ public class Clue extends Sprite
         return this;
     }
 
+    /**
+     * This method gets the Clue's current tile location on the map as a Vector2Int
+     *
+     * @return (Vector2Int) The tile coordinates of the clue
+     * */
     public Vector2Int getPosition()
     {
         return this.tileCoordinates;
     }
 
+    /**
+     * This method returns the x component of the clues tile coordinates from {@link #getPosition()}
+     *
+     * @return (int) The x tile coordinate of the clue
+     */
     public int getTileX() {
         return tileCoordinates.x;
     }
 
+    /**
+     * This method returns the y component of the clues tile coordinates from {@link #getPosition()}
+     *
+     * @return (int) The y tile coordinate of the clue
+     */
     public int getTileY() {
         return tileCoordinates.y;
     }
